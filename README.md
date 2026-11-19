@@ -1,18 +1,21 @@
-# FutureLab V0.42 — Adaptive Evidence Routing
+# FutureLab V0.43 — Reality Benchmark
 
-V0.42 extends the frozen-candidate evidence audit of V0.41 with declared failure domains, residual-bias sensitivity bounds, and adaptive finite-horizon routing under a sample-equivalent budget. Source metadata and fault budgets are externally supplied assumptions, not certificates automatically inferred from data.
+**Status: benchmark implemented; real-data execution blocked by network.** No real-world uplift or profit demonstrated. Prior V0.42 engine retained unchanged. New static adapter tests risk-aware DR ranking, not the full dynamic audit engine.
 
 ```bash
 python -m pip install -r requirements.txt
 python -m pytest -q
-OPENBLAS_NUM_THREADS=1 python src/benchmark_v42.py
+python src/reality_v43.py --fixture  # engineering-only synthetic smoke; new output directory if already exists
+python src/reality_v43.py --download # fetch verified compressed Hillstrom mirror and run locked real benchmark
+# or after downloading mirror manually to data/hillstrom.csv.gz:
+python src/reality_v43.py --data data/hillstrom.csv.gz
+python src/economics_v43.py
 ```
 
-- `src/v42.py`: domain-aware audit router; abstains when provenance assumptions are unavailable.
-- `src/benchmark_v42.py`: fresh-seed boundary/power experiments and frozen-policy dynamic stress tests; supports `boundary` and `dynamic` arguments.
-- `results/v42/`: configuration, exact binomial pointwise intervals, per-trajectory aggregates, summaries, paired bootstrap, test log.
-- `REPORT.md`: proof scope, results, failures and limitations.
-- `docs/REPORT_v41.md`: previous report; prior code/results remain unchanged.
-- ZIP contains the unchanged V0.41 ZIP under `previous_version/` (excluded from Git).
-
-All data are synthetic. No automatic discovery of failure domains, no verified real-world source independence, no policy reoptimization using audit samples, no production deployment. The gate does not guarantee safe performance under misdeclared fault budgets, residual bias or serial dependence. Rejecting reuse is not a guarantee that the recomputed reference itself is safe.
+- `docs/V43_PROTOCOL.md`: fixed protocol, primary endpoint and failure criterion.
+- `src/reality_v43.py`: source checksum, pre-treatment feature whitelist, isolated train/validation/test, selected baseline comparison, AIPW/IPW sensitivity, cost and budget frontier.
+- `src/economics_v43.py`: break-even reanalysis of original V0.42 simulation trajectories.
+- `results/v43/synthetic_fixture/`: clearly labeled synthetic smoke outputs; not commercial evidence.
+- `results/v43/economics.csv`: historical simulation derived results.
+- `REPORT.md`: scope, actual results, blockers and next steps.
+- `docs/REPORT_v42.md`: prior report. Raw Hillstrom data not distributed. CausalForestDML optional (`pip install econml` in compatible environment); not run this round.

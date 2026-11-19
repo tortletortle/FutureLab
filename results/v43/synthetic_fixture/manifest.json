@@ -1,0 +1,64 @@
+{
+  "mode": "synthetic_fixture",
+  "seed": 431901,
+  "primary": [
+    0.25,
+    0.05,
+    0.3
+  ],
+  "arms": {
+    "Mens E-Mail": {
+      "n_train": 3567,
+      "n_validation": 1189,
+      "n_test": 1189,
+      "baseline": "dr_extra_trees",
+      "futurelab": "futurelab_0.5",
+      "causal_forest": "unavailable (econml not installed)",
+      "validation_scores": {
+        "none": 0.0,
+        "random": 0.07557516894063278,
+        "recent_rule": 0.1765317921643196,
+        "category_rule": 0.08202864689535341,
+        "outcome_xgb": 0.1713678009300289,
+        "linear_interaction": 0.15560471120218144,
+        "t_xgb": 0.17594366380385296,
+        "dr_extra_trees": 0.17659469496425828,
+        "futurelab_0.5": 0.1767686899053867,
+        "futurelab_1.0": 0.1767686899053867,
+        "futurelab_2.0": 0.1767686899053867
+      },
+      "split_index_sha256": {
+        "train": "d6ba056a4f72d612900704819cccfcb2a7420fdd5c93996b609daf9bf4d9fc5e",
+        "val": "45d64080f83fbe172115c94e4e50425aa9f78e85f33af97f23fff058eb46a2dc",
+        "test": "bbfb74b3a12eb731fba7eeed8a06a2eb6257c8bf5308584b31613205cb98e37f"
+      }
+    },
+    "Womens E-Mail": {
+      "n_train": 3599,
+      "n_validation": 1200,
+      "n_test": 1200,
+      "baseline": "linear_interaction",
+      "futurelab": "futurelab_0.5",
+      "causal_forest": "unavailable (econml not installed)",
+      "validation_scores": {
+        "none": 0.0,
+        "random": 0.07546565663219484,
+        "recent_rule": 0.06715473132725978,
+        "category_rule": 0.11681530164954543,
+        "outcome_xgb": 0.11464345430803952,
+        "linear_interaction": 0.12451934879894305,
+        "t_xgb": 0.12102006504691405,
+        "dr_extra_trees": 0.11782366789473186,
+        "futurelab_0.5": 0.11768503145531505,
+        "futurelab_1.0": 0.11749943842424201,
+        "futurelab_2.0": 0.11584648162001068
+      },
+      "split_index_sha256": {
+        "train": "8006d60cfe272df03763e981bfe74b9172cd40a64bdb07f1edafa24e26774f1d",
+        "val": "c05ca2020ec1f83a9f93e9f94c0061a60ef6b8a2eecfc2e62987a77a001c2a56",
+        "test": "109ea04253c9545bc29fff270b33808a861cf5bb5aad9dfc41849f623e9ca480"
+      }
+    }
+  },
+  "source_sha256": null
+}
