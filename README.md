@@ -1,11 +1,18 @@
-# FutureLab V0.40 — Cost-aware Sequential Causal Auditing
+# FutureLab V0.41 — Trustworthy Causal Evidence Engine
 
-An extension of V0.39's synthetic group-level causal archive. Frozen candidate/reference policy audits with finite-horizon alpha spending or a Gaussian mixture likelihood-ratio e-process, economic screening and optional soft archive writes. No real commercial data or production deployment.
+The V0.40 dynamic causal archive remains unchanged. This increment adds an independent finite-horizon evidence gate for frozen candidates and recomputed reference actions: unknown-variance Student-t bounds, matched negative-control contrasts, pooled sources, and robust median-of-bounds fusion. A matched negative control and honest independent Gaussian blocks are assumptions, not properties verified by this software. No production data or validated commercial gain.
 
 ```bash
 python -m pip install -r requirements.txt
 python -m pytest -q
-OPENBLAS_NUM_THREADS=1 python src/benchmark_v40.py
+OPENBLAS_NUM_THREADS=1 python src/benchmark_v41.py
 ```
 
-`src/v40.py` is the independent audit module; `src/v39.py` receives two optional extensions with unchanged defaults. `src/benchmark_v40.py` runs 23 scene/stress types, 100 independent trajectories each, 10 policies. `results/` includes raw trajectory aggregates, summary, paired bootstrap intervals and fixed-policy cost sensitivity; `REPORT.md` documents assumptions and negative results. Exact V0.39 release preserved in `previous_version/` (excluded from Git history). `peek3_invalid` is an intentionally invalid negative control, never a deployment recommendation.
+- `src/v41.py`: reusable evidence gate, per-attempt stopping and costs.
+- `src/benchmark_v41.py`: controlled boundary/power experiments and dynamic frozen-policy stress tests.
+- `results/v41/`: config, boundary CSV with exact binomial intervals, trajectory aggregates, dynamic scene/summary tables, paired bootstrap and test logs.
+- `REPORT.md`: derivations, results, failure cases and interpretation.
+- `docs/REPORT_v40.md`: previous technical report; historical source and results remain in Git.
+- Release ZIP includes an unchanged V0.40 archive under `previous_version/` (excluded from Git).
+
+Run with Python 3 and dependencies listed in `requirements.txt`. All experiments are synthetic; the gate makes no guarantee for unmatched systematic bias, multiple compromised sources, serially dependent blocks, or across repeated deployment periods. Dynamic audit data are not fed back to the archive or used to train a new policy in this version.
