@@ -1,0 +1,42 @@
+{
+  "dev_base": 3370000,
+  "hold_base": 4370000,
+  "ndev": 100,
+  "nhold": 150,
+  "budgets": [
+    0,
+    3,
+    6,
+    12,
+    24
+  ],
+  "methods": [
+    "random",
+    "uncertainty",
+    "active",
+    "decision"
+  ],
+  "target": 0.08,
+  "thresholds": {
+    "active:0": 0.75,
+    "active:12": 0.8,
+    "active:24": 0.685,
+    "active:3": 0.8,
+    "active:6": 0.815,
+    "decision:0": 0.75,
+    "decision:12": 0.81,
+    "decision:24": 0.825,
+    "decision:3": 0.77,
+    "decision:6": 0.785,
+    "random:0": 0.75,
+    "random:12": 0.815,
+    "random:24": 0.815,
+    "random:3": 0.78,
+    "random:6": 0.7949999999999999,
+    "uncertainty:0": 0.75,
+    "uncertainty:12": 0.8200000000000001,
+    "uncertainty:24": 0.78,
+    "uncertainty:3": 0.8049999999999999,
+    "uncertainty:6": 0.8049999999999999
+  }
+}

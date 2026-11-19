@@ -1,0 +1,19 @@
+return 120
+dense_near 120
+sparse_near 120
+far 120
+noisy_return 120
+near_return 120
+thresholds {'broad_random': np.float64(1.000001), 'structured_active': np.float64(0.7949999999999999), 'structured_decision': np.float64(0.77), 'structured_disagreement': np.float64(0.8049999999999999), 'structured_passive': np.float64(0.745), 'structured_random': np.float64(0.77), 'structured_uncertainty': np.float64(0.8)}
+return 300
+dense_near 300
+sparse_near 300
+far 300
+noisy_return 300
+near_return 300
+tiny_near 300
+two_sparse 300
+noisy_near 300
+correlated_near 300
+confusable_return 300
+heteroskedastic_near 300

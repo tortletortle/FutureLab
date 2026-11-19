@@ -1,0 +1,39 @@
+{
+  "dev": [
+    "return",
+    "dense_near",
+    "sparse_near",
+    "far",
+    "noisy_return",
+    "near_return"
+  ],
+  "hold": [
+    "return",
+    "dense_near",
+    "sparse_near",
+    "far",
+    "noisy_return",
+    "near_return",
+    "tiny_near",
+    "two_sparse",
+    "noisy_near",
+    "correlated_near",
+    "confusable_return",
+    "heteroskedastic_near"
+  ],
+  "dev_base": 1270000,
+  "hold_base": 2370000,
+  "ndev": 120,
+  "nhold": 300,
+  "thresholds": {
+    "broad_random": 1.000001,
+    "structured_active": 0.7949999999999999,
+    "structured_decision": 0.77,
+    "structured_disagreement": 0.8049999999999999,
+    "structured_passive": 0.745,
+    "structured_random": 0.77,
+    "structured_uncertainty": 0.8
+  },
+  "dev_empirical_novel_far_target": 0.08,
+  "probe_budget": 3
+}
