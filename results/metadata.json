@@ -1,0 +1,37 @@
+{
+  "scenes": [
+    "stable",
+    "noise",
+    "recurrence",
+    "irregular_recurrence",
+    "three_regimes",
+    "near_impostor",
+    "nonrecurring",
+    "local_recurrence",
+    "noisy_recurrence",
+    "gradual",
+    "random_walk",
+    "capacity_pressure",
+    "short_recurrence"
+  ],
+  "n": 300,
+  "seed_base": 970000,
+  "scene_stride": 1000,
+  "periods": 80,
+  "groups": 12,
+  "warmup": 12,
+  "units_per_arm": 20,
+  "config": {
+    "slots": 6,
+    "hazard": 0.1,
+    "birth": 0.025,
+    "birth_gate": 0.75,
+    "learn_gate": 0.65,
+    "recall_gate": 0.7,
+    "var_floor": 0.035,
+    "fresh_var": 2.25,
+    "ensemble_share": 0.03
+  },
+  "bootstrap": 3000,
+  "return_window": 4
+}
