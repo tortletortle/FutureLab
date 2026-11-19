@@ -1,0 +1,45 @@
+{
+  "dev": [
+    "stable",
+    "recurrence",
+    "near_impostor",
+    "gradual",
+    "noise",
+    "local_recurrence"
+  ],
+  "hold": [
+    "stable",
+    "noise",
+    "recurrence",
+    "irregular_recurrence",
+    "three_regimes",
+    "near_impostor",
+    "nonrecurring",
+    "local_recurrence",
+    "noisy_recurrence",
+    "gradual",
+    "random_walk",
+    "capacity_pressure",
+    "short_recurrence",
+    "same_actions",
+    "boundary_flip",
+    "correlated_noise"
+  ],
+  "dev_seed": 6380000,
+  "hold_seed": 7380000,
+  "ndev": 70,
+  "nhold": 100,
+  "thresholds": {
+    "evsi": 0.14,
+    "identity": 0.39,
+    "no_feedback": 0.55,
+    "novelty": 0.5,
+    "passive": 0.5700000000000001,
+    "random": 0.45,
+    "uncertainty": 0.5
+  },
+  "eps": 0.035,
+  "probe_cost": 0.0015,
+  "dev_target_nonmatch": 0.08,
+  "probe_interval": 4
+}

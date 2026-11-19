@@ -1,20 +1,18 @@
-# FutureLab V0.37 — Active Regime Verification
+# FutureLab V0.38 — Decision Equivalence Learning
 
-Research extension of V0.36. Implements a separate controlled archive-retrieval episode API for open-set regime discrimination. The original V0.36 ZIP is retained verbatim in the downloadable release's `previous_version/` directory. Git history preserves the V0.36 source, report, tests and results (nested archives are intentionally excluded from Git).
-
-## Reproduce
+Research prototype for dynamic, group-level Gaussian randomized-contrast simulation. It extends the V0.36 bounded memory architecture and V0.37 verification direction. It preserves the original V0.37 archive in `previous_version/` (distribution ZIP only); the Git history preserves the previous source snapshot.
 
 ```bash
 python -m pip install -r requirements.txt
 python -m pytest -q tests
-python src/benchmark_v37.py
-python src/budget_study_v37.py
+python src/benchmark_v38.py
+python src/confirm_v38.py
 ```
 
-Outputs: `results/summary_v37.csv`, `scenes_v37.csv`, `paired_v37.csv`, `curves_v37.csv`, `trials_v37.csv`, independent development rows and configurations; `budget_*.csv` and `budget_config.json` contain a separate budget study. `REPORT.md` describes protocol, results and failures.
+- `src/v38.py`: working belief, relative risk, Gaussian-surrogate EVSI, bounded online archive with selected-probe feedback.
+- `results/summary_v38.csv`, `scenes_v38.csv`, `curves_v38.csv`, `paired_v38.csv`: first held-out evaluation.
+- `results/confirmation_summary.csv`, `confirmation_scenes.csv`: fresh-seed confirmation at two fixed thresholds; same scenario families.
+- `results/*periods*.csv.gz`, `development_v38.csv.gz`, `trajectories_v38.csv`: raw simulation and trajectory summaries.
+- `REPORT.md`: scope, mathematical definitions, observed results and failures.
 
-## API
-
-`src/v37.py`: `build_belief`, `update_all`, `binary_gain`, `choose`, `update_probe`, `run_episode`. Predictions and probe choices use only prior archive estimates and observed randomized contrasts. `run_episode` uses an evaluator-owned bank of potential independent probe outcomes; only selected values enter updates. Equal probe counts are a synthetic cost proxy, not guaranteed equal real-world cost.
-
-V0.36 archive is retained unchanged. V0.37 is not yet connected to its streaming archive or a production causal policy service. No real experiments, deployment, commercial profit claims or guaranteed false-recall control.
+This is not production business software. All data are synthetic; the risk threshold is conditional on a misspecified working model, not a safety guarantee. Reuse is assessed relative to recomputed policy, not a known oracle. The recomputed policy is actually computed for gating; operational savings from reuse have not been demonstrated. GitHub remote upload is not included.

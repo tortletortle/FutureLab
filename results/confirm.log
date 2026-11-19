@@ -1,0 +1,21 @@
+stable 80
+noise 80
+recurrence 80
+irregular_recurrence 80
+three_regimes 80
+near_impostor 80
+nonrecurring 80
+local_recurrence 80
+noisy_recurrence 80
+gradual 80
+random_walk 80
+capacity_pressure 80
+short_recurrence 80
+same_actions 80
+boundary_flip 80
+correlated_noise 80
+  method  threshold  coverage  distinct_reuse  unsafe_given_distinct   regret
+    evsi       0.90  0.915005        0.116039               0.058614 0.013256
+    evsi       0.95  0.891935        0.092969               0.046713 0.013074
+identity       0.90  0.919060        0.159318               0.133699 0.014292
+identity       0.95  0.874931        0.147622               0.126936 0.014105

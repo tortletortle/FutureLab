@@ -1,19 +1,31 @@
-return 120
-dense_near 120
-sparse_near 120
-far 120
-noisy_return 120
-near_return 120
-thresholds {'broad_random': np.float64(1.000001), 'structured_active': np.float64(0.7949999999999999), 'structured_decision': np.float64(0.77), 'structured_disagreement': np.float64(0.8049999999999999), 'structured_passive': np.float64(0.745), 'structured_random': np.float64(0.77), 'structured_uncertainty': np.float64(0.8)}
-return 300
-dense_near 300
-sparse_near 300
-far 300
-noisy_return 300
-near_return 300
-tiny_near 300
-two_sparse 300
-noisy_near 300
-correlated_near 300
-confusable_return 300
-heteroskedastic_near 300
+stable 70
+recurrence 70
+near_impostor 70
+gradual 70
+noise 70
+local_recurrence 70
+thresholds {'evsi': 0.14, 'identity': 0.39, 'no_feedback': 0.55, 'novelty': 0.5, 'passive': 0.5700000000000001, 'random': 0.45, 'uncertainty': 0.5}
+stable 100
+noise 100
+recurrence 100
+irregular_recurrence 100
+three_regimes 100
+near_impostor 100
+nonrecurring 100
+local_recurrence 100
+noisy_recurrence 100
+gradual 100
+random_walk 100
+capacity_pressure 100
+short_recurrence 100
+same_actions 100
+boundary_flip 100
+correlated_noise 100
+     method  threshold  coverage  distinct_reuse  unsafe_given_distinct   regret  net_loss
+       evsi       0.14  0.986847        0.190460               0.169240 0.015456  0.015831
+   identity       0.39  0.974292        0.186048               0.155469 0.015026  0.015401
+no_feedback       0.55  0.964357        0.185983               0.140450 0.015923  0.016298
+    novelty       0.50  0.969972        0.179072               0.141765 0.015434  0.015809
+    passive       0.57  0.964522        0.176608               0.139110 0.016508  0.016508
+     random       0.45  0.973603        0.185257               0.147251 0.015643  0.016018
+uncertainty       0.50  0.970469        0.178961               0.140157 0.015276  0.015651
