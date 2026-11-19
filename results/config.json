@@ -1,0 +1,122 @@
+{
+  "n": 100,
+  "seed_old": 24000000,
+  "seed_new": 25000000,
+  "seed_stress": 26000000,
+  "scenes": [
+    "stable",
+    "noise",
+    "recurrence",
+    "irregular_recurrence",
+    "three_regimes",
+    "near_impostor",
+    "nonrecurring",
+    "local_recurrence",
+    "noisy_recurrence",
+    "gradual",
+    "random_walk",
+    "capacity_pressure",
+    "short_recurrence",
+    "same_actions",
+    "boundary_flip",
+    "correlated_noise",
+    "mean_reversion",
+    "seasonal_smooth",
+    "asynchronous_local",
+    "heavy_tail_discovery"
+  ],
+  "stress": [
+    "bias",
+    "correlated",
+    "variance"
+  ],
+  "arms": [
+    [
+      "v38",
+      null,
+      0,
+      false,
+      false,
+      0.035
+    ],
+    [
+      "recompute",
+      null,
+      0,
+      false,
+      false,
+      0.035
+    ],
+    [
+      "fixed3",
+      "fixed",
+      3,
+      false,
+      false,
+      0.035
+    ],
+    [
+      "spend3",
+      "spend",
+      3,
+      false,
+      false,
+      0.035
+    ],
+    [
+      "mixture3",
+      "mixture",
+      3,
+      false,
+      false,
+      0.035
+    ],
+    [
+      "spend6",
+      "spend",
+      6,
+      false,
+      false,
+      0.035
+    ],
+    [
+      "screen_spend3",
+      "spend",
+      3,
+      true,
+      false,
+      0.035
+    ],
+    [
+      "profit_spend3",
+      "spend",
+      3,
+      false,
+      false,
+      0.0
+    ],
+    [
+      "soft_fixed3",
+      "fixed",
+      3,
+      false,
+      true,
+      0.035
+    ],
+    [
+      "peek3_invalid",
+      "peek",
+      3,
+      false,
+      false,
+      0.035
+    ]
+  ],
+  "alpha": 0.05,
+  "epsilon": 0.035,
+  "round_var": 0.45,
+  "unit_cost": 0.0015,
+  "archive_threshold": 0.95,
+  "warmup": 12,
+  "bootstrap": 1500
+}

@@ -28,7 +28,7 @@ def audit_upper(candidate,reference,obs,variance,alpha=.05):
     if not np.isfinite(y[d!=0]).all(): raise ValueError('missing selected audit outcome')
     return np.sum(d*np.where(d!=0,y-C,0),1)+ndtri(1-alpha)*np.sqrt(np.sum(d*d*v,1))
 
-def simulate(y,v,bank,r,audit=None,audit_var=None,calibrate=False,quarantine=False,audit_gate=False,alpha=.05,selector='evsi',gate='risk',threshold=.9,budget=1,interval=4,seed=1,cfg=DEFAULT_ARCHIVE,feedback=True):
+def simulate(y,v,bank,r,audit=None,audit_var=None,calibrate=False,quarantine=False,audit_gate=False,alpha=.05,selector='evsi',gate='risk',threshold=.9,budget=1,interval=4,seed=1,cfg=DEFAULT_ARCHIVE,feedback=True,diagnostic=None,soft_write=False):
     """[B,T,G] discovery; bank [B,T,G,budget] evaluator-owned, accessed only on choice.
     Candidate is a stored pre-discovery action. All arms deploy after discovery.
     Gate changes audit collection/cost, but audit is never used for archive learning.
@@ -51,6 +51,7 @@ def simulate(y,v,bank,r,audit=None,audit_var=None,calibrate=False,quarantine=Fal
     out={k:np.zeros((B,T)) for k in ('confidence','risk','reuse','old_reuse','match','probes','birth','slots','bayes_oracle_risk','adjusted_risk','drift_scale','quarantine','audit_groups','audit_cost','audit_upper','model_accept')}
     for k in ['decision','candidate','reference']:out[k]=np.zeros_like(y,dtype=bool)
     out['selected']=np.full((B,T,budget),-1,int)
+    if diagnostic is not None:out['diagnostic']=np.zeros((B,T))
     for t in range(T):
         old=(prob[:,:,None]*means).sum(1);winner=prob.argmax(1);acts=means>C
         b=working_belief(means,var,active,prob,cfg)
@@ -66,7 +67,9 @@ def simulate(y,v,bank,r,audit=None,audit_var=None,calibrate=False,quarantine=Fal
                 update_probe(b,j,z,rv);prec[ix,j]+=1/rv;suff[ix,j]+=z/rv;out['selected'][:,t,q]=j
             out['probes'][:,t]=budget
         j,conf,ref,risk=select_candidate(b,acts,active,gate)
-        candidate=acts[ix,j];pick=(conf>=threshold)&(t>=12)
+        candidate=acts[ix,j]
+        if diagnostic is not None:out['diagnostic'][:,t]=diagnostic(b,candidate,ref)
+        pick=(conf>=threshold)&(t>=12)
         if gate=='always':pick=np.full(B,t>=12)
         corrected=adjusted_risk(b,candidate,ref,bias,scale) if calibrate else risk
         if calibrate:pick=(corrected<=1-threshold)&(t>=12)
@@ -96,6 +99,9 @@ def simulate(y,v,bank,r,audit=None,audit_var=None,calibrate=False,quarantine=Fal
             discrepancy=((obs-means[ix,best])**2/(np.maximum(var[ix,best],cfg.var_floor)+rv)).mean(1)
             block=learn&(discrepancy>1.75);learn=learn&~block;out['quarantine'][:,t]=block
         ids=ix[learn];jj=best[learn];p=np.maximum(var[ids,jj],cfg.var_floor);rr=rv[ids]
+        if soft_write:
+            discrepancy=((obs[ids]-means[ids,jj])**2/(p+rr)).mean(1)
+            rr=rr*np.maximum(1,discrepancy/1.75)[:,None]
         means[ids,jj]+=p/(p+rr)*(obs[ids]-means[ids,jj]);var[ids,jj]=p*rr/(p+rr);last[ids,jj]=t
         prob=np.exp(score[:,:K]-logsumexp(score[:,:K],axis=1,keepdims=True))
         if novelty.any():
