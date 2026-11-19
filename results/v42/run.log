@@ -1,0 +1,16 @@
+boundary clean
+boundary variance4
+boundary matched
+boundary shared_domain_fault
+boundary two_domain_fault
+boundary bounded_common
+boundary serial
+boundary hidden_common
+dynamic irregular_recurrence clean 60 eligible 368
+dynamic random_walk clean 60 eligible 275
+dynamic mean_reversion clean 60 eligible 268
+dynamic mean_reversion shared_domain_fault 60 eligible 287
+dynamic mean_reversion two_domain_fault 60 eligible 282
+dynamic mean_reversion bounded_common 60 eligible 274
+dynamic mean_reversion hidden_common 60 eligible 266
+dynamic mean_reversion serial 60 eligible 275
