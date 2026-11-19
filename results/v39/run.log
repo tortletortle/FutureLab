@@ -1,0 +1,43 @@
+same_family stable 100
+same_family noise 100
+same_family recurrence 100
+same_family irregular_recurrence 100
+same_family three_regimes 100
+same_family near_impostor 100
+same_family nonrecurring 100
+same_family local_recurrence 100
+same_family noisy_recurrence 100
+same_family gradual 100
+same_family random_walk 100
+same_family capacity_pressure 100
+same_family short_recurrence 100
+same_family same_actions 100
+same_family boundary_flip 100
+same_family correlated_noise 100
+new_family mean_reversion 100
+new_family seasonal_smooth 100
+new_family asynchronous_local 100
+new_family heavy_tail_discovery 100
+invalid_audit_stress biased_audit_stress 100
+               split     method   regret  distinct_reuse  unsafe_given_distinct  audit_cost  net_loss  false_accept_given_unsafe_audits
+invalid_audit_stress   adjusted 0.013635        0.014853               0.039604    0.000000  0.014010                               NaN
+invalid_audit_stress audit_only 0.013642        0.029412               0.035000    0.000334  0.014352                          0.170732
+invalid_audit_stress   combined 0.015194        0.005588               0.052632    0.000064  0.015633                          0.500000
+invalid_audit_stress quarantine 0.015225        0.014118               0.041667    0.000000  0.015600                               NaN
+invalid_audit_stress  recompute 0.013604        0.000000                    NaN    0.000000  0.013979                               NaN
+invalid_audit_stress strict_v38 0.013605        0.001029               0.000000    0.000000  0.013980                               NaN
+invalid_audit_stress        v38 0.014055        0.074265               0.081188    0.000000  0.014430                               NaN
+          new_family   adjusted 0.030232        0.008934               0.123457    0.000000  0.030607                               NaN
+          new_family audit_only 0.029987        0.015441               0.011905    0.000291  0.030652                          0.011468
+          new_family   combined 0.031211        0.001875               0.019608    0.000035  0.031621                          0.038462
+          new_family quarantine 0.031284        0.007868               0.121495    0.000000  0.031659                               NaN
+          new_family  recompute 0.030168        0.000000                    NaN    0.000000  0.030543                               NaN
+          new_family strict_v38 0.030169        0.000515               0.071429    0.000000  0.030544                               NaN
+          new_family        v38 0.031264        0.064632               0.248009    0.000000  0.031639                               NaN
+         same_family   adjusted 0.012892        0.017371               0.012169    0.000000  0.013267                               NaN
+         same_family audit_only 0.012705        0.026314               0.004191    0.000422  0.013503                          0.026490
+         same_family   combined 0.013645        0.004467               0.002058    0.000073  0.014094                          0.045455
+         same_family quarantine 0.013687        0.016232               0.012458    0.000000  0.014062                               NaN
+         same_family  recompute 0.012874        0.000000                    NaN    0.000000  0.013249                               NaN
+         same_family strict_v38 0.012875        0.001737               0.000000    0.000000  0.013250                               NaN
+         same_family        v38 0.013183        0.093888               0.044347    0.000000  0.013558                               NaN
