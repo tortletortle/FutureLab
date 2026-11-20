@@ -1,0 +1,145 @@
+{
+  "status": "passed",
+  "checked_series_period_transitions": 62400,
+  "selected_policy_pairs": 12,
+  "scenario_audits": [
+    {
+      "scenario": "balanced",
+      "lead_time": 1,
+      "baseline_test_cost": 352.4825,
+      "candidate_test_cost": 354.409375,
+      "paired_delta": 1.926875,
+      "ci": [
+        -1.2988906250000003,
+        4.958578124999998
+      ]
+    },
+    {
+      "scenario": "service_priority",
+      "lead_time": 1,
+      "baseline_test_cost": 568.333125,
+      "candidate_test_cost": 563.16375,
+      "paired_delta": -5.169375,
+      "ci": [
+        -11.054375,
+        -0.04806250000000031
+      ]
+    },
+    {
+      "scenario": "capital_pressure",
+      "lead_time": 1,
+      "baseline_test_cost": 444.911875,
+      "candidate_test_cost": 442.73125,
+      "paired_delta": -2.180625,
+      "ci": [
+        -5.296546875000001,
+        0.776875
+      ]
+    },
+    {
+      "scenario": "order_setup_cost",
+      "lead_time": 1,
+      "baseline_test_cost": 359.82625,
+      "candidate_test_cost": 361.746875,
+      "paired_delta": 1.920625,
+      "ci": [
+        -1.2984999999999998,
+        4.952671874999995
+      ]
+    },
+    {
+      "scenario": "balanced",
+      "lead_time": 2,
+      "baseline_test_cost": 433.94375,
+      "candidate_test_cost": 402.01375,
+      "paired_delta": -31.93,
+      "ci": [
+        -59.259375000000006,
+        -7.186546875000058
+      ]
+    },
+    {
+      "scenario": "service_priority",
+      "lead_time": 2,
+      "baseline_test_cost": 769.2575,
+      "candidate_test_cost": 646.538125,
+      "paired_delta": -122.719375,
+      "ci": [
+        -175.61696874999998,
+        -78.23220312500007
+      ]
+    },
+    {
+      "scenario": "capital_pressure",
+      "lead_time": 2,
+      "baseline_test_cost": 532.57375,
+      "candidate_test_cost": 516.46125,
+      "paired_delta": -16.1125,
+      "ci": [
+        -29.853234375,
+        -4.218390625000005
+      ]
+    },
+    {
+      "scenario": "order_setup_cost",
+      "lead_time": 2,
+      "baseline_test_cost": 441.94375,
+      "candidate_test_cost": 409.1075,
+      "paired_delta": -32.83625,
+      "ci": [
+        -59.819140624999996,
+        -8.256312500000018
+      ]
+    },
+    {
+      "scenario": "balanced",
+      "lead_time": 4,
+      "baseline_test_cost": 515.06875,
+      "candidate_test_cost": 515.025625,
+      "paired_delta": -0.043125,
+      "ci": [
+        -3.009328125,
+        2.470515624999997
+      ]
+    },
+    {
+      "scenario": "service_priority",
+      "lead_time": 4,
+      "baseline_test_cost": 840.08875,
+      "candidate_test_cost": 827.396875,
+      "paired_delta": -12.691875,
+      "ci": [
+        -84.97220312500001,
+        63.29223437499997
+      ]
+    },
+    {
+      "scenario": "capital_pressure",
+      "lead_time": 4,
+      "baseline_test_cost": 701.176875,
+      "candidate_test_cost": 717.68,
+      "paired_delta": 16.503125,
+      "ci": [
+        8.742984375,
+        26.344468749999997
+      ]
+    },
+    {
+      "scenario": "order_setup_cost",
+      "lead_time": 4,
+      "baseline_test_cost": 520.7375,
+      "candidate_test_cost": 520.700625,
+      "paired_delta": -0.036875,
+      "ci": [
+        -2.997140625,
+        2.515625
+      ]
+    }
+  ],
+  "sha256": {
+    "policy_grid_metrics.csv": "56907e9cce62d92f156976b7b75d0e2f628048b74251c9e830a436665f391ab5",
+    "selected_policies.csv": "8d36445a9c154f2d4b48562a5cebd751ac1bed30a07813e95068421326672173",
+    "selected_policy_decisions.csv": "20857b9cd514f4976373049fb628d440bbdad21f1b8013c8fd4675bf15abc2e4",
+    "manifest.json": "cebd192daaf2c2a76ba0b3bf7adf5d3502e0c51f8c7d25a24e63d8ee813da335"
+  }
+}

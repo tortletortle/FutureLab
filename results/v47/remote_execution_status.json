@@ -1,0 +1,9 @@
+{
+  "status": "local_workflow_created_remote_repository_not_synchronized",
+  "workflow": ".github/workflows/inventory-benchmark.yml",
+  "remote_repository": "tortletortle/FutureLab",
+  "remote_default_branch": "main",
+  "remote_default_branch_state": "skeleton_only_at_last_check",
+  "remote_dispatch": "not_run",
+  "note": "Local V0.47 source and workflow are complete; the GitHub repository has not yet received this release."
+}
