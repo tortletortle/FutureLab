@@ -1,17 +1,14 @@
-# FutureLab V0.44 — Verified Reality Benchmark
+# FutureLab V0.45 — Economic evidence readout
 
-**Status: real dataset acquisition blocked in the current environment.** No real uplift or commercial profit demonstrated. Restored V0.43 Git history and retained prior algorithm and results. V0.44 adds verified multi-source acquisition, fail-closed validation, provenance reports and manual GitHub Actions execution.
+Incremental development from V0.44. Raw Hillstrom dataset acquisition remains blocked. No real individual-level FutureLab benchmark or commercial superiority demonstrated. V0.43–44 protocol and benchmark are retained; this release adds a separate economic evaluation layer, not a new trained model.
 
 ```bash
 python -m pip install -r requirements-v44-lock.txt
 python -m pytest -q
-python src/reality_v44.py --download
-# or supply a lawfully obtained exact dataset (raw CSV or pinned gzip):
-python src/reality_v44.py --data data/hillstrom.csv
+python src/value_v45.py --locked results/v43/synthetic_fixture --output /tmp/futurelab_fixture_value.json
+python src/value_v45.py --external docs/V45_EXTERNAL_AGGREGATE.json --output /tmp/futurelab_external_value.json
+# After legally acquiring verified raw data:
+python src/reality_v44.py --data data/hillstrom.csv.gz --output results/real_hillstrom
+python src/value_v45.py --locked results/real_hillstrom --output results/real_value.json
 ```
-
-- Read `docs/V43_PROTOCOL.md` and `docs/V44_PROTOCOL_ADDENDUM.md` before evaluating real outcomes.
-- `results/v44/acquisition.json` records the actual download failures.
-- `src/reality_v43.py` is unchanged; its historical synthetic results are not real data.
-- `.github/workflows/reality-benchmark.yml` is a manual-dispatch workflow to use after source synchronization; it has not been run remotely.
-- `REPORT.md` summarizes the current delivery; older report is `docs/REPORT_v43.md`.
+Outputs must not exist already. See REPORT.md for assumptions, negative results, evidence and next actions. `results/v45` stores actual local execution outputs. External aggregate scenarios, synthetic results and raw real-data validation are kept separate. The manual workflow has not been executed on GitHub.

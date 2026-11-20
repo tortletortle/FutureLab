@@ -20,6 +20,8 @@ jobs:
         run: python -m pytest -q
       - name: Download verified data and run locked benchmark
         run: python src/reality_v44.py --download
+      - name: Compute economic readout of the frozen evaluation
+        run: python src/value_v45.py --locked results/v44/real --output results/v44/value_readout_v45.json
       - name: Archive reports only, including failed download log
         if: always()
         uses: actions/upload-artifact@v4

@@ -1,0 +1,9 @@
+{
+  "mode": "external_published_aggregate",
+  "source": "https://github.com/ccf225/hillstrom-experiment#42-both-e-mails-work-the-mens-e-mail-works-better",
+  "dataset": "Hillstrom email experiment (2008); third-party reported whole-arm spend mean differences, rounded; not raw records",
+  "spend_effects": {
+    "Mens E-Mail": {"point": 0.77, "lo": 0.49, "hi": 1.05},
+    "Womens E-Mail": {"point": 0.42, "lo": 0.17, "hi": 0.68}
+  }
+}

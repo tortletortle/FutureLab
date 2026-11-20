@@ -1,0 +1,2143 @@
+{
+  "mode": "external_published_aggregate",
+  "source": "https://github.com/ccf225/hillstrom-experiment#42-both-e-mails-work-the-mens-e-mail-works-better",
+  "note": "Third-party rounded, whole-arm estimates; random untargeted contacts assumed, no individual prediction or algorithm evaluation. Scenarios are descriptive; no simultaneous confidence coverage. Cost and margin hypothetical.",
+  "scenarios": [
+    {
+      "arm": "Mens E-Mail",
+      "cap": 0.1,
+      "cohort": 10000,
+      "contacts": 1000,
+      "coverage": 0.1,
+      "margin": 0.1,
+      "unit_cost": 0.0,
+      "marketing_cost": 0.0,
+      "incremental_revenue": {
+        "point": 770.0,
+        "lo": 490.0,
+        "hi": 1050.0
+      },
+      "incremental_net_contribution": {
+        "point": 77.0,
+        "lo": 49.0,
+        "hi": 105.0
+      },
+      "net_roi": null,
+      "break_even_cost_per_contact": {
+        "point": 0.07700000000000001,
+        "lo": 0.049,
+        "hi": 0.10500000000000001
+      },
+      "economic_evidence": "positive_lower_bound"
+    },
+    {
+      "arm": "Mens E-Mail",
+      "cap": 0.1,
+      "cohort": 10000,
+      "contacts": 1000,
+      "coverage": 0.1,
+      "margin": 0.1,
+      "unit_cost": 0.05,
+      "marketing_cost": 50.0,
+      "incremental_revenue": {
+        "point": 770.0,
+        "lo": 490.0,
+        "hi": 1050.0
+      },
+      "incremental_net_contribution": {
+        "point": 27.0,
+        "lo": -1.0,
+        "hi": 55.0
+      },
+      "net_roi": {
+        "point": 0.54,
+        "lo": -0.02,
+        "hi": 1.1
+      },
+      "break_even_cost_per_contact": {
+        "point": 0.07700000000000001,
+        "lo": 0.049,
+        "hi": 0.10500000000000001
+      },
+      "economic_evidence": "inconclusive"
+    },
+    {
+      "arm": "Mens E-Mail",
+      "cap": 0.1,
+      "cohort": 10000,
+      "contacts": 1000,
+      "coverage": 0.1,
+      "margin": 0.1,
+      "unit_cost": 0.2,
+      "marketing_cost": 200.0,
+      "incremental_revenue": {
+        "point": 770.0,
+        "lo": 490.0,
+        "hi": 1050.0
+      },
+      "incremental_net_contribution": {
+        "point": -123.0,
+        "lo": -151.0,
+        "hi": -95.0
+      },
+      "net_roi": {
+        "point": -0.615,
+        "lo": -0.755,
+        "hi": -0.47500000000000003
+      },
+      "break_even_cost_per_contact": {
+        "point": 0.07700000000000001,
+        "lo": 0.049,
+        "hi": 0.10500000000000001
+      },
+      "economic_evidence": "negative_upper_bound"
+    },
+    {
+      "arm": "Mens E-Mail",
+      "cap": 0.1,
+      "cohort": 10000,
+      "contacts": 1000,
+      "coverage": 0.1,
+      "margin": 0.3,
+      "unit_cost": 0.0,
+      "marketing_cost": 0.0,
+      "incremental_revenue": {
+        "point": 770.0,
+        "lo": 490.0,
+        "hi": 1050.0
+      },
+      "incremental_net_contribution": {
+        "point": 231.0,
+        "lo": 147.0,
+        "hi": 315.0
+      },
+      "net_roi": null,
+      "break_even_cost_per_contact": {
+        "point": 0.23099999999999998,
+        "lo": 0.147,
+        "hi": 0.315
+      },
+      "economic_evidence": "positive_lower_bound"
+    },
+    {
+      "arm": "Mens E-Mail",
+      "cap": 0.1,
+      "cohort": 10000,
+      "contacts": 1000,
+      "coverage": 0.1,
+      "margin": 0.3,
+      "unit_cost": 0.05,
+      "marketing_cost": 50.0,
+      "incremental_revenue": {
+        "point": 770.0,
+        "lo": 490.0,
+        "hi": 1050.0
+      },
+      "incremental_net_contribution": {
+        "point": 181.0,
+        "lo": 97.0,
+        "hi": 265.0
+      },
+      "net_roi": {
+        "point": 3.62,
+        "lo": 1.94,
+        "hi": 5.3
+      },
+      "break_even_cost_per_contact": {
+        "point": 0.23099999999999998,
+        "lo": 0.147,
+        "hi": 0.315
+      },
+      "economic_evidence": "positive_lower_bound"
+    },
+    {
+      "arm": "Mens E-Mail",
+      "cap": 0.1,
+      "cohort": 10000,
+      "contacts": 1000,
+      "coverage": 0.1,
+      "margin": 0.3,
+      "unit_cost": 0.2,
+      "marketing_cost": 200.0,
+      "incremental_revenue": {
+        "point": 770.0,
+        "lo": 490.0,
+        "hi": 1050.0
+      },
+      "incremental_net_contribution": {
+        "point": 31.0,
+        "lo": -53.0,
+        "hi": 115.0
+      },
+      "net_roi": {
+        "point": 0.155,
+        "lo": -0.265,
+        "hi": 0.5750000000000001
+      },
+      "break_even_cost_per_contact": {
+        "point": 0.23099999999999998,
+        "lo": 0.147,
+        "hi": 0.315
+      },
+      "economic_evidence": "inconclusive"
+    },
+    {
+      "arm": "Mens E-Mail",
+      "cap": 0.1,
+      "cohort": 10000,
+      "contacts": 1000,
+      "coverage": 0.1,
+      "margin": 0.5,
+      "unit_cost": 0.0,
+      "marketing_cost": 0.0,
+      "incremental_revenue": {
+        "point": 770.0,
+        "lo": 490.0,
+        "hi": 1050.0
+      },
+      "incremental_net_contribution": {
+        "point": 385.0,
+        "lo": 245.0,
+        "hi": 525.0
+      },
+      "net_roi": null,
+      "break_even_cost_per_contact": {
+        "point": 0.385,
+        "lo": 0.245,
+        "hi": 0.525
+      },
+      "economic_evidence": "positive_lower_bound"
+    },
+    {
+      "arm": "Mens E-Mail",
+      "cap": 0.1,
+      "cohort": 10000,
+      "contacts": 1000,
+      "coverage": 0.1,
+      "margin": 0.5,
+      "unit_cost": 0.05,
+      "marketing_cost": 50.0,
+      "incremental_revenue": {
+        "point": 770.0,
+        "lo": 490.0,
+        "hi": 1050.0
+      },
+      "incremental_net_contribution": {
+        "point": 335.0,
+        "lo": 195.0,
+        "hi": 475.0
+      },
+      "net_roi": {
+        "point": 6.7,
+        "lo": 3.9,
+        "hi": 9.5
+      },
+      "break_even_cost_per_contact": {
+        "point": 0.385,
+        "lo": 0.245,
+        "hi": 0.525
+      },
+      "economic_evidence": "positive_lower_bound"
+    },
+    {
+      "arm": "Mens E-Mail",
+      "cap": 0.1,
+      "cohort": 10000,
+      "contacts": 1000,
+      "coverage": 0.1,
+      "margin": 0.5,
+      "unit_cost": 0.2,
+      "marketing_cost": 200.0,
+      "incremental_revenue": {
+        "point": 770.0,
+        "lo": 490.0,
+        "hi": 1050.0
+      },
+      "incremental_net_contribution": {
+        "point": 185.0,
+        "lo": 45.0,
+        "hi": 325.0
+      },
+      "net_roi": {
+        "point": 0.925,
+        "lo": 0.225,
+        "hi": 1.625
+      },
+      "break_even_cost_per_contact": {
+        "point": 0.385,
+        "lo": 0.245,
+        "hi": 0.525
+      },
+      "economic_evidence": "positive_lower_bound"
+    },
+    {
+      "arm": "Mens E-Mail",
+      "cap": 0.25,
+      "cohort": 10000,
+      "contacts": 2500,
+      "coverage": 0.25,
+      "margin": 0.1,
+      "unit_cost": 0.0,
+      "marketing_cost": 0.0,
+      "incremental_revenue": {
+        "point": 1925.0,
+        "lo": 1225.0,
+        "hi": 2625.0
+      },
+      "incremental_net_contribution": {
+        "point": 192.5,
+        "lo": 122.5,
+        "hi": 262.5
+      },
+      "net_roi": null,
+      "break_even_cost_per_contact": {
+        "point": 0.07700000000000001,
+        "lo": 0.049,
+        "hi": 0.10500000000000001
+      },
+      "economic_evidence": "positive_lower_bound"
+    },
+    {
+      "arm": "Mens E-Mail",
+      "cap": 0.25,
+      "cohort": 10000,
+      "contacts": 2500,
+      "coverage": 0.25,
+      "margin": 0.1,
+      "unit_cost": 0.05,
+      "marketing_cost": 125.0,
+      "incremental_revenue": {
+        "point": 1925.0,
+        "lo": 1225.0,
+        "hi": 2625.0
+      },
+      "incremental_net_contribution": {
+        "point": 67.5,
+        "lo": -2.5,
+        "hi": 137.5
+      },
+      "net_roi": {
+        "point": 0.54,
+        "lo": -0.02,
+        "hi": 1.1
+      },
+      "break_even_cost_per_contact": {
+        "point": 0.07700000000000001,
+        "lo": 0.049,
+        "hi": 0.10500000000000001
+      },
+      "economic_evidence": "inconclusive"
+    },
+    {
+      "arm": "Mens E-Mail",
+      "cap": 0.25,
+      "cohort": 10000,
+      "contacts": 2500,
+      "coverage": 0.25,
+      "margin": 0.1,
+      "unit_cost": 0.2,
+      "marketing_cost": 500.0,
+      "incremental_revenue": {
+        "point": 1925.0,
+        "lo": 1225.0,
+        "hi": 2625.0
+      },
+      "incremental_net_contribution": {
+        "point": -307.5,
+        "lo": -377.5,
+        "hi": -237.5
+      },
+      "net_roi": {
+        "point": -0.615,
+        "lo": -0.755,
+        "hi": -0.47500000000000003
+      },
+      "break_even_cost_per_contact": {
+        "point": 0.07700000000000001,
+        "lo": 0.049,
+        "hi": 0.10500000000000001
+      },
+      "economic_evidence": "negative_upper_bound"
+    },
+    {
+      "arm": "Mens E-Mail",
+      "cap": 0.25,
+      "cohort": 10000,
+      "contacts": 2500,
+      "coverage": 0.25,
+      "margin": 0.3,
+      "unit_cost": 0.0,
+      "marketing_cost": 0.0,
+      "incremental_revenue": {
+        "point": 1925.0,
+        "lo": 1225.0,
+        "hi": 2625.0
+      },
+      "incremental_net_contribution": {
+        "point": 577.5,
+        "lo": 367.5,
+        "hi": 787.5
+      },
+      "net_roi": null,
+      "break_even_cost_per_contact": {
+        "point": 0.23099999999999998,
+        "lo": 0.147,
+        "hi": 0.315
+      },
+      "economic_evidence": "positive_lower_bound"
+    },
+    {
+      "arm": "Mens E-Mail",
+      "cap": 0.25,
+      "cohort": 10000,
+      "contacts": 2500,
+      "coverage": 0.25,
+      "margin": 0.3,
+      "unit_cost": 0.05,
+      "marketing_cost": 125.0,
+      "incremental_revenue": {
+        "point": 1925.0,
+        "lo": 1225.0,
+        "hi": 2625.0
+      },
+      "incremental_net_contribution": {
+        "point": 452.5,
+        "lo": 242.5,
+        "hi": 662.5
+      },
+      "net_roi": {
+        "point": 3.62,
+        "lo": 1.94,
+        "hi": 5.3
+      },
+      "break_even_cost_per_contact": {
+        "point": 0.23099999999999998,
+        "lo": 0.147,
+        "hi": 0.315
+      },
+      "economic_evidence": "positive_lower_bound"
+    },
+    {
+      "arm": "Mens E-Mail",
+      "cap": 0.25,
+      "cohort": 10000,
+      "contacts": 2500,
+      "coverage": 0.25,
+      "margin": 0.3,
+      "unit_cost": 0.2,
+      "marketing_cost": 500.0,
+      "incremental_revenue": {
+        "point": 1925.0,
+        "lo": 1225.0,
+        "hi": 2625.0
+      },
+      "incremental_net_contribution": {
+        "point": 77.5,
+        "lo": -132.5,
+        "hi": 287.5
+      },
+      "net_roi": {
+        "point": 0.155,
+        "lo": -0.265,
+        "hi": 0.5750000000000001
+      },
+      "break_even_cost_per_contact": {
+        "point": 0.23099999999999998,
+        "lo": 0.147,
+        "hi": 0.315
+      },
+      "economic_evidence": "inconclusive"
+    },
+    {
+      "arm": "Mens E-Mail",
+      "cap": 0.25,
+      "cohort": 10000,
+      "contacts": 2500,
+      "coverage": 0.25,
+      "margin": 0.5,
+      "unit_cost": 0.0,
+      "marketing_cost": 0.0,
+      "incremental_revenue": {
+        "point": 1925.0,
+        "lo": 1225.0,
+        "hi": 2625.0
+      },
+      "incremental_net_contribution": {
+        "point": 962.5,
+        "lo": 612.5,
+        "hi": 1312.5
+      },
+      "net_roi": null,
+      "break_even_cost_per_contact": {
+        "point": 0.385,
+        "lo": 0.245,
+        "hi": 0.525
+      },
+      "economic_evidence": "positive_lower_bound"
+    },
+    {
+      "arm": "Mens E-Mail",
+      "cap": 0.25,
+      "cohort": 10000,
+      "contacts": 2500,
+      "coverage": 0.25,
+      "margin": 0.5,
+      "unit_cost": 0.05,
+      "marketing_cost": 125.0,
+      "incremental_revenue": {
+        "point": 1925.0,
+        "lo": 1225.0,
+        "hi": 2625.0
+      },
+      "incremental_net_contribution": {
+        "point": 837.5,
+        "lo": 487.5,
+        "hi": 1187.5
+      },
+      "net_roi": {
+        "point": 6.7,
+        "lo": 3.9,
+        "hi": 9.5
+      },
+      "break_even_cost_per_contact": {
+        "point": 0.385,
+        "lo": 0.245,
+        "hi": 0.525
+      },
+      "economic_evidence": "positive_lower_bound"
+    },
+    {
+      "arm": "Mens E-Mail",
+      "cap": 0.25,
+      "cohort": 10000,
+      "contacts": 2500,
+      "coverage": 0.25,
+      "margin": 0.5,
+      "unit_cost": 0.2,
+      "marketing_cost": 500.0,
+      "incremental_revenue": {
+        "point": 1925.0,
+        "lo": 1225.0,
+        "hi": 2625.0
+      },
+      "incremental_net_contribution": {
+        "point": 462.5,
+        "lo": 112.5,
+        "hi": 812.5
+      },
+      "net_roi": {
+        "point": 0.925,
+        "lo": 0.225,
+        "hi": 1.625
+      },
+      "break_even_cost_per_contact": {
+        "point": 0.385,
+        "lo": 0.245,
+        "hi": 0.525
+      },
+      "economic_evidence": "positive_lower_bound"
+    },
+    {
+      "arm": "Mens E-Mail",
+      "cap": 0.5,
+      "cohort": 10000,
+      "contacts": 5000,
+      "coverage": 0.5,
+      "margin": 0.1,
+      "unit_cost": 0.0,
+      "marketing_cost": 0.0,
+      "incremental_revenue": {
+        "point": 3850.0,
+        "lo": 2450.0,
+        "hi": 5250.0
+      },
+      "incremental_net_contribution": {
+        "point": 385.0,
+        "lo": 245.0,
+        "hi": 525.0
+      },
+      "net_roi": null,
+      "break_even_cost_per_contact": {
+        "point": 0.07700000000000001,
+        "lo": 0.049,
+        "hi": 0.10500000000000001
+      },
+      "economic_evidence": "positive_lower_bound"
+    },
+    {
+      "arm": "Mens E-Mail",
+      "cap": 0.5,
+      "cohort": 10000,
+      "contacts": 5000,
+      "coverage": 0.5,
+      "margin": 0.1,
+      "unit_cost": 0.05,
+      "marketing_cost": 250.0,
+      "incremental_revenue": {
+        "point": 3850.0,
+        "lo": 2450.0,
+        "hi": 5250.0
+      },
+      "incremental_net_contribution": {
+        "point": 135.0,
+        "lo": -5.0,
+        "hi": 275.0
+      },
+      "net_roi": {
+        "point": 0.54,
+        "lo": -0.02,
+        "hi": 1.1
+      },
+      "break_even_cost_per_contact": {
+        "point": 0.07700000000000001,
+        "lo": 0.049,
+        "hi": 0.10500000000000001
+      },
+      "economic_evidence": "inconclusive"
+    },
+    {
+      "arm": "Mens E-Mail",
+      "cap": 0.5,
+      "cohort": 10000,
+      "contacts": 5000,
+      "coverage": 0.5,
+      "margin": 0.1,
+      "unit_cost": 0.2,
+      "marketing_cost": 1000.0,
+      "incremental_revenue": {
+        "point": 3850.0,
+        "lo": 2450.0,
+        "hi": 5250.0
+      },
+      "incremental_net_contribution": {
+        "point": -615.0,
+        "lo": -755.0,
+        "hi": -475.0
+      },
+      "net_roi": {
+        "point": -0.615,
+        "lo": -0.755,
+        "hi": -0.47500000000000003
+      },
+      "break_even_cost_per_contact": {
+        "point": 0.07700000000000001,
+        "lo": 0.049,
+        "hi": 0.10500000000000001
+      },
+      "economic_evidence": "negative_upper_bound"
+    },
+    {
+      "arm": "Mens E-Mail",
+      "cap": 0.5,
+      "cohort": 10000,
+      "contacts": 5000,
+      "coverage": 0.5,
+      "margin": 0.3,
+      "unit_cost": 0.0,
+      "marketing_cost": 0.0,
+      "incremental_revenue": {
+        "point": 3850.0,
+        "lo": 2450.0,
+        "hi": 5250.0
+      },
+      "incremental_net_contribution": {
+        "point": 1155.0,
+        "lo": 735.0,
+        "hi": 1575.0
+      },
+      "net_roi": null,
+      "break_even_cost_per_contact": {
+        "point": 0.23099999999999998,
+        "lo": 0.147,
+        "hi": 0.315
+      },
+      "economic_evidence": "positive_lower_bound"
+    },
+    {
+      "arm": "Mens E-Mail",
+      "cap": 0.5,
+      "cohort": 10000,
+      "contacts": 5000,
+      "coverage": 0.5,
+      "margin": 0.3,
+      "unit_cost": 0.05,
+      "marketing_cost": 250.0,
+      "incremental_revenue": {
+        "point": 3850.0,
+        "lo": 2450.0,
+        "hi": 5250.0
+      },
+      "incremental_net_contribution": {
+        "point": 905.0,
+        "lo": 485.0,
+        "hi": 1325.0
+      },
+      "net_roi": {
+        "point": 3.62,
+        "lo": 1.94,
+        "hi": 5.3
+      },
+      "break_even_cost_per_contact": {
+        "point": 0.23099999999999998,
+        "lo": 0.147,
+        "hi": 0.315
+      },
+      "economic_evidence": "positive_lower_bound"
+    },
+    {
+      "arm": "Mens E-Mail",
+      "cap": 0.5,
+      "cohort": 10000,
+      "contacts": 5000,
+      "coverage": 0.5,
+      "margin": 0.3,
+      "unit_cost": 0.2,
+      "marketing_cost": 1000.0,
+      "incremental_revenue": {
+        "point": 3850.0,
+        "lo": 2450.0,
+        "hi": 5250.0
+      },
+      "incremental_net_contribution": {
+        "point": 155.0,
+        "lo": -265.0,
+        "hi": 575.0
+      },
+      "net_roi": {
+        "point": 0.155,
+        "lo": -0.265,
+        "hi": 0.5750000000000001
+      },
+      "break_even_cost_per_contact": {
+        "point": 0.23099999999999998,
+        "lo": 0.147,
+        "hi": 0.315
+      },
+      "economic_evidence": "inconclusive"
+    },
+    {
+      "arm": "Mens E-Mail",
+      "cap": 0.5,
+      "cohort": 10000,
+      "contacts": 5000,
+      "coverage": 0.5,
+      "margin": 0.5,
+      "unit_cost": 0.0,
+      "marketing_cost": 0.0,
+      "incremental_revenue": {
+        "point": 3850.0,
+        "lo": 2450.0,
+        "hi": 5250.0
+      },
+      "incremental_net_contribution": {
+        "point": 1925.0,
+        "lo": 1225.0,
+        "hi": 2625.0
+      },
+      "net_roi": null,
+      "break_even_cost_per_contact": {
+        "point": 0.385,
+        "lo": 0.245,
+        "hi": 0.525
+      },
+      "economic_evidence": "positive_lower_bound"
+    },
+    {
+      "arm": "Mens E-Mail",
+      "cap": 0.5,
+      "cohort": 10000,
+      "contacts": 5000,
+      "coverage": 0.5,
+      "margin": 0.5,
+      "unit_cost": 0.05,
+      "marketing_cost": 250.0,
+      "incremental_revenue": {
+        "point": 3850.0,
+        "lo": 2450.0,
+        "hi": 5250.0
+      },
+      "incremental_net_contribution": {
+        "point": 1675.0,
+        "lo": 975.0,
+        "hi": 2375.0
+      },
+      "net_roi": {
+        "point": 6.7,
+        "lo": 3.9,
+        "hi": 9.5
+      },
+      "break_even_cost_per_contact": {
+        "point": 0.385,
+        "lo": 0.245,
+        "hi": 0.525
+      },
+      "economic_evidence": "positive_lower_bound"
+    },
+    {
+      "arm": "Mens E-Mail",
+      "cap": 0.5,
+      "cohort": 10000,
+      "contacts": 5000,
+      "coverage": 0.5,
+      "margin": 0.5,
+      "unit_cost": 0.2,
+      "marketing_cost": 1000.0,
+      "incremental_revenue": {
+        "point": 3850.0,
+        "lo": 2450.0,
+        "hi": 5250.0
+      },
+      "incremental_net_contribution": {
+        "point": 925.0,
+        "lo": 225.0,
+        "hi": 1625.0
+      },
+      "net_roi": {
+        "point": 0.925,
+        "lo": 0.225,
+        "hi": 1.625
+      },
+      "break_even_cost_per_contact": {
+        "point": 0.385,
+        "lo": 0.245,
+        "hi": 0.525
+      },
+      "economic_evidence": "positive_lower_bound"
+    },
+    {
+      "arm": "Mens E-Mail",
+      "cap": 1.0,
+      "cohort": 10000,
+      "contacts": 10000,
+      "coverage": 1.0,
+      "margin": 0.1,
+      "unit_cost": 0.0,
+      "marketing_cost": 0.0,
+      "incremental_revenue": {
+        "point": 7700.0,
+        "lo": 4900.0,
+        "hi": 10500.0
+      },
+      "incremental_net_contribution": {
+        "point": 770.0,
+        "lo": 490.0,
+        "hi": 1050.0
+      },
+      "net_roi": null,
+      "break_even_cost_per_contact": {
+        "point": 0.07700000000000001,
+        "lo": 0.049,
+        "hi": 0.10500000000000001
+      },
+      "economic_evidence": "positive_lower_bound"
+    },
+    {
+      "arm": "Mens E-Mail",
+      "cap": 1.0,
+      "cohort": 10000,
+      "contacts": 10000,
+      "coverage": 1.0,
+      "margin": 0.1,
+      "unit_cost": 0.05,
+      "marketing_cost": 500.0,
+      "incremental_revenue": {
+        "point": 7700.0,
+        "lo": 4900.0,
+        "hi": 10500.0
+      },
+      "incremental_net_contribution": {
+        "point": 270.0,
+        "lo": -10.0,
+        "hi": 550.0
+      },
+      "net_roi": {
+        "point": 0.54,
+        "lo": -0.02,
+        "hi": 1.1
+      },
+      "break_even_cost_per_contact": {
+        "point": 0.07700000000000001,
+        "lo": 0.049,
+        "hi": 0.10500000000000001
+      },
+      "economic_evidence": "inconclusive"
+    },
+    {
+      "arm": "Mens E-Mail",
+      "cap": 1.0,
+      "cohort": 10000,
+      "contacts": 10000,
+      "coverage": 1.0,
+      "margin": 0.1,
+      "unit_cost": 0.2,
+      "marketing_cost": 2000.0,
+      "incremental_revenue": {
+        "point": 7700.0,
+        "lo": 4900.0,
+        "hi": 10500.0
+      },
+      "incremental_net_contribution": {
+        "point": -1230.0,
+        "lo": -1510.0,
+        "hi": -950.0
+      },
+      "net_roi": {
+        "point": -0.615,
+        "lo": -0.755,
+        "hi": -0.47500000000000003
+      },
+      "break_even_cost_per_contact": {
+        "point": 0.07700000000000001,
+        "lo": 0.049,
+        "hi": 0.10500000000000001
+      },
+      "economic_evidence": "negative_upper_bound"
+    },
+    {
+      "arm": "Mens E-Mail",
+      "cap": 1.0,
+      "cohort": 10000,
+      "contacts": 10000,
+      "coverage": 1.0,
+      "margin": 0.3,
+      "unit_cost": 0.0,
+      "marketing_cost": 0.0,
+      "incremental_revenue": {
+        "point": 7700.0,
+        "lo": 4900.0,
+        "hi": 10500.0
+      },
+      "incremental_net_contribution": {
+        "point": 2310.0,
+        "lo": 1470.0,
+        "hi": 3150.0
+      },
+      "net_roi": null,
+      "break_even_cost_per_contact": {
+        "point": 0.23099999999999998,
+        "lo": 0.147,
+        "hi": 0.315
+      },
+      "economic_evidence": "positive_lower_bound"
+    },
+    {
+      "arm": "Mens E-Mail",
+      "cap": 1.0,
+      "cohort": 10000,
+      "contacts": 10000,
+      "coverage": 1.0,
+      "margin": 0.3,
+      "unit_cost": 0.05,
+      "marketing_cost": 500.0,
+      "incremental_revenue": {
+        "point": 7700.0,
+        "lo": 4900.0,
+        "hi": 10500.0
+      },
+      "incremental_net_contribution": {
+        "point": 1810.0,
+        "lo": 970.0,
+        "hi": 2650.0
+      },
+      "net_roi": {
+        "point": 3.62,
+        "lo": 1.94,
+        "hi": 5.3
+      },
+      "break_even_cost_per_contact": {
+        "point": 0.23099999999999998,
+        "lo": 0.147,
+        "hi": 0.315
+      },
+      "economic_evidence": "positive_lower_bound"
+    },
+    {
+      "arm": "Mens E-Mail",
+      "cap": 1.0,
+      "cohort": 10000,
+      "contacts": 10000,
+      "coverage": 1.0,
+      "margin": 0.3,
+      "unit_cost": 0.2,
+      "marketing_cost": 2000.0,
+      "incremental_revenue": {
+        "point": 7700.0,
+        "lo": 4900.0,
+        "hi": 10500.0
+      },
+      "incremental_net_contribution": {
+        "point": 310.0,
+        "lo": -530.0,
+        "hi": 1150.0
+      },
+      "net_roi": {
+        "point": 0.155,
+        "lo": -0.265,
+        "hi": 0.5750000000000001
+      },
+      "break_even_cost_per_contact": {
+        "point": 0.23099999999999998,
+        "lo": 0.147,
+        "hi": 0.315
+      },
+      "economic_evidence": "inconclusive"
+    },
+    {
+      "arm": "Mens E-Mail",
+      "cap": 1.0,
+      "cohort": 10000,
+      "contacts": 10000,
+      "coverage": 1.0,
+      "margin": 0.5,
+      "unit_cost": 0.0,
+      "marketing_cost": 0.0,
+      "incremental_revenue": {
+        "point": 7700.0,
+        "lo": 4900.0,
+        "hi": 10500.0
+      },
+      "incremental_net_contribution": {
+        "point": 3850.0,
+        "lo": 2450.0,
+        "hi": 5250.0
+      },
+      "net_roi": null,
+      "break_even_cost_per_contact": {
+        "point": 0.385,
+        "lo": 0.245,
+        "hi": 0.525
+      },
+      "economic_evidence": "positive_lower_bound"
+    },
+    {
+      "arm": "Mens E-Mail",
+      "cap": 1.0,
+      "cohort": 10000,
+      "contacts": 10000,
+      "coverage": 1.0,
+      "margin": 0.5,
+      "unit_cost": 0.05,
+      "marketing_cost": 500.0,
+      "incremental_revenue": {
+        "point": 7700.0,
+        "lo": 4900.0,
+        "hi": 10500.0
+      },
+      "incremental_net_contribution": {
+        "point": 3350.0,
+        "lo": 1950.0,
+        "hi": 4750.0
+      },
+      "net_roi": {
+        "point": 6.7,
+        "lo": 3.9,
+        "hi": 9.5
+      },
+      "break_even_cost_per_contact": {
+        "point": 0.385,
+        "lo": 0.245,
+        "hi": 0.525
+      },
+      "economic_evidence": "positive_lower_bound"
+    },
+    {
+      "arm": "Mens E-Mail",
+      "cap": 1.0,
+      "cohort": 10000,
+      "contacts": 10000,
+      "coverage": 1.0,
+      "margin": 0.5,
+      "unit_cost": 0.2,
+      "marketing_cost": 2000.0,
+      "incremental_revenue": {
+        "point": 7700.0,
+        "lo": 4900.0,
+        "hi": 10500.0
+      },
+      "incremental_net_contribution": {
+        "point": 1850.0,
+        "lo": 450.0,
+        "hi": 3250.0
+      },
+      "net_roi": {
+        "point": 0.925,
+        "lo": 0.225,
+        "hi": 1.625
+      },
+      "break_even_cost_per_contact": {
+        "point": 0.385,
+        "lo": 0.245,
+        "hi": 0.525
+      },
+      "economic_evidence": "positive_lower_bound"
+    },
+    {
+      "arm": "Womens E-Mail",
+      "cap": 0.1,
+      "cohort": 10000,
+      "contacts": 1000,
+      "coverage": 0.1,
+      "margin": 0.1,
+      "unit_cost": 0.0,
+      "marketing_cost": 0.0,
+      "incremental_revenue": {
+        "point": 420.0,
+        "lo": 170.0,
+        "hi": 680.0
+      },
+      "incremental_net_contribution": {
+        "point": 42.0,
+        "lo": 17.0,
+        "hi": 68.0
+      },
+      "net_roi": null,
+      "break_even_cost_per_contact": {
+        "point": 0.042,
+        "lo": 0.017,
+        "hi": 0.068
+      },
+      "economic_evidence": "positive_lower_bound"
+    },
+    {
+      "arm": "Womens E-Mail",
+      "cap": 0.1,
+      "cohort": 10000,
+      "contacts": 1000,
+      "coverage": 0.1,
+      "margin": 0.1,
+      "unit_cost": 0.05,
+      "marketing_cost": 50.0,
+      "incremental_revenue": {
+        "point": 420.0,
+        "lo": 170.0,
+        "hi": 680.0
+      },
+      "incremental_net_contribution": {
+        "point": -8.0,
+        "lo": -33.0,
+        "hi": 18.0
+      },
+      "net_roi": {
+        "point": -0.16,
+        "lo": -0.66,
+        "hi": 0.36
+      },
+      "break_even_cost_per_contact": {
+        "point": 0.042,
+        "lo": 0.017,
+        "hi": 0.068
+      },
+      "economic_evidence": "inconclusive"
+    },
+    {
+      "arm": "Womens E-Mail",
+      "cap": 0.1,
+      "cohort": 10000,
+      "contacts": 1000,
+      "coverage": 0.1,
+      "margin": 0.1,
+      "unit_cost": 0.2,
+      "marketing_cost": 200.0,
+      "incremental_revenue": {
+        "point": 420.0,
+        "lo": 170.0,
+        "hi": 680.0
+      },
+      "incremental_net_contribution": {
+        "point": -158.0,
+        "lo": -183.0,
+        "hi": -132.0
+      },
+      "net_roi": {
+        "point": -0.79,
+        "lo": -0.915,
+        "hi": -0.66
+      },
+      "break_even_cost_per_contact": {
+        "point": 0.042,
+        "lo": 0.017,
+        "hi": 0.068
+      },
+      "economic_evidence": "negative_upper_bound"
+    },
+    {
+      "arm": "Womens E-Mail",
+      "cap": 0.1,
+      "cohort": 10000,
+      "contacts": 1000,
+      "coverage": 0.1,
+      "margin": 0.3,
+      "unit_cost": 0.0,
+      "marketing_cost": 0.0,
+      "incremental_revenue": {
+        "point": 420.0,
+        "lo": 170.0,
+        "hi": 680.0
+      },
+      "incremental_net_contribution": {
+        "point": 126.0,
+        "lo": 51.00000000000001,
+        "hi": 204.00000000000003
+      },
+      "net_roi": null,
+      "break_even_cost_per_contact": {
+        "point": 0.126,
+        "lo": 0.051000000000000004,
+        "hi": 0.20400000000000001
+      },
+      "economic_evidence": "positive_lower_bound"
+    },
+    {
+      "arm": "Womens E-Mail",
+      "cap": 0.1,
+      "cohort": 10000,
+      "contacts": 1000,
+      "coverage": 0.1,
+      "margin": 0.3,
+      "unit_cost": 0.05,
+      "marketing_cost": 50.0,
+      "incremental_revenue": {
+        "point": 420.0,
+        "lo": 170.0,
+        "hi": 680.0
+      },
+      "incremental_net_contribution": {
+        "point": 76.0,
+        "lo": 1.000000000000007,
+        "hi": 154.00000000000003
+      },
+      "net_roi": {
+        "point": 1.52,
+        "lo": 0.020000000000000143,
+        "hi": 3.0800000000000005
+      },
+      "break_even_cost_per_contact": {
+        "point": 0.126,
+        "lo": 0.051000000000000004,
+        "hi": 0.20400000000000001
+      },
+      "economic_evidence": "positive_lower_bound"
+    },
+    {
+      "arm": "Womens E-Mail",
+      "cap": 0.1,
+      "cohort": 10000,
+      "contacts": 1000,
+      "coverage": 0.1,
+      "margin": 0.3,
+      "unit_cost": 0.2,
+      "marketing_cost": 200.0,
+      "incremental_revenue": {
+        "point": 420.0,
+        "lo": 170.0,
+        "hi": 680.0
+      },
+      "incremental_net_contribution": {
+        "point": -74.0,
+        "lo": -149.0,
+        "hi": 4.000000000000028
+      },
+      "net_roi": {
+        "point": -0.37,
+        "lo": -0.745,
+        "hi": 0.020000000000000143
+      },
+      "break_even_cost_per_contact": {
+        "point": 0.126,
+        "lo": 0.051000000000000004,
+        "hi": 0.20400000000000001
+      },
+      "economic_evidence": "inconclusive"
+    },
+    {
+      "arm": "Womens E-Mail",
+      "cap": 0.1,
+      "cohort": 10000,
+      "contacts": 1000,
+      "coverage": 0.1,
+      "margin": 0.5,
+      "unit_cost": 0.0,
+      "marketing_cost": 0.0,
+      "incremental_revenue": {
+        "point": 420.0,
+        "lo": 170.0,
+        "hi": 680.0
+      },
+      "incremental_net_contribution": {
+        "point": 210.0,
+        "lo": 85.0,
+        "hi": 340.0
+      },
+      "net_roi": null,
+      "break_even_cost_per_contact": {
+        "point": 0.21,
+        "lo": 0.085,
+        "hi": 0.34
+      },
+      "economic_evidence": "positive_lower_bound"
+    },
+    {
+      "arm": "Womens E-Mail",
+      "cap": 0.1,
+      "cohort": 10000,
+      "contacts": 1000,
+      "coverage": 0.1,
+      "margin": 0.5,
+      "unit_cost": 0.05,
+      "marketing_cost": 50.0,
+      "incremental_revenue": {
+        "point": 420.0,
+        "lo": 170.0,
+        "hi": 680.0
+      },
+      "incremental_net_contribution": {
+        "point": 160.0,
+        "lo": 35.0,
+        "hi": 290.0
+      },
+      "net_roi": {
+        "point": 3.2,
+        "lo": 0.7000000000000001,
+        "hi": 5.8
+      },
+      "break_even_cost_per_contact": {
+        "point": 0.21,
+        "lo": 0.085,
+        "hi": 0.34
+      },
+      "economic_evidence": "positive_lower_bound"
+    },
+    {
+      "arm": "Womens E-Mail",
+      "cap": 0.1,
+      "cohort": 10000,
+      "contacts": 1000,
+      "coverage": 0.1,
+      "margin": 0.5,
+      "unit_cost": 0.2,
+      "marketing_cost": 200.0,
+      "incremental_revenue": {
+        "point": 420.0,
+        "lo": 170.0,
+        "hi": 680.0
+      },
+      "incremental_net_contribution": {
+        "point": 10.0,
+        "lo": -115.0,
+        "hi": 140.0
+      },
+      "net_roi": {
+        "point": 0.05,
+        "lo": -0.5750000000000001,
+        "hi": 0.7000000000000001
+      },
+      "break_even_cost_per_contact": {
+        "point": 0.21,
+        "lo": 0.085,
+        "hi": 0.34
+      },
+      "economic_evidence": "inconclusive"
+    },
+    {
+      "arm": "Womens E-Mail",
+      "cap": 0.25,
+      "cohort": 10000,
+      "contacts": 2500,
+      "coverage": 0.25,
+      "margin": 0.1,
+      "unit_cost": 0.0,
+      "marketing_cost": 0.0,
+      "incremental_revenue": {
+        "point": 1050.0,
+        "lo": 425.00000000000006,
+        "hi": 1700.0000000000002
+      },
+      "incremental_net_contribution": {
+        "point": 105.0,
+        "lo": 42.5,
+        "hi": 170.0
+      },
+      "net_roi": null,
+      "break_even_cost_per_contact": {
+        "point": 0.042,
+        "lo": 0.017,
+        "hi": 0.068
+      },
+      "economic_evidence": "positive_lower_bound"
+    },
+    {
+      "arm": "Womens E-Mail",
+      "cap": 0.25,
+      "cohort": 10000,
+      "contacts": 2500,
+      "coverage": 0.25,
+      "margin": 0.1,
+      "unit_cost": 0.05,
+      "marketing_cost": 125.0,
+      "incremental_revenue": {
+        "point": 1050.0,
+        "lo": 425.00000000000006,
+        "hi": 1700.0000000000002
+      },
+      "incremental_net_contribution": {
+        "point": -20.0,
+        "lo": -82.5,
+        "hi": 45.0
+      },
+      "net_roi": {
+        "point": -0.16,
+        "lo": -0.66,
+        "hi": 0.36
+      },
+      "break_even_cost_per_contact": {
+        "point": 0.042,
+        "lo": 0.017,
+        "hi": 0.068
+      },
+      "economic_evidence": "inconclusive"
+    },
+    {
+      "arm": "Womens E-Mail",
+      "cap": 0.25,
+      "cohort": 10000,
+      "contacts": 2500,
+      "coverage": 0.25,
+      "margin": 0.1,
+      "unit_cost": 0.2,
+      "marketing_cost": 500.0,
+      "incremental_revenue": {
+        "point": 1050.0,
+        "lo": 425.00000000000006,
+        "hi": 1700.0000000000002
+      },
+      "incremental_net_contribution": {
+        "point": -395.0,
+        "lo": -457.5,
+        "hi": -330.0
+      },
+      "net_roi": {
+        "point": -0.79,
+        "lo": -0.915,
+        "hi": -0.66
+      },
+      "break_even_cost_per_contact": {
+        "point": 0.042,
+        "lo": 0.017,
+        "hi": 0.068
+      },
+      "economic_evidence": "negative_upper_bound"
+    },
+    {
+      "arm": "Womens E-Mail",
+      "cap": 0.25,
+      "cohort": 10000,
+      "contacts": 2500,
+      "coverage": 0.25,
+      "margin": 0.3,
+      "unit_cost": 0.0,
+      "marketing_cost": 0.0,
+      "incremental_revenue": {
+        "point": 1050.0,
+        "lo": 425.00000000000006,
+        "hi": 1700.0000000000002
+      },
+      "incremental_net_contribution": {
+        "point": 315.0,
+        "lo": 127.50000000000001,
+        "hi": 510.00000000000006
+      },
+      "net_roi": null,
+      "break_even_cost_per_contact": {
+        "point": 0.126,
+        "lo": 0.051000000000000004,
+        "hi": 0.20400000000000001
+      },
+      "economic_evidence": "positive_lower_bound"
+    },
+    {
+      "arm": "Womens E-Mail",
+      "cap": 0.25,
+      "cohort": 10000,
+      "contacts": 2500,
+      "coverage": 0.25,
+      "margin": 0.3,
+      "unit_cost": 0.05,
+      "marketing_cost": 125.0,
+      "incremental_revenue": {
+        "point": 1050.0,
+        "lo": 425.00000000000006,
+        "hi": 1700.0000000000002
+      },
+      "incremental_net_contribution": {
+        "point": 190.0,
+        "lo": 2.500000000000014,
+        "hi": 385.00000000000006
+      },
+      "net_roi": {
+        "point": 1.52,
+        "lo": 0.020000000000000115,
+        "hi": 3.0800000000000005
+      },
+      "break_even_cost_per_contact": {
+        "point": 0.126,
+        "lo": 0.051000000000000004,
+        "hi": 0.20400000000000001
+      },
+      "economic_evidence": "positive_lower_bound"
+    },
+    {
+      "arm": "Womens E-Mail",
+      "cap": 0.25,
+      "cohort": 10000,
+      "contacts": 2500,
+      "coverage": 0.25,
+      "margin": 0.3,
+      "unit_cost": 0.2,
+      "marketing_cost": 500.0,
+      "incremental_revenue": {
+        "point": 1050.0,
+        "lo": 425.00000000000006,
+        "hi": 1700.0000000000002
+      },
+      "incremental_net_contribution": {
+        "point": -185.0,
+        "lo": -372.5,
+        "hi": 10.000000000000057
+      },
+      "net_roi": {
+        "point": -0.37,
+        "lo": -0.745,
+        "hi": 0.020000000000000115
+      },
+      "break_even_cost_per_contact": {
+        "point": 0.126,
+        "lo": 0.051000000000000004,
+        "hi": 0.20400000000000001
+      },
+      "economic_evidence": "inconclusive"
+    },
+    {
+      "arm": "Womens E-Mail",
+      "cap": 0.25,
+      "cohort": 10000,
+      "contacts": 2500,
+      "coverage": 0.25,
+      "margin": 0.5,
+      "unit_cost": 0.0,
+      "marketing_cost": 0.0,
+      "incremental_revenue": {
+        "point": 1050.0,
+        "lo": 425.00000000000006,
+        "hi": 1700.0000000000002
+      },
+      "incremental_net_contribution": {
+        "point": 525.0,
+        "lo": 212.50000000000003,
+        "hi": 850.0000000000001
+      },
+      "net_roi": null,
+      "break_even_cost_per_contact": {
+        "point": 0.21,
+        "lo": 0.085,
+        "hi": 0.34
+      },
+      "economic_evidence": "positive_lower_bound"
+    },
+    {
+      "arm": "Womens E-Mail",
+      "cap": 0.25,
+      "cohort": 10000,
+      "contacts": 2500,
+      "coverage": 0.25,
+      "margin": 0.5,
+      "unit_cost": 0.05,
+      "marketing_cost": 125.0,
+      "incremental_revenue": {
+        "point": 1050.0,
+        "lo": 425.00000000000006,
+        "hi": 1700.0000000000002
+      },
+      "incremental_net_contribution": {
+        "point": 400.0,
+        "lo": 87.50000000000003,
+        "hi": 725.0000000000001
+      },
+      "net_roi": {
+        "point": 3.2,
+        "lo": 0.7000000000000003,
+        "hi": 5.800000000000001
+      },
+      "break_even_cost_per_contact": {
+        "point": 0.21,
+        "lo": 0.085,
+        "hi": 0.34
+      },
+      "economic_evidence": "positive_lower_bound"
+    },
+    {
+      "arm": "Womens E-Mail",
+      "cap": 0.25,
+      "cohort": 10000,
+      "contacts": 2500,
+      "coverage": 0.25,
+      "margin": 0.5,
+      "unit_cost": 0.2,
+      "marketing_cost": 500.0,
+      "incremental_revenue": {
+        "point": 1050.0,
+        "lo": 425.00000000000006,
+        "hi": 1700.0000000000002
+      },
+      "incremental_net_contribution": {
+        "point": 25.0,
+        "lo": -287.5,
+        "hi": 350.0000000000001
+      },
+      "net_roi": {
+        "point": 0.05,
+        "lo": -0.5750000000000001,
+        "hi": 0.7000000000000003
+      },
+      "break_even_cost_per_contact": {
+        "point": 0.21,
+        "lo": 0.085,
+        "hi": 0.34
+      },
+      "economic_evidence": "inconclusive"
+    },
+    {
+      "arm": "Womens E-Mail",
+      "cap": 0.5,
+      "cohort": 10000,
+      "contacts": 5000,
+      "coverage": 0.5,
+      "margin": 0.1,
+      "unit_cost": 0.0,
+      "marketing_cost": 0.0,
+      "incremental_revenue": {
+        "point": 2100.0,
+        "lo": 850.0000000000001,
+        "hi": 3400.0000000000005
+      },
+      "incremental_net_contribution": {
+        "point": 210.0,
+        "lo": 85.0,
+        "hi": 340.0
+      },
+      "net_roi": null,
+      "break_even_cost_per_contact": {
+        "point": 0.042,
+        "lo": 0.017,
+        "hi": 0.068
+      },
+      "economic_evidence": "positive_lower_bound"
+    },
+    {
+      "arm": "Womens E-Mail",
+      "cap": 0.5,
+      "cohort": 10000,
+      "contacts": 5000,
+      "coverage": 0.5,
+      "margin": 0.1,
+      "unit_cost": 0.05,
+      "marketing_cost": 250.0,
+      "incremental_revenue": {
+        "point": 2100.0,
+        "lo": 850.0000000000001,
+        "hi": 3400.0000000000005
+      },
+      "incremental_net_contribution": {
+        "point": -40.0,
+        "lo": -165.0,
+        "hi": 90.0
+      },
+      "net_roi": {
+        "point": -0.16,
+        "lo": -0.66,
+        "hi": 0.36
+      },
+      "break_even_cost_per_contact": {
+        "point": 0.042,
+        "lo": 0.017,
+        "hi": 0.068
+      },
+      "economic_evidence": "inconclusive"
+    },
+    {
+      "arm": "Womens E-Mail",
+      "cap": 0.5,
+      "cohort": 10000,
+      "contacts": 5000,
+      "coverage": 0.5,
+      "margin": 0.1,
+      "unit_cost": 0.2,
+      "marketing_cost": 1000.0,
+      "incremental_revenue": {
+        "point": 2100.0,
+        "lo": 850.0000000000001,
+        "hi": 3400.0000000000005
+      },
+      "incremental_net_contribution": {
+        "point": -790.0,
+        "lo": -915.0,
+        "hi": -660.0
+      },
+      "net_roi": {
+        "point": -0.79,
+        "lo": -0.915,
+        "hi": -0.66
+      },
+      "break_even_cost_per_contact": {
+        "point": 0.042,
+        "lo": 0.017,
+        "hi": 0.068
+      },
+      "economic_evidence": "negative_upper_bound"
+    },
+    {
+      "arm": "Womens E-Mail",
+      "cap": 0.5,
+      "cohort": 10000,
+      "contacts": 5000,
+      "coverage": 0.5,
+      "margin": 0.3,
+      "unit_cost": 0.0,
+      "marketing_cost": 0.0,
+      "incremental_revenue": {
+        "point": 2100.0,
+        "lo": 850.0000000000001,
+        "hi": 3400.0000000000005
+      },
+      "incremental_net_contribution": {
+        "point": 630.0,
+        "lo": 255.00000000000003,
+        "hi": 1020.0000000000001
+      },
+      "net_roi": null,
+      "break_even_cost_per_contact": {
+        "point": 0.126,
+        "lo": 0.051000000000000004,
+        "hi": 0.20400000000000001
+      },
+      "economic_evidence": "positive_lower_bound"
+    },
+    {
+      "arm": "Womens E-Mail",
+      "cap": 0.5,
+      "cohort": 10000,
+      "contacts": 5000,
+      "coverage": 0.5,
+      "margin": 0.3,
+      "unit_cost": 0.05,
+      "marketing_cost": 250.0,
+      "incremental_revenue": {
+        "point": 2100.0,
+        "lo": 850.0000000000001,
+        "hi": 3400.0000000000005
+      },
+      "incremental_net_contribution": {
+        "point": 380.0,
+        "lo": 5.000000000000028,
+        "hi": 770.0000000000001
+      },
+      "net_roi": {
+        "point": 1.52,
+        "lo": 0.020000000000000115,
+        "hi": 3.0800000000000005
+      },
+      "break_even_cost_per_contact": {
+        "point": 0.126,
+        "lo": 0.051000000000000004,
+        "hi": 0.20400000000000001
+      },
+      "economic_evidence": "positive_lower_bound"
+    },
+    {
+      "arm": "Womens E-Mail",
+      "cap": 0.5,
+      "cohort": 10000,
+      "contacts": 5000,
+      "coverage": 0.5,
+      "margin": 0.3,
+      "unit_cost": 0.2,
+      "marketing_cost": 1000.0,
+      "incremental_revenue": {
+        "point": 2100.0,
+        "lo": 850.0000000000001,
+        "hi": 3400.0000000000005
+      },
+      "incremental_net_contribution": {
+        "point": -370.0,
+        "lo": -745.0,
+        "hi": 20.000000000000114
+      },
+      "net_roi": {
+        "point": -0.37,
+        "lo": -0.745,
+        "hi": 0.020000000000000115
+      },
+      "break_even_cost_per_contact": {
+        "point": 0.126,
+        "lo": 0.051000000000000004,
+        "hi": 0.20400000000000001
+      },
+      "economic_evidence": "inconclusive"
+    },
+    {
+      "arm": "Womens E-Mail",
+      "cap": 0.5,
+      "cohort": 10000,
+      "contacts": 5000,
+      "coverage": 0.5,
+      "margin": 0.5,
+      "unit_cost": 0.0,
+      "marketing_cost": 0.0,
+      "incremental_revenue": {
+        "point": 2100.0,
+        "lo": 850.0000000000001,
+        "hi": 3400.0000000000005
+      },
+      "incremental_net_contribution": {
+        "point": 1050.0,
+        "lo": 425.00000000000006,
+        "hi": 1700.0000000000002
+      },
+      "net_roi": null,
+      "break_even_cost_per_contact": {
+        "point": 0.21,
+        "lo": 0.085,
+        "hi": 0.34
+      },
+      "economic_evidence": "positive_lower_bound"
+    },
+    {
+      "arm": "Womens E-Mail",
+      "cap": 0.5,
+      "cohort": 10000,
+      "contacts": 5000,
+      "coverage": 0.5,
+      "margin": 0.5,
+      "unit_cost": 0.05,
+      "marketing_cost": 250.0,
+      "incremental_revenue": {
+        "point": 2100.0,
+        "lo": 850.0000000000001,
+        "hi": 3400.0000000000005
+      },
+      "incremental_net_contribution": {
+        "point": 800.0,
+        "lo": 175.00000000000006,
+        "hi": 1450.0000000000002
+      },
+      "net_roi": {
+        "point": 3.2,
+        "lo": 0.7000000000000003,
+        "hi": 5.800000000000001
+      },
+      "break_even_cost_per_contact": {
+        "point": 0.21,
+        "lo": 0.085,
+        "hi": 0.34
+      },
+      "economic_evidence": "positive_lower_bound"
+    },
+    {
+      "arm": "Womens E-Mail",
+      "cap": 0.5,
+      "cohort": 10000,
+      "contacts": 5000,
+      "coverage": 0.5,
+      "margin": 0.5,
+      "unit_cost": 0.2,
+      "marketing_cost": 1000.0,
+      "incremental_revenue": {
+        "point": 2100.0,
+        "lo": 850.0000000000001,
+        "hi": 3400.0000000000005
+      },
+      "incremental_net_contribution": {
+        "point": 50.0,
+        "lo": -575.0,
+        "hi": 700.0000000000002
+      },
+      "net_roi": {
+        "point": 0.05,
+        "lo": -0.5750000000000001,
+        "hi": 0.7000000000000003
+      },
+      "break_even_cost_per_contact": {
+        "point": 0.21,
+        "lo": 0.085,
+        "hi": 0.34
+      },
+      "economic_evidence": "inconclusive"
+    },
+    {
+      "arm": "Womens E-Mail",
+      "cap": 1.0,
+      "cohort": 10000,
+      "contacts": 10000,
+      "coverage": 1.0,
+      "margin": 0.1,
+      "unit_cost": 0.0,
+      "marketing_cost": 0.0,
+      "incremental_revenue": {
+        "point": 4200.0,
+        "lo": 1700.0000000000002,
+        "hi": 6800.000000000001
+      },
+      "incremental_net_contribution": {
+        "point": 420.0,
+        "lo": 170.0,
+        "hi": 680.0
+      },
+      "net_roi": null,
+      "break_even_cost_per_contact": {
+        "point": 0.042,
+        "lo": 0.017,
+        "hi": 0.068
+      },
+      "economic_evidence": "positive_lower_bound"
+    },
+    {
+      "arm": "Womens E-Mail",
+      "cap": 1.0,
+      "cohort": 10000,
+      "contacts": 10000,
+      "coverage": 1.0,
+      "margin": 0.1,
+      "unit_cost": 0.05,
+      "marketing_cost": 500.0,
+      "incremental_revenue": {
+        "point": 4200.0,
+        "lo": 1700.0000000000002,
+        "hi": 6800.000000000001
+      },
+      "incremental_net_contribution": {
+        "point": -80.0,
+        "lo": -330.0,
+        "hi": 180.0
+      },
+      "net_roi": {
+        "point": -0.16,
+        "lo": -0.66,
+        "hi": 0.36
+      },
+      "break_even_cost_per_contact": {
+        "point": 0.042,
+        "lo": 0.017,
+        "hi": 0.068
+      },
+      "economic_evidence": "inconclusive"
+    },
+    {
+      "arm": "Womens E-Mail",
+      "cap": 1.0,
+      "cohort": 10000,
+      "contacts": 10000,
+      "coverage": 1.0,
+      "margin": 0.1,
+      "unit_cost": 0.2,
+      "marketing_cost": 2000.0,
+      "incremental_revenue": {
+        "point": 4200.0,
+        "lo": 1700.0000000000002,
+        "hi": 6800.000000000001
+      },
+      "incremental_net_contribution": {
+        "point": -1580.0,
+        "lo": -1830.0,
+        "hi": -1320.0
+      },
+      "net_roi": {
+        "point": -0.79,
+        "lo": -0.915,
+        "hi": -0.66
+      },
+      "break_even_cost_per_contact": {
+        "point": 0.042,
+        "lo": 0.017,
+        "hi": 0.068
+      },
+      "economic_evidence": "negative_upper_bound"
+    },
+    {
+      "arm": "Womens E-Mail",
+      "cap": 1.0,
+      "cohort": 10000,
+      "contacts": 10000,
+      "coverage": 1.0,
+      "margin": 0.3,
+      "unit_cost": 0.0,
+      "marketing_cost": 0.0,
+      "incremental_revenue": {
+        "point": 4200.0,
+        "lo": 1700.0000000000002,
+        "hi": 6800.000000000001
+      },
+      "incremental_net_contribution": {
+        "point": 1260.0,
+        "lo": 510.00000000000006,
+        "hi": 2040.0000000000002
+      },
+      "net_roi": null,
+      "break_even_cost_per_contact": {
+        "point": 0.126,
+        "lo": 0.051000000000000004,
+        "hi": 0.20400000000000001
+      },
+      "economic_evidence": "positive_lower_bound"
+    },
+    {
+      "arm": "Womens E-Mail",
+      "cap": 1.0,
+      "cohort": 10000,
+      "contacts": 10000,
+      "coverage": 1.0,
+      "margin": 0.3,
+      "unit_cost": 0.05,
+      "marketing_cost": 500.0,
+      "incremental_revenue": {
+        "point": 4200.0,
+        "lo": 1700.0000000000002,
+        "hi": 6800.000000000001
+      },
+      "incremental_net_contribution": {
+        "point": 760.0,
+        "lo": 10.000000000000057,
+        "hi": 1540.0000000000002
+      },
+      "net_roi": {
+        "point": 1.52,
+        "lo": 0.020000000000000115,
+        "hi": 3.0800000000000005
+      },
+      "break_even_cost_per_contact": {
+        "point": 0.126,
+        "lo": 0.051000000000000004,
+        "hi": 0.20400000000000001
+      },
+      "economic_evidence": "positive_lower_bound"
+    },
+    {
+      "arm": "Womens E-Mail",
+      "cap": 1.0,
+      "cohort": 10000,
+      "contacts": 10000,
+      "coverage": 1.0,
+      "margin": 0.3,
+      "unit_cost": 0.2,
+      "marketing_cost": 2000.0,
+      "incremental_revenue": {
+        "point": 4200.0,
+        "lo": 1700.0000000000002,
+        "hi": 6800.000000000001
+      },
+      "incremental_net_contribution": {
+        "point": -740.0,
+        "lo": -1490.0,
+        "hi": 40.00000000000023
+      },
+      "net_roi": {
+        "point": -0.37,
+        "lo": -0.745,
+        "hi": 0.020000000000000115
+      },
+      "break_even_cost_per_contact": {
+        "point": 0.126,
+        "lo": 0.051000000000000004,
+        "hi": 0.20400000000000001
+      },
+      "economic_evidence": "inconclusive"
+    },
+    {
+      "arm": "Womens E-Mail",
+      "cap": 1.0,
+      "cohort": 10000,
+      "contacts": 10000,
+      "coverage": 1.0,
+      "margin": 0.5,
+      "unit_cost": 0.0,
+      "marketing_cost": 0.0,
+      "incremental_revenue": {
+        "point": 4200.0,
+        "lo": 1700.0000000000002,
+        "hi": 6800.000000000001
+      },
+      "incremental_net_contribution": {
+        "point": 2100.0,
+        "lo": 850.0000000000001,
+        "hi": 3400.0000000000005
+      },
+      "net_roi": null,
+      "break_even_cost_per_contact": {
+        "point": 0.21,
+        "lo": 0.085,
+        "hi": 0.34
+      },
+      "economic_evidence": "positive_lower_bound"
+    },
+    {
+      "arm": "Womens E-Mail",
+      "cap": 1.0,
+      "cohort": 10000,
+      "contacts": 10000,
+      "coverage": 1.0,
+      "margin": 0.5,
+      "unit_cost": 0.05,
+      "marketing_cost": 500.0,
+      "incremental_revenue": {
+        "point": 4200.0,
+        "lo": 1700.0000000000002,
+        "hi": 6800.000000000001
+      },
+      "incremental_net_contribution": {
+        "point": 1600.0,
+        "lo": 350.0000000000001,
+        "hi": 2900.0000000000005
+      },
+      "net_roi": {
+        "point": 3.2,
+        "lo": 0.7000000000000003,
+        "hi": 5.800000000000001
+      },
+      "break_even_cost_per_contact": {
+        "point": 0.21,
+        "lo": 0.085,
+        "hi": 0.34
+      },
+      "economic_evidence": "positive_lower_bound"
+    },
+    {
+      "arm": "Womens E-Mail",
+      "cap": 1.0,
+      "cohort": 10000,
+      "contacts": 10000,
+      "coverage": 1.0,
+      "margin": 0.5,
+      "unit_cost": 0.2,
+      "marketing_cost": 2000.0,
+      "incremental_revenue": {
+        "point": 4200.0,
+        "lo": 1700.0000000000002,
+        "hi": 6800.000000000001
+      },
+      "incremental_net_contribution": {
+        "point": 100.0,
+        "lo": -1150.0,
+        "hi": 1400.0000000000005
+      },
+      "net_roi": {
+        "point": 0.05,
+        "lo": -0.5750000000000001,
+        "hi": 0.7000000000000003
+      },
+      "break_even_cost_per_contact": {
+        "point": 0.21,
+        "lo": 0.085,
+        "hi": 0.34
+      },
+      "economic_evidence": "inconclusive"
+    }
+  ]
+}
