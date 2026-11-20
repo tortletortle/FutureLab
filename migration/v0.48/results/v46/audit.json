@@ -1,0 +1,12 @@
+{
+  "status": "passed",
+  "methods": 9,
+  "test_product_weeks": 1600,
+  "audited_decision_rows": 14400,
+  "paired_delta_recomputed": -18.31687500000004,
+  "sha256": {
+    "test_orders.csv": "0831a4f53e34e070f95d6f8544d4e257ef91b9277c7feff34ebe221acc849cf5",
+    "metrics.csv": "21fe633cd572d2bf7fe18515d2a851235419f15f0cd13486d096cee727342b87",
+    "manifest.json": "933374e68be180d7de01b104fb30b85909aa1ffac9f6d8004b89f08b689b3899"
+  }
+}

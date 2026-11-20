@@ -1,0 +1,17 @@
+[
+  {
+    "source": "sklift-mirror",
+    "status": "failed",
+    "error": "<urlopen error [Errno -3] Temporary failure in name resolution>"
+  },
+  {
+    "source": "publisher-csv",
+    "status": "failed",
+    "error": "<urlopen error [Errno -3] Temporary failure in name resolution>"
+  },
+  {
+    "source": "github-csv",
+    "status": "failed",
+    "error": "<urlopen error [Errno -3] Temporary failure in name resolution>"
+  }
+]
