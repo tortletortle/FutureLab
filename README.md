@@ -1,46 +1,44 @@
-# FutureLab V0.47 — multi-period inventory policy optimization
+# FutureLab V0.48
 
-V0.47 extends V0.46's recorded-sales forecasting benchmark with a deterministic lead-time inventory simulator. It compares global and SKU-volume-group residual calibration, rolling baselines, HGB/XGBoost forecasts, base-stock and `(s,S)` policies across 1-, 2- and 4-week lead times and four assumed cost scenarios.
+Commercial decision research prototype: stochastic lead-time replenishment under portfolio-wide budget, normalized capacity and MOQ/pack constraints.
 
-**Important evidence limit:** the UCI Online Retail II dataset contains transactions, not stock-on-hand or stockout records. The experiment treats recorded positive sales as a demand proxy. Inventory, lead times and costs are simulated assumptions; results are not the retailer's actual profit, service level or replenishment performance.
+## Current release
 
-## Run
+V0.48 reuses the audited V0.47/V0.46 retail-sales pipeline and adds:
+- 1–4 week stochastic lead-time mixture calibrated from train/calibration partitions (stress distributions are assumed);
+- budget and normalized portfolio capacity limits;
+- per-series MOQ/pack multiples;
+- proportional vs marginal-value greedy allocation;
+- exact one-period integer-lot MILP snapshots via SciPy;
+- supplier purchase-order import/lead-time distribution adapter for future real supplier exports.
+
+**Evidence boundary:** this release uses UCI Online Retail II recorded sales. It does not have actual inventory, stockout, supplier, purchase-order, lead-time, acquisition-cost or gross-margin records. Budget, capacity, lead-time and pack-size settings are scenario assumptions. The output is a historical recorded-sales replay, not measured enterprise profit.
+
+## Run locally
 
 ```bash
-python -m pip install -r requirements-v47.txt
+python -m pip install -r requirements-v48.txt
 python -m pytest -q
-
-# Optional fast path: use the hash-pinned V46 panel if you already have it locally.
-python src/inventory_v47.py \
+python src/inventory_v48.py \
   --panel data/retail_panel.csv \
   --quality data/retail_quality.json \
-  --output results/v47/inventory-new
-
-# Standard path: re-parse the original UCI ZIP.
-python src/inventory_v47.py \
-  --data /path/to/online+retail+ii.zip \
-  --output results/v47/inventory-from-raw
-
-python src/audit_v47.py results/v47/inventory-new
+  --output results/v48/inventory \
+  --replications 20
+python src/audit_v48.py --results results/v48/inventory
 ```
 
-The optional fast path checks exact SHA-256 hashes of both the prepared panel and its quality manifest, and verifies the original UCI source hashes recorded in that manifest. The standard path re-parses both workbook sheets using the existing V0.25 streaming adapter.
+## Main files
 
-## Results
+- `src/inventory_v48.py` — stochastic lead-time mixture, constrained replenishment, policies and benchmark runner.
+- `src/audit_v48.py` — independent state-transition, constraint and selection audit.
+- `src/supplier_leadtime_adapter.py` — import/validation for real supplier PO exports.
+- `tests/test_v48.py` — V0.48 inventory tests.
+- `tests/test_supplier_leadtime_adapter.py` — supplier adapter tests.
+- `docs/V48_PROTOCOL.md` — locked evaluation protocol and assumptions.
+- `docs/REPORT_v48.md` — results, negative findings and evidence limitations.
+- `docs/OPEN_SOURCE_REVIEW_V48.md` — reuse and data-source review.
+- `results/v48/inventory/` — reproducible metrics, audit samples, MILP snapshots and manifest.
 
-- `results/v47/inventory/manifest.json`: data provenance, frozen splits, calibration, scenarios and paired results.
-- `results/v47/inventory/scenario_summary.csv`: compact 12-scenario comparison table.
-- `policy_grid_metrics.csv`: all 480 policy configurations across 12 scenarios.
-- `selected_policies.csv`: selection-period winners for baseline and candidate families.
-- `selected_policy_decisions.csv`: period-by-period inventory state for the 12 paired comparisons.
-- `audit.json`: independent state-transition, policy-selection, cost and paired-interval audit.
+## Prior versions
 
-See `docs/V47_PROTOCOL.md` for the complete experiment protocol and `docs/OPEN_SOURCE_REVIEW_V47.md` for the Stockpyl reuse assessment.
-
-## Data citation
-
-Chen, D. (2012). *Online Retail II* [Dataset]. UCI Machine Learning Repository. https://doi.org/10.24432/C5CG6D. Licensed CC BY 4.0. The original 43.5 MB dataset is not redistributed in this repository.
-
-## Other research tracks
-
-The locked Hillstrom marketing-uplift benchmark and V0.43–V0.45 economic evaluation are preserved. They remain separate from this inventory proxy experiment.
+The V0.47 source and results are retained. V0.48 does not overwrite V0.43–V0.47 history or the separate Hillstrom marketing-uplift protocol.
