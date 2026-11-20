@@ -29,6 +29,7 @@ The optional fast path checks exact SHA-256 hashes of both the prepared panel an
 ## Results
 
 - `results/v47/inventory/manifest.json`: data provenance, frozen splits, calibration, scenarios and paired results.
+- `results/v47/inventory/scenario_summary.csv`: compact 12-scenario comparison table.
 - `policy_grid_metrics.csv`: all 480 policy configurations across 12 scenarios.
 - `selected_policies.csv`: selection-period winners for baseline and candidate families.
 - `selected_policy_decisions.csv`: period-by-period inventory state for the 12 paired comparisons.
