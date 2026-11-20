@@ -1,0 +1,14 @@
+Traceback (most recent call last):
+  File "/mnt/data/futurelab_v46/src/retail_v46.py", line 112, in <module>
+    if __name__=='__main__':main()
+                            ~~~~^^
+  File "/mnt/data/futurelab_v46/src/retail_v46.py", line 111, in main
+    panel,quality=prepare(a.data); benchmark(panel,quality,a.output)
+                                   ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/data/futurelab_v46/src/retail_v46.py", line 87, in benchmark
+    d,cuts=features(panel); train=d[d.split=='train']; cal=d[d.split=='calibration']; select=d[d.split=='selection']; test=d[d.split=='test']; targets=pd.concat([select,test]);
+           ~~~~~~~~^^^^^^^
+  File "/mnt/data/futurelab_v46/src/retail_v46.py", line 36, in features
+    if set(weeks)!=set(p.date.unique()):raise ValueError('global observed weeks not contiguous')
+                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: global observed weeks not contiguous

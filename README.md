@@ -1,14 +1,17 @@
-# FutureLab V0.45 — Economic evidence readout
+# FutureLab V0.46 — Recorded-sales inventory decision benchmark
 
-Incremental development from V0.44. Raw Hillstrom dataset acquisition remains blocked. No real individual-level FutureLab benchmark or commercial superiority demonstrated. V0.43–44 protocol and benchmark are retained; this release adds a separate economic evaluation layer, not a new trained model.
+Incremental release over V0.45. The locked Hillstrom causal benchmark and economic evidence gate are unchanged. V0.46 adds a separate retrospective retail experiment using observed positive transactions. No inventory, availability, shortage, or real cost data are available; the loss function is hypothetical and does not measure real profit.
 
 ```bash
-python -m pip install -r requirements-v44-lock.txt
+python -m pip install -r requirements-v46.txt
 python -m pytest -q
-python src/value_v45.py --locked results/v43/synthetic_fixture --output /tmp/futurelab_fixture_value.json
-python src/value_v45.py --external docs/V45_EXTERNAL_AGGREGATE.json --output /tmp/futurelab_external_value.json
-# After legally acquiring verified raw data:
-python src/reality_v44.py --data data/hillstrom.csv.gz --output results/real_hillstrom
-python src/value_v45.py --locked results/real_hillstrom --output results/real_value.json
+python src/retail_v46.py --data /path/to/online+retail+ii.zip --output results/new-retail-run
 ```
-Outputs must not exist already. See REPORT.md for assumptions, negative results, evidence and next actions. `results/v45` stores actual local execution outputs. External aggregate scenarios, synthetic results and raw real-data validation are kept separate. The manual workflow has not been executed on GitHub.
+
+Provide the original UCI Online Retail II ZIP (SHA-256 pinned in module). The original input file is not redistributed. `docs/V46_PROTOCOL.md` specifies the chronological experiment; `results/v46/retail/` contains the evaluated outputs if the run completed. Previous release documents are preserved under `docs/`.
+
+Hillstrom commands (unchanged):
+```
+python src/reality_v44.py --download --output results/new-hillstrom
+python src/value_v45.py --locked results/new-hillstrom --output results/new-value.json
+```

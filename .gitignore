@@ -6,3 +6,5 @@ previous_version/
 
 # real data
 data/*.csv*
+
+data/retail_quality.json
