@@ -1,0 +1,32 @@
+name: FutureLab real-data benchmark
+"on":
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  evaluate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Clear previously committed acquisition log from runner
+        run: rm -f results/v44/acquisition.json results/v44/test_output.txt
+      - name: Install benchmark dependencies
+        run: python -m pip install -r requirements-v44-lock.txt
+      - name: Run regression and acquisition tests
+        run: python -m pytest -q
+      - name: Download verified data and run locked benchmark
+        run: python src/reality_v44.py --download
+      - name: Compute economic readout of the frozen evaluation
+        run: python src/value_v45.py --locked results/v44/real --output results/v44/value_readout_v45.json
+      - name: Archive reports only, including failed download log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: futurelab-reality-${{ github.run_id }}
+          path: results/v44/
+          if-no-files-found: warn
+          retention-days: 14
