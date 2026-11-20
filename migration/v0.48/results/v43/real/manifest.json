@@ -1,0 +1,60 @@
+{
+  "mode": "real",
+  "seed": 431901,
+  "primary": [0.25, 0.05, 0.3],
+  "arms": {
+    "Mens E-Mail": {
+      "n_train": 25567,
+      "n_validation": 8523,
+      "n_test": 8523,
+      "baseline": "recent_rule",
+      "futurelab": "futurelab_0.5",
+      "causal_forest": "unavailable (econml not installed)",
+      "validation_scores": {
+        "none": 0.0,
+        "random": 0.0580855777987293,
+        "recent_rule": 0.059654289199370415,
+        "category_rule": -0.015514873020064391,
+        "outcome_xgb": -0.0038690520373219936,
+        "linear_interaction": 0.0364968634348583,
+        "t_xgb": 0.041113767859848875,
+        "dr_extra_trees": 0.02638290012909892,
+        "futurelab_0.5": 0.03916305875080672,
+        "futurelab_1.0": 0.03561431789255352,
+        "futurelab_2.0": -0.010750207164811626
+      },
+      "split_index_sha256": {
+        "train": "af486418802541a7d6985047607ee75b25edec993c7abe8616140286d36e464a",
+        "val": "f8c926e5b691bceaaaadb9bb60a55c339163763c479dcc6a5d657d81749ec195",
+        "test": "da53d18a14c7d75555874cd0692ee4f9ab74cf6304f4d3fd853acf83bca33492"
+      }
+    },
+    "Womens E-Mail": {
+      "n_train": 25615,
+      "n_validation": 8539,
+      "n_test": 8539,
+      "baseline": "recent_rule",
+      "futurelab": "futurelab_0.5",
+      "causal_forest": "unavailable (econml not installed)",
+      "validation_scores": {
+        "none": 0.0,
+        "random": 0.01854445374194648,
+        "recent_rule": 0.08397582932839191,
+        "category_rule": -0.004737381014881324,
+        "outcome_xgb": 0.026269610690394688,
+        "linear_interaction": 0.0648275955016094,
+        "t_xgb": 0.04253165052840641,
+        "dr_extra_trees": 0.05253259514581427,
+        "futurelab_0.5": 0.025890842775448418,
+        "futurelab_1.0": -0.002209628213814971,
+        "futurelab_2.0": -0.033220060115892784
+      },
+      "split_index_sha256": {
+        "train": "4df2efa8becf96365229c5cc17e1f2eeee1d75bdbc14bfc80b781cce116ea8ee",
+        "val": "8f4ea06116e65cb1284d8227a841448accace56d96a63177b24ff271052d7e5d",
+        "test": "b007093d02c28ff5fe49e532d4cd9494e5db7de9e6702b7d03d95b246993b48a"
+      }
+    }
+  },
+  "source_sha256": "bab6578f60db5d792f1c2372c502f029152a5249cf5ea84390f3b7f885d7234f"
+}
