@@ -1,9 +1,9 @@
-# Partial migration — V0.48
+# FutureLab V0.48 — partial migration
 
-The files under this prefix constitute a partial migration, not an executable full checkout. Nine further original blobs were verified against the local V0.48 Git tree, and three canonical source paths were restored using matching existing blobs. 23 of 158 original tracked paths are now represented here; the historical root-level REPORT.md and audit.json migration copies and the checksum list are not additional original tracked paths.
+36 of 158 original tracked paths are represented by exact local Git blob hashes. This batch added 12 original files and restored the original root REPORT.md (the V0.48 report remains in docs/REPORT_v48.md). The migration prefix is not a complete executable checkout. The root report is the original V0.47 report; no new research results are claimed.
 
-Original commit: `64b7006f1322ef18b911cf2dba898c5e2e6b1b84`
-Original tree: `7e60602b0ff44d4d1abb205fe30f32accc73959a`
-Bundle SHA-256: `7c57553b2d92908be315a5659ee15658980e628f9693e82bc2e1877be7400284`
+Original source commit: `64b7006f1322ef18b911cf2dba898c5e2e6b1b84`.
+Original tree: `7e60602b0ff44d4d1abb205fe30f32accc73959a`.
+Bundle SHA-256: `7c57553b2d92908be315a5659ee15658980e628f9693e82bc2e1877be7400284`.
 
-Full source, benchmark evidence, 15 original commits and six tags remain pending. Direct Git access failed at DNS resolution. The nested workflow copies are archival, not active GitHub Actions. No remote test execution is claimed. Do not proceed with V0.49 until the complete source tree is verified.
+Direct Git connection still fails at DNS resolution. The complete source tree, original 15 commits, six release tags, and remaining benchmark outputs are pending. The nested workflow copies are archival rather than active GitHub Actions. Do not treat this migration as an executable release; no remote CI run is claimed.

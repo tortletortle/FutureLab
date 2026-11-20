@@ -1,101 +1,79 @@
-# FutureLab V0.48 — stochastic lead time and constrained replenishment
+# FutureLab V0.47 研发报告：多周期库存策略仿真与验证
 
-## 1. Executive summary
+## 1. 本轮目标
 
-V0.48 adds a stochastic lead-time mixture, portfolio-wide procurement budget and normalized capacity constraints, SKU-level MOQ/pack multiples, value-density priority allocation, a one-period integer allocation MILP reference, and an adapter for future real supplier purchase-order exports.
+V0.46 只评价单周期订货量代理损失，不能表示供应商交货周期、在途订单、库存余额或重复订货。V0.47 将问题推进到周期性复审的动态库存状态机：先收货、再决策订货、再发生本周需求，随后计入持有与缺货成本。
 
-The result is mixed, not a general algorithm win:
+本轮不改变 V0.43–V0.45 的 Hillstrom 营销因果评测协议。库存研究是独立支线。
 
-- The selection-frozen priority family had lower test proxy cost in 8 of 16 stress scenarios.
-- Three scenarios had a descriptive block-bootstrap interval wholly in favor of the priority family; one scenario had an interval wholly against it; 12 intervals crossed zero.
-- Mean relative cost reduction across scenarios was 2.65%, but the median was only 0.07%. The mean is dominated by a small number of high-budget/balanced scenarios.
-- All eight `balanced` scenarios had lower candidate point cost; all eight `capital_pressure` scenarios had higher candidate point cost.
-- With the quantile held fixed at q75, greedy priority allocation had a mean cost reduction of **-1.24%** versus proportional allocation and won only 5/16 scenarios. The allocation heuristic itself is therefore not shown to be generally superior.
-- Candidate fill rate averaged 54.05% versus 57.36% for the baseline (−3.30 percentage points). Lower proxy cost can coexist with lower service, so service and cost must be evaluated together.
+## 2. 开源项目复用审查
 
-No result is a measured enterprise saving. The benchmark uses recorded sales and explicitly assumed lead-time distributions, budgets, capacities, pack sizes, selling-price proxies and economic coefficients.
+调研了 Stockpyl 1.0.2（MIT）。它已经实现 EOQ、newsvendor、Wagner–Whitin、`(r,Q)`、`(s,S)`、base-stock 和多级库存优化，并提供多产品库存仿真。没有复制其代码。V0.47 的需求是对现有已审计 SKU-周交易面板做确定性历史回放，且需要显式的 order-before-demand 事件语义；Stockpyl 默认模拟事件顺序不同，文档要求调整 lead time 才能与常见 order-first 约定对应。当前环境无法安装 Stockpyl，因此没有进行包级数值对照。详见 `docs/OPEN_SOURCE_REVIEW_V47.md`。
 
-## 2. Data and design
+本轮复用 V0.25 流式数据适配器、V0.46 时间切分和特征工程，没有再造 Excel 解析器。
 
-Source: previously audited UCI Online Retail II prepared panel.
+## 3. 数据与实验设计
 
-| Data item | Count |
-|---|---:|
-| Original transaction rows | 1,067,371 |
-| Valid transaction rows | 1,041,670 |
-| Prepared product-country-week rows | 8,979 |
-| Series | 100 |
-| Train | 5,400 SKU-weeks / 54 weeks |
-| Calibration | 1,100 / 11 weeks |
-| Selection | 1,000 / 10 weeks |
-| Test | 1,600 / 16 weeks |
+使用此前已审计的 UCI Online Retail II 数据：1,067,371 条交易，100 条商品-国家周序列。V0.47 快速路径读取已有处理面板，并同时核验面板 SHA-256、质量清单 SHA-256 及原始 ZIP/XLSX 来源哈希。原始数据没有被重新分发。
 
-The benchmark crosses 2 lead-time distributions × 2 budget limits × 2 capacity limits × 2 economic cost scenarios = 16 stress scenarios. Five policy configurations are evaluated over 20 common-random-number replications each: 1,600 policy simulations, or 4.16 million SKU-week state updates.
-
-The last four test weeks do not allow new orders; all previously placed orders can arrive within the observed test horizon.
-
-## 3. Main results
-
-| Result | Value |
-|---|---:|
-| Priority-family point wins | 8 / 16 |
-| Scenarios with interval wholly favoring candidate | 3 |
-| Scenarios with interval wholly favoring baseline | 1 |
-| Intervals crossing zero | 12 |
-| Mean relative proxy-cost reduction | +2.65% |
-| Median relative proxy-cost reduction | +0.07% |
-| Mean fixed-q75 greedy-vs-proportional reduction | −1.24% |
-| Fixed-q75 wins | 5 / 16 |
-| Mean candidate fill rate | 54.05% |
-| Mean baseline fill rate | 57.36% |
-| Mean fill-rate difference | −3.30 pp |
-
-### By economic scenario
-
-| Economic scenario | Point wins | Mean relative proxy-cost change |
+| 阶段 | 周数 | SKU-周记录 |
 |---|---:|---:|
-| Balanced | 8 / 8 | +8.15% reduction |
-| Capital pressure | 0 / 8 | −2.86% (candidate cost higher) |
+| 训练 | 54 | 5,400 |
+| 校准 | 11 | 1,100 |
+| 策略选择 | 10 | 1,000 |
+| 历史测试 | 16 | 1,600 |
 
-The candidate family selected `q75_greedy` in 13 scenarios and `q90_greedy` in 3. It did not select q50 greedy. The q90 selections occur in some high-budget balanced scenarios and account for much of the aggregate mean improvement.
+模型只在训练期拟合，累积 lead-time 残差只在校准期估计；策略配置只在选择期选择，测试期不重新选择。预测特征仅包含预测时点之前的销量历史。
 
-Interpretation:
-- Under balanced holding/shortage weights, the candidate family can improve proxy cost, especially when the budget cap is 80% and q90 is selected.
-- Under capital-pressure weights, the priority family is consistently worse on point estimates. The current priority score does not adequately manage the long-run capital occupancy and holding exposure created by replenishment.
-- The fixed-q75 ablation is negative on average. The observed family-level gains should not be attributed to the greedy allocation algorithm alone; forecast quantile selection is an important contributor.
-- Lower candidate fill rate indicates that lower proxy cost is partly obtained by accepting more unfilled recorded sales. This is a trade-off, not a free efficiency gain.
+针对 1、2、4 周 lead time，分别计算校准期内连续残差窗口的累计误差，并除以同期 trailing-13-week scale。比较全局校准与按训练期销量 tercile 分组的校准，分组样本不足时回退全局值。候选 order-up-to 水平为 `L × one-step mean + L × scale × calibrated residual quantile`，使用 q50/q75/q90。
 
-## 4. MILP and engineering audit
+每个成本场景包含 40 个配置：10 种预测目标 × base-stock 或 `(s,S)`（触发比例 0.50/0.75/0.90）。4 个成本场景、3 种 lead time，共 480 个配置。成本权重是无量纲假设，不是实际企业成本。
 
-- 168/168 automated tests passed: 145 historical tests, 16 V0.48 inventory tests and 7 supplier-adapter tests.
-- 83,200 saved selected-policy SKU-week decisions were independently audited.
-- 128 sampled one-period integer-lot allocation MILPs all reached optimal status.
-- Median greedy-to-MILP objective gap: 0.00%; maximum: 2.34%.
-- Audit verified selection-only champion reproduction, budget, capacity, MOQ, order bounds, demand balance, inventory/pipeline conservation, shipment timing, cost decomposition, terminal pipeline clearance and terminal order cutoff.
+## 4. 动态仿真与审计
 
-The MILP result is exact only for the sampled one-period linearized allocation subproblem. It does not prove multi-period global optimality.
+库存事件顺序：收取到期货物 → 计算库存位置（现货 + 在途）→ 订货 → 发生本周记录销量 → 从现货履约，未满足销量记为 lost sales → 计入期末持有成本、缺货惩罚和固定订货成本。
 
-## 5. Supplier data readiness
+初始库存统一设为 `ceil(lead_time × trailing_13_week_mean)`，对同一 SKU 的所有策略完全相同。订单在第 t 周下达，恰在 t+L 周开始时到货。订单和销量向上取整到整数单位。
 
-Public data screening found a purchase-order/lead-time sample that advertises 840 orders, but its own description explicitly says suppliers, items and figures are invented. It was rejected as empirical supplier evidence. V0.48 therefore continues to use declared stress distributions.
+**145/145 自动化测试通过**（V0.46 历史 133 项 + V0.47 新增 12 项）。独立审计重新计算了 62,400 个 SKU-周状态转移，核对在途到货时点、库存位置、订单量、库存守恒、缺货分配、成本、验证期策略选择和配对 bootstrap 区间；全部通过。
 
-A supplier-order adapter was added for real exports. It requires supplier ID, order date and receipt date, filters to orders placed before the evaluation cutoff, applies supplier-to-global shrinkage, and flags lead times over 28 days as incompatible with the current four-week simulation cap. Its tests use generated fixtures only; no supplier records were used in the benchmark.
+## 5. 历史测试结果
 
-## 6. Evidence limitations
+每个场景分别在选择期冻结一个 baseline 家族冠军和一个 group-calibrated 候选冠军。正的“成本下降”表示候选在测试期的平均代理总成本更低；区间是按 4 周循环块重采样的描述性 95% 区间，单位为代理成本差（candidate − baseline）。
 
-1. Online Retail II does not contain inventory-on-hand, purchase orders, supplier IDs, lead times, stockout labels or acquisition costs.
-2. Recorded sales may be censored by stockouts; missing calendar weeks are treated as zero recorded sales in the inherited panel.
-3. Selling price is used only as a value proxy; it is not procurement cost or gross margin.
-4. Budget and capacity are normalized scenario constraints, not measured corporate resources.
-5. Lead-time distributions and MOQ/pack rules are assumed stress scenarios, not empirically estimated.
-6. All scenarios share one retailer and one time window; they are not independent replications.
-7. The HGB one-step mean and scale are held constant over the lead-time horizon.
-8. The bootstrap intervals are descriptive, with only 16 test weeks; they do not cover model-selection, cross-retailer or latent-demand uncertainty.
+| Lead time | 成本场景 | Baseline 测试成本 | 候选测试成本 | 成本下降 | 配对区间 | 结果 |
+|---:|---|---:|---:|---:|---|---|
+| 1 | balanced | 352.48 | 354.41 | -0.55% | [-1.30, 4.96] | 候选较差 |
+| 1 | service priority | 568.33 | 563.16 | +0.91% | [-11.05, -0.05] | 候选较好 |
+| 1 | capital pressure | 444.91 | 442.73 | +0.49% | [-5.30, 0.78] | 区间跨零 |
+| 1 | order setup | 359.83 | 361.75 | -0.53% | [-1.30, 4.95] | 候选较差 |
+| 2 | balanced | 433.94 | 402.01 | +7.36% | [-59.26, -7.19] | 候选较好 |
+| 2 | service priority | 769.26 | 646.54 | +15.95% | [-175.62, -78.23] | 候选较好 |
+| 2 | capital pressure | 532.57 | 516.46 | +3.03% | [-29.85, -4.22] | 候选较好 |
+| 2 | order setup | 441.94 | 409.11 | +7.43% | [-59.82, -8.26] | 候选较好 |
+| 4 | balanced | 515.07 | 515.03 | +0.01% | [-3.01, 2.47] | 基本持平 |
+| 4 | service priority | 840.09 | 827.40 | +1.51% | [-84.97, 63.29] | 区间跨零 |
+| 4 | capital pressure | 701.18 | 717.68 | -2.35% | [8.74, 26.34] | 候选较差 |
+| 4 | order setup | 520.74 | 520.70 | +0.01% | [-3.00, 2.52] | 基本持平 |
 
-## 7. V0.49 research priorities
+候选在 12 个场景中有 9 个测试点估值更低；改善主要集中在 2 周 lead time。1 周与 4 周 lead time 的收益不稳定，4 周 capital-pressure 场景候选显著较差。不能把“9/12 胜出”解释成普遍成功，因为这些成本场景共享同一数据、模型和时间窗口，并非 12 次独立实验。
 
-1. **Capital-aware marginal benefit**: estimate holding duration and expected capital occupancy of each order, not only MOQ overage.
-2. **Service-level constrained optimization**: compare minimum-fill-rate constraints with cost minimization; do not allow cost reduction to hide unacceptable service deterioration.
-3. **Real supplier data**: ingest actual purchase-order/receipt records and replace assumed lead-time distributions only after sample-size and temporal validation.
-4. **Demand censoring**: distinguish zero recorded sales from unavailable inventory; require stockout or inventory observations before claiming latent-demand accuracy.
-5. **External replication**: seek a dataset with aligned sales, on-hand, replenishment, lead-time and unit-cost observations. Synthetic data may be used for software stress tests, never as empirical proof.
+尤其需要注意：4 周 capital-pressure 场景中，候选的代理总成本比基线高约 2.35%；这提示分组残差校准在较长交货期和高持有成本条件下可能过度备货。后续应针对库存持有风险优化，而不是只看服务水平。
+
+## 6. 结论与证据等级
+
+**已证实的工程事实：** 动态库存状态机可运行；确定性 lead-time 管线、base-stock、`(s,S)`、丢失销售、持有成本和固定订货成本均通过单元测试及独立状态转移审计；在当前历史销量代理和假设成本下，2 周 lead-time 的 group horizon calibration 在四个测试场景均优于选择期冻结的 baseline。
+
+**尚未证实：** 真实客户需求、真实缺货率、真实库存水平、供应商交货表现、真实资金成本、企业利润改善、跨企业泛化能力。UCI 交易记录不包含库存可得性；没有销售记录不等于零需求，成交销量可能受缺货截断。成本参数也不是货币金额。
+
+**当前结论：** V0.47 提供了比单周期 newsvendor 式代理损失更完整的动态经营仿真，但仍是基于记录销量的历史回放，不是生产级库存优化器。分组 horizon calibration 在 2 周交货期上有值得进一步验证的信号，但不应全局替换简单全局校准。
+
+## 7. 交付与下一步
+
+- `src/inventory_v47.py`：多周期库存仿真和策略网格。
+- `src/audit_v47.py`：独立状态转移和策略选择审计。
+- `tests/test_v47.py`：12 项新增测试。
+- `results/v47/inventory/`：480 配置结果、冻结策略、逐期状态和审计。
+- `.github/workflows/inventory-benchmark.yml`：可手动触发的官方 UCI 下载、原始哈希校验、完整实验与 artifact 工作流。本地尚未触发远程运行。
+
+V0.48 优先研究：多步预测随时间更新、随机 lead time、最小订货量/批量约束、库存容量与预算约束，并在全新零售数据集上做外部留出。若不能获得库存/缺货真实标签，应继续把结论限定为 recorded-sales simulation proxy。
