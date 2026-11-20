@@ -1,0 +1,15 @@
+{
+  "data_sha256": "bab6578f60db5d792f1c2372c502f029152a5249cf5ea84390f3b7f885d7234f",
+  "data_matches_protocol": true,
+  "evaluator_git_blob": "d8b45190a5e4baa56f88d8390831148313cad7e0",
+  "protocol_git_blob": "8b96f8a689b7992c50f5222d47454fae4aa3e812",
+  "runtime": {
+    "python": "3.12.12",
+    "numpy": "2.3.5",
+    "pandas": "2.2.3",
+    "scikit_learn": "1.8.0",
+    "scipy": "1.17.0",
+    "xgboost": "3.1.3"
+  },
+  "raw_data_included": false
+}
