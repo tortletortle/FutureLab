@@ -1,0 +1,26 @@
+{
+  "version": "0.48",
+  "status": "passed",
+  "decision_rows_checked": 83200,
+  "scenario_count": 16,
+  "selected_policy_roles_checked": 32,
+  "milp_snapshots": 128,
+  "milp_successes": 128,
+  "median_greedy_to_milp_objective_gap": 0.0,
+  "max_greedy_to_milp_objective_gap": 0.0234475306513525,
+  "checks": [
+    "selection-only policy-family winner reproduction",
+    "weekly procurement budget",
+    "normalized aggregate capacity",
+    "MOQ/pack-size multiples",
+    "request upper bounds",
+    "demand fulfillment balance",
+    "on-hand and pipeline state conservation",
+    "shipment arrival timing",
+    "cost decomposition",
+    "terminal pipeline clearance",
+    "terminal no-order horizon",
+    "greedy allocation objective does not exceed exact MILP snapshot optimum"
+  ],
+  "scope_warning": "MILP snapshots solve a single-period allocation subproblem only; they do not prove global multi-period optimality."
+}
