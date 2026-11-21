@@ -84,6 +84,10 @@ jobs:
               dest.chmod(0o755 if item["mode"] == "100755" else 0o644)
           print("All 158 original files restored and their Git blob IDs verified.")
           PY
+      - name: Remove staging archive before testing the restored project root
+        run: |
+          rm -rf migration/v0.48
+          rm -f .github/workflows/reconstruct-v048.yml
       - name: Run tests and independent V0.48 evidence audit
         run: |
           python -m pip install -r requirements-v48.txt
