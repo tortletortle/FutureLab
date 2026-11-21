@@ -1,5 +1,12 @@
 # Changelog
 
+## V0.49 — Experimental research branch (validation pending)
+- Added sequential per-lot marginal value re-ranking and an explicit weekly working-capital exposure proxy.
+- Added selection-period service-floor constrained policy choice with baseline fallback when no candidate qualifies.
+- Added prefix-constrained one-period MILP comparison on bounded random SKU/lot samples.
+- Added independent inventory/capital/service-floor audit and a dedicated benchmark workflow.
+- This is an experimental branch, not a release. Full 20-replication benchmark and remote CI are pending.
+
 ## V0.48 — Stochastic lead time and constrained replenishment
 - Added 1–4 week stochastic lead-time mixture calibration using train/calibration-only residual windows.
 - Added portfolio-wide budget and normalized capacity constraints.
