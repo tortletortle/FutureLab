@@ -520,33 +520,199 @@ def _make_selector_rows(
     return rows
 
 
+def _selector_summary(fold_decisions: pd.DataFrame, final_decisions: pd.DataFrame) -> pd.DataFrame:
+    rows = []
+    for phase, frame in (("walkforward", fold_decisions), ("final_test", final_decisions)):
+        for selector, group in frame.groupby("selector", sort=True):
+            rows.append({
+                "phase": phase,
+                "selector": selector,
+                "scenario_fold_count": int(len(group)),
+                "abstention_rate": float(group.abstained.mean()),
+                "mean_cost_delta_vs_baseline": float(group.cost_delta_vs_baseline.mean()),
+                "worst_cost_regret_vs_baseline": float(group.cost_delta_vs_baseline.max()),
+                "cost_win_count": int((group.cost_delta_vs_baseline < 0).sum()),
+                "mean_service_delta_vs_baseline": float(group.service_delta_vs_baseline.mean()),
+                "worst_service_degradation": float(group.service_delta_vs_baseline.min()),
+                "service_noninferiority_rate": float(
+                    (group.service_delta_vs_baseline >= -SERVICE_TOLERANCE).mean()
+                ),
+            })
+    return pd.DataFrame(rows)
+
+
 def run(panel: pd.DataFrame, quality: dict, out: Path, replications: int = 20) -> dict:
     if replications < 2:
         raise ValueError("at least two replications are required")
-    d, cuts = features(panel)
-    weeks = sorted(d.week.unique().tolist())
+    out = Path(out)
+    if out.exists():
+        raise ValueError("choose a fresh output directory")
+    out.mkdir(parents=True, exist_ok=False)
+
+    source = panel.copy()
+    source_dates = pd.to_datetime(source.date, errors="raise")
+    if (source_dates.dt.dayofweek != 6).any():
+        raise ValueError("prepared panel dates must be Sundays")
+    global_dates = pd.date_range(source_dates.min(), source_dates.max(), freq="W-SUN")
+    if global_dates[0] != source_dates.min() or global_dates[-1] != source_dates.max():
+        raise ValueError("prepared panel endpoints do not align to the weekly calendar")
+    # retail_v46.features maps original calendar index j to feature week j-1,
+    # removes the first/last partial weeks, and then drops the first 13 lags.
+    weeks = list(range(13, len(global_dates) - 2))
     if len(weeks) != 91:
         raise ValueError(f"V0.50 frozen protocol requires 91 feature weeks, got {len(weeks)}")
+    date_map = {week: pd.Timestamp(global_dates[week + 1]) for week in weeks}
+    calendar_frame = pd.DataFrame({
+        "week": weeks,
+        "date": [date_map[week] for week in weeks],
+    })
     schedule = _build_fold_schedule(weeks)
     scenarios = _scenario_grid_v49()
     if len(scenarios) != 32:
         raise AssertionError("unexpected V0.49 scenario grid")
 
+    # Prepare every fold using only series known at its training cutoff and actual
+    # records no later than its forward-evaluation horizon. The sole later row is
+    # a synthetic zero-demand calendar pad needed by the shared feature builder.
+    fold_data = []
+    fold_partition_rows = []
+    preflight_fold_partitions = {}
+    for fold in schedule:
+        train_end_date = date_map[fold["train_weeks"][-1]]
+        forward_end_date = date_map[fold["forward_weeks"][-1]]
+        fold_panel = _window_panel(
+            panel, train_end_date, forward_end_date, global_dates
+        )
+        fold_features, _ = features(fold_panel)
+        fold_d = _assign_fold_splits(fold_features, fold)
+        if set(fold_d.week.unique()) != set(
+            fold["train_weeks"] + fold["calibration_weeks"]
+            + fold["selection_weeks"] + fold["forward_weeks"]
+        ):
+            raise AssertionError(f"{fold['fold_id']} feature calendar does not match its windows")
+        fold_data.append((fold, fold_panel, fold_d))
+        labels = {
+            "train": "train",
+            "calibration": "calibration",
+            "selection": "selection",
+            "test": "forward_evaluation",
+        }
+        partition_stats = {}
+        for split, partition in labels.items():
+            subset = fold_d[fold_d.split == split]
+            partition_stats[partition] = {
+                "rows": int(len(subset)),
+                "sha256": _row_membership_hash(subset),
+            }
+        excluded = pd.DataFrame([
+            {"series_id": sid, "week": week}
+            for sid in sorted(fold_d.series_id.unique())
+            for week in fold["final_test_weeks"]
+        ])
+        partition_stats["excluded_final_test"] = {
+            "rows": int(len(excluded)),
+            "sha256": _row_membership_hash(excluded),
+        }
+        preflight_fold_partitions[fold["fold_id"]] = {
+            "series_count_known_at_train_cutoff": int(fold_d.series_id.nunique()),
+            "train_end_date": str(train_end_date.date()),
+            "forward_end_date": str(forward_end_date.date()),
+            "partitions": partition_stats,
+        }
+        fold_partition_rows.extend(_partition_rows(fold_d, fold["fold_id"], labels))
+        for row in excluded.itertuples(index=False):
+            fold_partition_rows.append({
+                "fold_id": fold["fold_id"],
+                "series_id": str(row.series_id),
+                "week": int(row.week),
+                "partition": "excluded_final_test",
+            })
+
+    # The final cohort is also frozen using series known by the final training
+    # cutoff. Final-test outcomes are retained solely for the last evaluation.
+    final_train_end_week = weeks[53]
+    final_panel = _window_panel(
+        panel,
+        date_map[final_train_end_week],
+        date_map[weeks[-1]],
+        global_dates,
+    )
+    final_d, _ = features(final_panel)
+    expected_counts = final_d.groupby("split").week.nunique().to_dict()
+    if expected_counts != {"calibration": 11, "selection": 10, "test": 16, "train": 54}:
+        raise ValueError(f"unexpected final frozen split counts: {expected_counts}")
+    final_partition_labels = {
+        "train": "train",
+        "calibration": "calibration",
+        "selection": "selection",
+        "test": "final_test",
+    }
+    final_partition_rows = _partition_rows(final_d, "FINAL", final_partition_labels)
+    final_partition_stats = {}
+    for split, partition in final_partition_labels.items():
+        subset = final_d[final_d.split == split]
+        final_partition_stats[partition] = {
+            "rows": int(len(subset)),
+            "sha256": _row_membership_hash(subset),
+        }
+
+    pd.DataFrame(_calendar_rows(schedule, calendar_frame)).to_csv(
+        out / "fold_calendar.csv", index=False
+    )
+    pd.DataFrame(fold_partition_rows).to_csv(
+        out / "fold_row_partitions.csv", index=False
+    )
+    pd.DataFrame(final_partition_rows).to_csv(
+        out / "final_row_partitions.csv", index=False
+    )
+    preflight = {
+        "version": VERSION,
+        "status": "preflight_passed_before_benchmark",
+        "feature_week_ids": weeks,
+        "final_test_week_ids": schedule[0]["final_test_weeks"],
+        "final_test_date_start": str(date_map[weeks[-16]].date()),
+        "final_test_date_end": str(date_map[weeks[-1]].date()),
+        "source_hashes": {
+            "prepared_panel_sha256": "1d32ccc76a7bb6df0127d0a2d32368a22b79558e33603dfb82afd65eb0293831",
+            "quality_manifest_sha256": "5a564a92ac78c8de95511862ea576aaf9aa5784572b8c732d38be78606c19d6f",
+        },
+        "fold_schedule": [
+            {
+                "fold_id": x["fold_id"],
+                "train_weeks": x["train_weeks"],
+                "calibration_weeks": x["calibration_weeks"],
+                "selection_weeks": x["selection_weeks"],
+                "forward_weeks": x["forward_weeks"],
+            } for x in schedule
+        ],
+        "fold_row_partitions": preflight_fold_partitions,
+        "final_row_partitions": final_partition_stats,
+        "cohort_rule": "Only series with at least one source-panel row on or before that fold's training cutoff are included. Actual records after the evaluation horizon are removed before feature construction.",
+        "final_test_firewall": "The final 16 weeks are not present in any fold feature panel, training, calibration, selection or forward evaluation input. They are present only in the separate final evaluation panel and are never used to choose a selector.",
+    }
+    preflight_path = out / "preflight.json"
+    preflight_path.write_text(
+        json.dumps(preflight, indent=2, ensure_ascii=False), encoding="utf-8"
+    )
+    preflight_sha256 = hashlib.sha256(preflight_path.read_bytes()).hexdigest()
+
     fold_replicate_rows = []
+    fold_weekly_frames = []
     fold_policy_frames = []
     fold_selector_rows = []
     history_by_scenario = {x["scenario_id"]: [] for x in scenarios}
-    baseline_by_fold = {}
-    for fold in schedule:
-        fold_d = _assign_fold_splits(d, fold)
-        fold_rows = _run_policy_grid(
-            fold_d, panel, scenarios, replications,
-            seed_offset=fold["fold_index"] * 1_000_000,
+    for fold, fold_panel, fold_d in fold_data:
+        fold_rows, fold_weekly_rows = _run_policy_grid(
+            fold_d, fold_panel, scenarios, replications,
+            fold_index=fold["fold_index"],
             phase="fold",
         )
         fold_replicate_rows.extend(
             [{"fold_id": fold["fold_id"], **row} for row in fold_rows]
         )
+        fold_weekly_frame = pd.DataFrame(fold_weekly_rows)
+        fold_weekly_frame.insert(0, "fold_id", fold["fold_id"])
+        fold_weekly_frames.append(fold_weekly_frame)
         fold_metrics = _aggregate_replicates(
             pd.DataFrame(fold_rows),
             ["scenario_id", "config_id", "split"],
@@ -567,29 +733,26 @@ def run(panel: pd.DataFrame, quality: dict, out: Path, replications: int = 20) -
             baseline = _baseline_and_single_window(selection)["baseline_config_id"]
             history = history_by_scenario[scenario_id]
             fold_selector_rows.extend(_make_selector_rows(
-                "fold", fold["fold_id"], scenario_id, selection, forward, history
+                "fold", fold["fold_id"], scenario_id, selection, forward, history,
+                fold_weekly_frame,
             ))
             history.append({
                 "fold_id": fold["fold_id"],
                 "baseline_id": baseline,
                 "metrics": forward.copy(),
             })
-            baseline_by_fold[(fold["fold_id"], scenario_id)] = baseline
 
     fold_replicate_frame = pd.DataFrame(fold_replicate_rows)
+    fold_weekly_frame = pd.concat(fold_weekly_frames, ignore_index=True)
     fold_policy_frame = pd.concat(fold_policy_frames, ignore_index=True)
 
-    # Final holdout: reproduce the original V0.49 chronological split exactly.
-    final_d = d.copy()
-    expected_counts = final_d.groupby("split").week.nunique().to_dict()
-    if expected_counts != {"calibration": 11, "selection": 10, "test": 16, "train": 54}:
-        raise ValueError(f"unexpected final frozen split counts: {expected_counts}")
-    final_rows = _run_policy_grid(
-        final_d, panel, scenarios, replications,
-        seed_offset=9_000_000,
+    final_rows, final_weekly_rows = _run_policy_grid(
+        final_d, final_panel, scenarios, replications,
+        fold_index=0,
         phase="final",
     )
     final_replicate_frame = pd.DataFrame(final_rows)
+    final_weekly_frame = pd.DataFrame(final_weekly_rows)
     final_policy_frame = _aggregate_replicates(
         final_replicate_frame,
         ["scenario_id", "config_id", "split"],
@@ -608,27 +771,33 @@ def run(panel: pd.DataFrame, quality: dict, out: Path, replications: int = 20) -
         ]
         history = history_by_scenario[scenario_id]
         final_selector_rows.extend(_make_selector_rows(
-            "final", "FINAL_TEST", scenario_id, selection, final_test, history
+            "final", "FINAL_TEST", scenario_id, selection, final_test, history,
+            final_weekly_frame,
         ))
 
-    out = Path(out)
-    out.mkdir(parents=True, exist_ok=False)
-    pd.DataFrame(_calendar_rows(schedule, d)).to_csv(out / "fold_calendar.csv", index=False)
+    fold_decision_frame = pd.DataFrame(fold_selector_rows)
+    final_decision_frame = pd.DataFrame(final_selector_rows)
+    selector_summary = _selector_summary(fold_decision_frame, final_decision_frame)
+
     fold_replicate_frame.to_csv(out / "fold_replicate_metrics.csv", index=False)
+    fold_weekly_frame.to_csv(out / "fold_weekly_metrics.csv", index=False)
     fold_policy_frame.to_csv(out / "fold_policy_metrics.csv", index=False)
-    pd.DataFrame(fold_selector_rows).to_csv(out / "fold_selector_decisions.csv", index=False)
+    fold_decision_frame.to_csv(out / "fold_selector_decisions.csv", index=False)
     final_replicate_frame.to_csv(out / "final_replicate_metrics.csv", index=False)
+    final_weekly_frame.to_csv(out / "final_weekly_metrics.csv", index=False)
     final_policy_frame.to_csv(out / "final_policy_metrics.csv", index=False)
-    pd.DataFrame(final_selector_rows).to_csv(out / "final_selector_results.csv", index=False)
+    final_decision_frame.to_csv(out / "final_selector_results.csv", index=False)
+    selector_summary.to_csv(out / "selector_summary.csv", index=False)
 
     final_test_weeks = schedule[0]["final_test_weeks"]
-    date_map = d.groupby("week").date.first().astype(str).to_dict()
     manifest = {
         "version": VERSION,
         "status": "research_benchmark",
         "dataset": "UCI Online Retail II prepared product-country weekly recorded-sales panel",
         "panel_rows": int(len(panel)),
-        "series_count": int(d.series_id.nunique()),
+        "series_count": int(final_d.series_id.nunique()),
+        "full_source_series_count": int(panel.series_id.nunique()),
+        "final_training_cohort_coverage": float(final_d.series_id.nunique() / panel.series_id.nunique()),
         "feature_week_count": len(weeks),
         "chronological_split_counts_final_holdout": expected_counts,
         "fold_count": len(schedule),
@@ -638,36 +807,32 @@ def run(panel: pd.DataFrame, quality: dict, out: Path, replications: int = 20) -
         "forward_evaluation_length": FORWARD_LENGTH,
         "final_test_length": FINAL_TEST_LENGTH,
         "final_test_week_ids": final_test_weeks,
-        "final_test_date_start": date_map[final_test_weeks[0]],
-        "final_test_date_end": date_map[final_test_weeks[-1]],
-        "fold_schedule": [
-            {
-                "fold_id": x["fold_id"],
-                "train_weeks": x["train_weeks"],
-                "calibration_weeks": x["calibration_weeks"],
-                "selection_weeks": x["selection_weeks"],
-                "forward_weeks": x["forward_weeks"],
-            } for x in schedule
-        ],
+        "final_test_date_start": str(date_map[final_test_weeks[0]].date()),
+        "final_test_date_end": str(date_map[final_test_weeks[-1]].date()),
+        "fold_schedule": preflight["fold_schedule"],
+        "preflight_manifest_sha256": preflight_sha256,
+        "preflight_written_before_benchmark": True,
+        "row_level_partition_audit": True,
         "replications": replications,
+        "bootstrap_reps": BOOTSTRAP_REPS,
+        "bootstrap_block_length_weeks": 4,
         "scenario_count": len(scenarios),
         "policy_config_count": len(CONFIGS),
         "selectors": list(SELECTORS),
         "common_random_numbers": "All eight policies share identical lead-time draws within each scenario, fold and replication.",
         "selector_rules": {
             "v49_single_window": "V0.49 selector applied to the current fold selection window; final test selector uses the original final selection window.",
-            "walkforward_robust_80pct": "Select the lowest historical mean-cost non-proportional policy that was within 0.5 percentage points of that fold's proportional baseline in at least ceil(0.8*n) prior forward folds; otherwise fall back to current proportional baseline.",
+            "walkforward_robust_80pct": "Select the lowest historical mean-cost non-proportional policy that was within 0.5 percentage points of that fold's proportional baseline in at least ceil(0.8*n) prior forward folds; final holdout uses four of five prior folds or more; otherwise fall back.",
             "walkforward_conservative_lcb": "Requires at least three prior folds; select the lowest historical mean-cost non-proportional policy whose one-sided 90% t lower confidence bound for paired fill-rate difference is at least -0.5 percentage points and whose across-fold service-delta SD is at most 2 percentage points; otherwise fall back.",
             "baseline_only": "Always use the lower selection-cost q50/q75 proportional baseline.",
         },
-        "final_test_firewall": "The final 16 weeks are excluded from all walk-forward fitting, calibration, selector construction and threshold selection. They are evaluated only after the selectors are frozen from the five prior folds.",
+        "final_test_firewall": "The final 16 weeks are excluded from all walk-forward feature panels, model fitting, residual calibration, selector construction and threshold selection. They are evaluated only after the selectors are frozen from the five prior folds.",
+        "cohort_rule": "For each fold, only series observed by that fold's training cutoff are included; actual records after the fold forward-evaluation horizon are removed before feature construction. Final-test cohort is frozen at the final training cutoff.",
         "fit_protocol": "Each fold refits demand models on its train weeks only, calibrates residual/lead-time distributions on its calibration weeks only, and evaluates policy selection on its own selection and subsequent forward windows.",
-        "source_hashes": {
-            "prepared_panel_sha256": "1d32ccc76a7bb6df0127d0a2d32368a22b79558e33603dfb82afd65eb0293831",
-            "quality_manifest_sha256": "5a564a92ac78c8de95511862ea576aaf9aa5784572b8c732d38be78606c19d6f",
-        },
+        "uncertainty": "Descriptive circular four-week block bootstrap over weekly paired policy-minus-baseline deltas, with 2,000 resamples; intervals are not guarantees and have limited temporal scope.",
+        "source_hashes": preflight["source_hashes"],
         "source_quality": quality,
-        "limitations": "Recorded sales may be censored by stockouts. No ground truth for on-hand inventory, latent demand, purchase orders, supplier receipts, acquisition cost, gross margin or financing expense is available. Scenario parameters are assumptions; results do not establish realized profit or cross-retailer generalization.",
+        "limitations": "Recorded sales may be censored by stockouts. No ground truth for on-hand inventory, latent demand, purchase orders, supplier receipts, acquisition cost, gross margin or financing expense is available. Scenario parameters are assumptions; results do not establish realized profit or cross-retailer generalization. Series entering after a fold's training cutoff are excluded from that fold's cohort.",
         "versions": {
             "numpy": np.__version__,
             "pandas": pd.__version__,
