@@ -48,7 +48,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: futurelab-v050-walkforward-\${{ github.run_id }}
+          name: futurelab-v050-walkforward-${{ github.run_id }}
           path: results/v50/walkforward/
           if-no-files-found: warn
           retention-days: 30
