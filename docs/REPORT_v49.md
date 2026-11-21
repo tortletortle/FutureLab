@@ -83,7 +83,7 @@ Each subproblem was restricted to a deterministic random sample of at most 10 ac
 - Terminal pipeline clearance and the final four-week no-new-order horizon passed.
 - All 32 bounded MILP snapshots solved and passed objective/feasibility checks.
 
-The dedicated GitHub Actions run is the final remote reproduction gate; its status is tracked in the branch workflow.
+The remote GitHub Actions reproduction also passed: 177 tests, data-hash checks, the full 32-scenario × 20-replication benchmark, independent audit and artifact upload. Run 44874903283: https://github.com/tortletortle/FutureLab/actions/runs/44874903283.
 
 ## 5. Evidence limitations
 
