@@ -3,6 +3,7 @@ from __future__ import annotations
 
 from pathlib import Path
 import argparse
+import hashlib
 import json
 import math
 
@@ -135,6 +136,41 @@ def _assert_aggregate(replicates: pd.DataFrame, metrics: pd.DataFrame, keys: lis
         raise AssertionError(f"{phase} mean cost does not reproduce from replications")
     if not np.allclose(observed.mean_fill_rate, observed.expected_fill, atol=1e-10):
         raise AssertionError(f"{phase} fill rate does not reproduce from replications")
+
+
+def _membership_hash(frame: pd.DataFrame) -> str:
+    ordered = frame[["series_id", "week"]].sort_values(
+        ["series_id", "week"], kind="mergesort"
+    )
+    payload = "\n".join(
+        f"{row.series_id}\t{int(row.week)}" for row in ordered.itertuples(index=False)
+    ).encode("utf-8")
+    return hashlib.sha256(payload).hexdigest()
+
+
+def _block_bootstrap_ci(values: np.ndarray, seed: int, reps: int, block: int = 4) -> list[float]:
+    values = np.asarray(values, dtype=float)
+    if values.ndim != 1 or len(values) < block or not np.isfinite(values).all():
+        raise AssertionError("invalid weekly values for block bootstrap audit")
+    rng = np.random.default_rng(seed)
+    n = len(values)
+    starts = rng.integers(0, n, size=(reps, int(math.ceil(n / block))))
+    indices = ((starts[:, :, None] + np.arange(block)) % n).reshape(reps, -1)[:, :n]
+    return [float(x) for x in np.quantile(values[indices].mean(axis=1), [0.025, 0.975])]
+
+
+def _audit_membership_rows(
+    preflight_stats: dict,
+    observed: pd.DataFrame,
+    group_columns: list[str],
+    partition_name: str,
+) -> None:
+    subset = observed[observed.partition == partition_name]
+    expected_rows = int(preflight_stats["rows"])
+    if len(subset) != expected_rows:
+        raise AssertionError(f"row partition count mismatch: {partition_name}")
+    if _membership_hash(subset) != preflight_stats["sha256"]:
+        raise AssertionError(f"row partition hash mismatch: {partition_name}")
 
 
 def audit(directory: str | Path) -> dict:
