@@ -11,7 +11,7 @@ permissions:
   contents: write
 jobs:
   restore:
-    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, 'Store compressed V0.48 payloads')
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, 'Store compressed V0.48 payloads') || contains(github.event.head_commit.message, 'Repair V0.48 payload restore')
     runs-on: ubuntu-latest
     timeout-minutes: 45
     steps:
@@ -30,7 +30,7 @@ jobs:
           root = Path("migration/v0.48/payloads")
           manifest = json.loads((root / "manifest.json").read_text(encoding="utf-8"))
           def git_blob_sha(data):
-              header = b"blob " + str(len(data)).encode("ascii") + b"\\0"
+              header = b"blob " + str(len(data)).encode("ascii") + b"\0"
               return hashlib.sha1(header + data).hexdigest()
           for item in manifest["files"]:
               compressed_parts = []
@@ -69,7 +69,7 @@ jobs:
               raise SystemExit(f"expected 158 original paths, got {len(rows)}")
           large = {x["path"] for x in json.loads(Path("migration/v0.48/payloads/manifest.json").read_text(encoding="utf-8"))["files"]}
           def git_blob_sha(data):
-              return hashlib.sha1(b"blob " + str(len(data)).encode("ascii") + b"\\0" + data).hexdigest()
+              return hashlib.sha1(b"blob " + str(len(data)).encode("ascii") + b"\0" + data).hexdigest()
           for item in rows:
               dest = Path(item["path"])
               if item["path"] not in large:
