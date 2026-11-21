@@ -1,0 +1,382 @@
+{
+  "schema_version": 1,
+  "source_commit": "64b7006f1322ef18b911cf2dba898c5e2e6b1b84",
+  "source_tree": "7e60602b0ff44d4d1abb205fe30f32accc73959a",
+  "files": [
+    {
+      "path": "data/retail_panel.csv",
+      "blob_sha": "d8453c6893955af133ea9ee71fa2745ce3e1526e",
+      "original_size": 735889,
+      "original_sha256": "1d32ccc76a7bb6df0127d0a2d32368a22b79558e33603dfb82afd65eb0293831",
+      "compressed_size": 111446,
+      "compressed_sha256": "2d93e8f424545b26012e1ef5d8e41d98449034a9e247bc53caed0ca234ec3237",
+      "shas": [
+        "e775c3f5ccf90fe72738da61dd70fbf22c72857b"
+      ],
+      "codec": "gzip",
+      "chunks": [
+        {
+          "path": "migration/v0.48/payloads/data__retail_panel.csv.gz.b64.part000",
+          "blob_sha": "e775c3f5ccf90fe72738da61dd70fbf22c72857b"
+        }
+      ]
+    },
+    {
+      "path": "results/trajectories.csv",
+      "blob_sha": "7f1b8de735993b6feab43616e02d30508ca7f0ae",
+      "original_size": 3401592,
+      "original_sha256": "13a8b468a141a98494a90572fa48cc48461a29181138a1f916568ce6c737a6d7",
+      "compressed_size": 345625,
+      "compressed_sha256": "525a1dd06c5ba45de4822a706dd59ab665afa9b25c329b90933ef6bcee101a31",
+      "shas": [
+        "c2c3694467f7ac0cf506008c238000e2dd6b38e6",
+        "f5ca6fc62a338f7b0a8a8aa0be465f8c7f3c0d13"
+      ],
+      "codec": "gzip",
+      "chunks": [
+        {
+          "path": "migration/v0.48/payloads/results__trajectories.csv.gz.b64.part000",
+          "blob_sha": "c2c3694467f7ac0cf506008c238000e2dd6b38e6"
+        },
+        {
+          "path": "migration/v0.48/payloads/results__trajectories.csv.gz.b64.part001",
+          "blob_sha": "f5ca6fc62a338f7b0a8a8aa0be465f8c7f3c0d13"
+        }
+      ]
+    },
+    {
+      "path": "results/v39/trajectories.csv",
+      "blob_sha": "1e3a0647715f587468adffe856c12b944981bfbc",
+      "original_size": 2220412,
+      "original_sha256": "2ffe4323d574a57ccd6a074edd6b46c40c04a9bb48f0646ee305774f4283ca56",
+      "compressed_size": 240596,
+      "compressed_sha256": "5df4f34c76b8773da76fa2e1ecbb6a6dbc66dd35a7fbc2d052faa40d7efa0af9",
+      "shas": [
+        "c1adf2d837bc1f3cc8765b9dcb905872128f83d8"
+      ],
+      "codec": "gzip",
+      "chunks": [
+        {
+          "path": "migration/v0.48/payloads/results__v39__trajectories.csv.gz.b64.part000",
+          "blob_sha": "c1adf2d837bc1f3cc8765b9dcb905872128f83d8"
+        }
+      ]
+    },
+    {
+      "path": "results/v41/trajectories.csv",
+      "blob_sha": "b27e4098f18c183a9302bad691f5a5e5208b69ac",
+      "original_size": 1274609,
+      "original_sha256": "f339e8b0f6d96eae09f1619ed5ae652243889cdda14461858790dbefeae21319",
+      "compressed_size": 154471,
+      "compressed_sha256": "719c8ec11a2af4bbc7bef0debf492e27a18a4f50a598b654efa56600b091dbb2",
+      "shas": [
+        "7c8984b529d5f60fd46ea0d3745c9884ef45acf7"
+      ],
+      "codec": "gzip",
+      "chunks": [
+        {
+          "path": "migration/v0.48/payloads/results__v41__trajectories.csv.gz.b64.part000",
+          "blob_sha": "7c8984b529d5f60fd46ea0d3745c9884ef45acf7"
+        }
+      ]
+    },
+    {
+      "path": "results/v42/trajectories.csv",
+      "blob_sha": "be60e5715e4c659d6bea574aaee5170e623ae5be",
+      "original_size": 469262,
+      "original_sha256": "cb260d9949feea97e524411c2a5e215c45b03851965cbe7c790bc5c7360aeb5a",
+      "compressed_size": 47581,
+      "compressed_sha256": "bd1d4430e3a8f0b46af3d8da24f397329eef809cdd1940987691c2c81b7f656f",
+      "shas": [
+        "d472aa6de5ff3e27f12bd68e5468751cb61a0a1a"
+      ],
+      "codec": "gzip",
+      "chunks": [
+        {
+          "path": "migration/v0.48/payloads/results__v42__trajectories.csv.gz.b64.part000",
+          "blob_sha": "d472aa6de5ff3e27f12bd68e5468751cb61a0a1a"
+        }
+      ]
+    },
+    {
+      "path": "results/v46/retail/test_orders.csv",
+      "blob_sha": "0a873703dc9b844e6b8829472c993d56bb995b77",
+      "original_size": 1100747,
+      "original_sha256": "0831a4f53e34e070f95d6f8544d4e257ef91b9277c7feff34ebe221acc849cf5",
+      "compressed_size": 135942,
+      "compressed_sha256": "7a1b4ead92aec274f4eaf7bcd09f2dbf8cee425493df8fa4aeb68b5378b0b3bc",
+      "shas": [
+        "e3d756350bd773da65f03b664712a72577b4c504"
+      ],
+      "codec": "gzip",
+      "chunks": [
+        {
+          "path": "migration/v0.48/payloads/results__v46__retail__test_orders.csv.gz.b64.part000",
+          "blob_sha": "e3d756350bd773da65f03b664712a72577b4c504"
+        }
+      ]
+    },
+    {
+      "path": "results/v47/inventory/selected_policy_decisions.csv",
+      "blob_sha": "5dab694be1ca000443496a86dc9c9887dc553029",
+      "original_size": 14188133,
+      "original_sha256": "20857b9cd514f4976373049fb628d440bbdad21f1b8013c8fd4675bf15abc2e4",
+      "compressed_size": 2172679,
+      "compressed_sha256": "e773e8b9d02367a3b1ce1ce3e58f342e3763b35e95c07de88b97df3310f97e6a",
+      "shas": [
+        "888caaf81ba5dd8fe4ad7e21f585f82c17b1f6ec",
+        "8d19ed8c044e9ce8bbf5ea47b387e1d42692418b",
+        "3e2b6969e0e283c7ef19c8854763acb3e4e7de37",
+        "4adc346f1b8f5cd4a72c59603dc866e7258f29da",
+        "085e5a04fa598e42888dcff2de36d534fdde5bfa",
+        "321fbd39a53960958f6e7d145be2f485b51063cb",
+        "3fcb05bb3869e5784667fd78e23b8d9772d611ec",
+        "aac2bc9894ab2d1700e88fea5868667eb60a45d6",
+        "70cd8a67186a067aff35200f905c85b8953cb068"
+      ],
+      "codec": "gzip",
+      "chunks": [
+        {
+          "path": "migration/v0.48/payloads/results__v47__inventory__selected_policy_decisions.csv.gz.b64.part000",
+          "blob_sha": "888caaf81ba5dd8fe4ad7e21f585f82c17b1f6ec"
+        },
+        {
+          "path": "migration/v0.48/payloads/results__v47__inventory__selected_policy_decisions.csv.gz.b64.part001",
+          "blob_sha": "8d19ed8c044e9ce8bbf5ea47b387e1d42692418b"
+        },
+        {
+          "path": "migration/v0.48/payloads/results__v47__inventory__selected_policy_decisions.csv.gz.b64.part002",
+          "blob_sha": "3e2b6969e0e283c7ef19c8854763acb3e4e7de37"
+        },
+        {
+          "path": "migration/v0.48/payloads/results__v47__inventory__selected_policy_decisions.csv.gz.b64.part003",
+          "blob_sha": "4adc346f1b8f5cd4a72c59603dc866e7258f29da"
+        },
+        {
+          "path": "migration/v0.48/payloads/results__v47__inventory__selected_policy_decisions.csv.gz.b64.part004",
+          "blob_sha": "085e5a04fa598e42888dcff2de36d534fdde5bfa"
+        },
+        {
+          "path": "migration/v0.48/payloads/results__v47__inventory__selected_policy_decisions.csv.gz.b64.part005",
+          "blob_sha": "321fbd39a53960958f6e7d145be2f485b51063cb"
+        },
+        {
+          "path": "migration/v0.48/payloads/results__v47__inventory__selected_policy_decisions.csv.gz.b64.part006",
+          "blob_sha": "3fcb05bb3869e5784667fd78e23b8d9772d611ec"
+        },
+        {
+          "path": "migration/v0.48/payloads/results__v47__inventory__selected_policy_decisions.csv.gz.b64.part007",
+          "blob_sha": "aac2bc9894ab2d1700e88fea5868667eb60a45d6"
+        },
+        {
+          "path": "migration/v0.48/payloads/results__v47__inventory__selected_policy_decisions.csv.gz.b64.part008",
+          "blob_sha": "70cd8a67186a067aff35200f905c85b8953cb068"
+        }
+      ]
+    },
+    {
+      "path": "results/v48/inventory/replicate_metrics.csv",
+      "blob_sha": "2cca4a2ab3c07b3e375e1ee411982d6bc4b116b3",
+      "original_size": 517869,
+      "original_sha256": "0d40441212e353215211dad556763ea8e9a414c315a67b14c65a7bb58ea220f9",
+      "compressed_size": 163219,
+      "compressed_sha256": "cff30b5399bee04bef14540abbd566abf919474726a08401ee7ad4af38b8e974",
+      "shas": [
+        "e296f4c4e4557d2a298fa5ae1a147bf3f5a3afca"
+      ],
+      "codec": "gzip",
+      "chunks": [
+        {
+          "path": "migration/v0.48/payloads/results__v48__inventory__replicate_metrics.csv.gz.b64.part000",
+          "blob_sha": "e296f4c4e4557d2a298fa5ae1a147bf3f5a3afca"
+        }
+      ]
+    },
+    {
+      "path": "results/v48/inventory/selected_decisions_audit_sample.csv",
+      "blob_sha": "3ef0ea7db8cfcf1773dbfc0e83a22c9d0b91481f",
+      "original_size": 29572132,
+      "original_sha256": "19f26773b74851084fe80843466fc12b5828863cd13319aa29939b46e69e3488",
+      "compressed_size": 5317160,
+      "compressed_sha256": "e71d8f4f32c8c82ab56b3e786345e623eb7692d06b2d2e6f8840c34e71327906",
+      "shas": [
+        "b52dd2d6072897509add94acb294bc049a7252c2",
+        "8237bb647b725cb13b99df969dc67461d86b3722",
+        "741f437ef75977c10f1251941353ed94599a1ee1",
+        "547f5bb50e7724b1f21a1f7c2e4d2d206eb3353c",
+        "70b268a2117a6ffda5b937f292c65d21b4da7204",
+        "1556bdc19c45011ae56a94791c00bc529e034e34",
+        "a7b5cb5b69c272edbbb2e77a9f1259054e70e4bf",
+        "8434a72928c71b47f4c0a68669aa3bbd3cb60413",
+        "3985bf774309e1d4b77d173310e43af33356de9c",
+        "14e99a14d9b8a3d667ab1a0235b9b6d349909cc7",
+        "369b921e5b2236aaf3062b01a0349c827ca860fd",
+        "e31563dfdf6b6f923e313204f5a55dca46bc357d",
+        "fb02869fbadd57af3125eef7583d32e659489b50",
+        "db79640b73c93561677c4909271a55038a1ad51a",
+        "2891deb924702125f5c5416f67cbe3196fc4eb26",
+        "eedb1a7ed5d6b2fc113ccb4be7a60596dd82f1e7",
+        "2007899ead4fe7e27124a962232ccdba070c334a",
+        "9da008b2d7c17e21783eba8ee0f5d5853e6685fd",
+        "78a8b4189e8ebef6df4384810c152a804499e8c6",
+        "be8b7c0549e045b25bf7666f5521e91849657855",
+        "fd852c8450270deb85505a1870c91f52e22caf32"
+      ],
+      "codec": "gzip",
+      "chunks": [
+        {
+          "path": "migration/v0.48/payloads/results__v48__inventory__selected_decisions_audit_sample.csv.gz.b64.part000",
+          "blob_sha": "b52dd2d6072897509add94acb294bc049a7252c2"
+        },
+        {
+          "path": "migration/v0.48/payloads/results__v48__inventory__selected_decisions_audit_sample.csv.gz.b64.part001",
+          "blob_sha": "8237bb647b725cb13b99df969dc67461d86b3722"
+        },
+        {
+          "path": "migration/v0.48/payloads/results__v48__inventory__selected_decisions_audit_sample.csv.gz.b64.part002",
+          "blob_sha": "741f437ef75977c10f1251941353ed94599a1ee1"
+        },
+        {
+          "path": "migration/v0.48/payloads/results__v48__inventory__selected_decisions_audit_sample.csv.gz.b64.part003",
+          "blob_sha": "547f5bb50e7724b1f21a1f7c2e4d2d206eb3353c"
+        },
+        {
+          "path": "migration/v0.48/payloads/results__v48__inventory__selected_decisions_audit_sample.csv.gz.b64.part004",
+          "blob_sha": "70b268a2117a6ffda5b937f292c65d21b4da7204"
+        },
+        {
+          "path": "migration/v0.48/payloads/results__v48__inventory__selected_decisions_audit_sample.csv.gz.b64.part005",
+          "blob_sha": "1556bdc19c45011ae56a94791c00bc529e034e34"
+        },
+        {
+          "path": "migration/v0.48/payloads/results__v48__inventory__selected_decisions_audit_sample.csv.gz.b64.part006",
+          "blob_sha": "a7b5cb5b69c272edbbb2e77a9f1259054e70e4bf"
+        },
+        {
+          "path": "migration/v0.48/payloads/results__v48__inventory__selected_decisions_audit_sample.csv.gz.b64.part007",
+          "blob_sha": "8434a72928c71b47f4c0a68669aa3bbd3cb60413"
+        },
+        {
+          "path": "migration/v0.48/payloads/results__v48__inventory__selected_decisions_audit_sample.csv.gz.b64.part008",
+          "blob_sha": "3985bf774309e1d4b77d173310e43af33356de9c"
+        },
+        {
+          "path": "migration/v0.48/payloads/results__v48__inventory__selected_decisions_audit_sample.csv.gz.b64.part009",
+          "blob_sha": "14e99a14d9b8a3d667ab1a0235b9b6d349909cc7"
+        },
+        {
+          "path": "migration/v0.48/payloads/results__v48__inventory__selected_decisions_audit_sample.csv.gz.b64.part010",
+          "blob_sha": "369b921e5b2236aaf3062b01a0349c827ca860fd"
+        },
+        {
+          "path": "migration/v0.48/payloads/results__v48__inventory__selected_decisions_audit_sample.csv.gz.b64.part011",
+          "blob_sha": "e31563dfdf6b6f923e313204f5a55dca46bc357d"
+        },
+        {
+          "path": "migration/v0.48/payloads/results__v48__inventory__selected_decisions_audit_sample.csv.gz.b64.part012",
+          "blob_sha": "fb02869fbadd57af3125eef7583d32e659489b50"
+        },
+        {
+          "path": "migration/v0.48/payloads/results__v48__inventory__selected_decisions_audit_sample.csv.gz.b64.part013",
+          "blob_sha": "db79640b73c93561677c4909271a55038a1ad51a"
+        },
+        {
+          "path": "migration/v0.48/payloads/results__v48__inventory__selected_decisions_audit_sample.csv.gz.b64.part014",
+          "blob_sha": "2891deb924702125f5c5416f67cbe3196fc4eb26"
+        },
+        {
+          "path": "migration/v0.48/payloads/results__v48__inventory__selected_decisions_audit_sample.csv.gz.b64.part015",
+          "blob_sha": "eedb1a7ed5d6b2fc113ccb4be7a60596dd82f1e7"
+        },
+        {
+          "path": "migration/v0.48/payloads/results__v48__inventory__selected_decisions_audit_sample.csv.gz.b64.part016",
+          "blob_sha": "2007899ead4fe7e27124a962232ccdba070c334a"
+        },
+        {
+          "path": "migration/v0.48/payloads/results__v48__inventory__selected_decisions_audit_sample.csv.gz.b64.part017",
+          "blob_sha": "9da008b2d7c17e21783eba8ee0f5d5853e6685fd"
+        },
+        {
+          "path": "migration/v0.48/payloads/results__v48__inventory__selected_decisions_audit_sample.csv.gz.b64.part018",
+          "blob_sha": "78a8b4189e8ebef6df4384810c152a804499e8c6"
+        },
+        {
+          "path": "migration/v0.48/payloads/results__v48__inventory__selected_decisions_audit_sample.csv.gz.b64.part019",
+          "blob_sha": "be8b7c0549e045b25bf7666f5521e91849657855"
+        },
+        {
+          "path": "migration/v0.48/payloads/results__v48__inventory__selected_decisions_audit_sample.csv.gz.b64.part020",
+          "blob_sha": "fd852c8450270deb85505a1870c91f52e22caf32"
+        }
+      ]
+    },
+    {
+      "path": "results/v48/inventory/weekly_metrics.csv",
+      "blob_sha": "86d5518ee591235f4982a38cfe69536d717a0b8c",
+      "original_size": 9111035,
+      "original_sha256": "026b9bd71d1272ebbb3408670c52e46c78adf8624a7351c7610382327632b1f3",
+      "compressed_size": 2777799,
+      "compressed_sha256": "3590ae2f9011153296464f132246510ab8a9b0104b5cea376236016df6746ff4",
+      "shas": [
+        "dc52a3a9e0c7eac6ab9fa02baff8f938dd721f57",
+        "322437e6909bf529ce9864c21d43da0467464e97",
+        "a1061f189c1c8d4c294444778341d491791bdfb6",
+        "bbf3e6eb12e0cdb73c5559d3e397baa99a13eaa8",
+        "dd4d6f85bd1aed6ae9299cc614388e555ef2eadd",
+        "6c890450fb08d2dad5cd2632bb43e9a317790842",
+        "1d4f6931cc8b6f02a52ab757fd3f095fb801831a",
+        "bf2f9290e87b4ea4e07e5352ac4450e009f7674c",
+        "5d1dc903d611ebf617ce1ef9fc1246c02da93fe3",
+        "72e12dc1c73aab4db2e1177f2942db8444ba8b7b",
+        "42f872922cfd731eb8dde44080b4e1c996f68513"
+      ],
+      "codec": "gzip",
+      "chunks": [
+        {
+          "path": "migration/v0.48/payloads/results__v48__inventory__weekly_metrics.csv.gz.b64.part000",
+          "blob_sha": "dc52a3a9e0c7eac6ab9fa02baff8f938dd721f57"
+        },
+        {
+          "path": "migration/v0.48/payloads/results__v48__inventory__weekly_metrics.csv.gz.b64.part001",
+          "blob_sha": "322437e6909bf529ce9864c21d43da0467464e97"
+        },
+        {
+          "path": "migration/v0.48/payloads/results__v48__inventory__weekly_metrics.csv.gz.b64.part002",
+          "blob_sha": "a1061f189c1c8d4c294444778341d491791bdfb6"
+        },
+        {
+          "path": "migration/v0.48/payloads/results__v48__inventory__weekly_metrics.csv.gz.b64.part003",
+          "blob_sha": "bbf3e6eb12e0cdb73c5559d3e397baa99a13eaa8"
+        },
+        {
+          "path": "migration/v0.48/payloads/results__v48__inventory__weekly_metrics.csv.gz.b64.part004",
+          "blob_sha": "dd4d6f85bd1aed6ae9299cc614388e555ef2eadd"
+        },
+        {
+          "path": "migration/v0.48/payloads/results__v48__inventory__weekly_metrics.csv.gz.b64.part005",
+          "blob_sha": "6c890450fb08d2dad5cd2632bb43e9a317790842"
+        },
+        {
+          "path": "migration/v0.48/payloads/results__v48__inventory__weekly_metrics.csv.gz.b64.part006",
+          "blob_sha": "1d4f6931cc8b6f02a52ab757fd3f095fb801831a"
+        },
+        {
+          "path": "migration/v0.48/payloads/results__v48__inventory__weekly_metrics.csv.gz.b64.part007",
+          "blob_sha": "bf2f9290e87b4ea4e07e5352ac4450e009f7674c"
+        },
+        {
+          "path": "migration/v0.48/payloads/results__v48__inventory__weekly_metrics.csv.gz.b64.part008",
+          "blob_sha": "5d1dc903d611ebf617ce1ef9fc1246c02da93fe3"
+        },
+        {
+          "path": "migration/v0.48/payloads/results__v48__inventory__weekly_metrics.csv.gz.b64.part009",
+          "blob_sha": "72e12dc1c73aab4db2e1177f2942db8444ba8b7b"
+        },
+        {
+          "path": "migration/v0.48/payloads/results__v48__inventory__weekly_metrics.csv.gz.b64.part010",
+          "blob_sha": "42f872922cfd731eb8dde44080b4e1c996f68513"
+        }
+      ]
+    }
+  ]
+}
