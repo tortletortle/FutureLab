@@ -9,6 +9,7 @@ from __future__ import annotations
 
 from pathlib import Path
 import argparse
+import hashlib
 import json
 import math
 
@@ -18,7 +19,9 @@ from scipy.stats import t as student_t
 
 from inventory_v47 import _fit_forecasts
 from inventory_v48 import (
+    BOOTSTRAP_REPS,
     LEAD_DISTRIBUTIONS,
+    _block_bootstrap_ci,
     _fit_stochastic_targets,
     _item_parameters,
 )
@@ -59,6 +62,13 @@ def _build_fold_schedule(weeks, final_test_count: int = FINAL_TEST_LENGTH) -> li
     values = list(weeks)
     if len(values) != len(set(values)) or values != sorted(values):
         raise ValueError("weeks must be unique and strictly increasing")
+    try:
+        if any(float(right) - float(left) != 1.0 for left, right in zip(values, values[1:])):
+            raise ValueError("missing or non-consecutive calendar weeks")
+    except (TypeError, ValueError) as exc:
+        if isinstance(exc, ValueError):
+            raise
+        raise ValueError("weeks must be numeric consecutive calendar indices") from exc
     if final_test_count < 1 or len(values) - final_test_count < 74:
         raise ValueError("insufficient pre-test history for the frozen five-fold schedule")
     pre_test = values[:-final_test_count]
@@ -81,6 +91,16 @@ def _build_fold_schedule(weeks, final_test_count: int = FINAL_TEST_LENGTH) -> li
             "final_test_weeks": final_test,
         })
     return schedule
+
+
+def _replication_seed(phase: str, fold_index: int, scenario_index: int, replicate: int) -> int:
+    if phase == "fold":
+        offset = int(fold_index) * 1_000_000
+    elif phase == "final":
+        offset = 9_000_000
+    else:
+        raise ValueError("phase must be fold or final")
+    return SEED_V50 + offset + int(scenario_index) * 100_000 + int(replicate)
 
 
 def _assign_fold_splits(d: pd.DataFrame, fold: dict) -> pd.DataFrame:
