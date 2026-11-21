@@ -94,7 +94,7 @@ def test_robust_selector_requires_ceil_eighty_percent_historical_folds():
         fills = {
             "q50_proportional": .60,
             "q75_proportional": .59,
-            "q50_avg_greedy": .58 if i < 4 else .56,
+            "q50_avg_greedy": .589 if i < 4 else .56,
             "q75_avg_greedy": .57 if i < 3 else .55,
             "q90_avg_greedy": .56,
             "q50_marginal_lot": .59,
