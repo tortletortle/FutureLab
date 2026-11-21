@@ -1,0 +1,54 @@
+name: FutureLab V0.50 walk-forward selection benchmark
+on:
+  push:
+    branches:
+      - research/v0.50-walkforward-selection
+    paths:
+      - 'src/inventory_v50.py'
+      - 'src/audit_v50.py'
+      - 'tests/test_v50.py'
+      - 'docs/V50_PROTOCOL.md'
+      - 'requirements-v50.txt'
+      - '.github/workflows/v50-benchmark.yml'
+      - 'src/inventory_v49.py'
+      - 'src/inventory_v48.py'
+      - 'src/inventory_v47.py'
+      - 'data/retail_panel.csv'
+      - 'data/retail_quality.json'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  benchmark:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install pinned V0.50 dependencies
+        run: python -m pip install -r requirements-v50.txt
+      - name: Run full regression and V0.50 selector tests
+        run: python -m pytest -q
+      - name: Verify hash-pinned prepared panel and quality manifest
+        run: |
+          echo '1d32ccc76a7bb6df0127d0a2d32368a22b79558e33603dfb82afd65eb0293831  data/retail_panel.csv' | sha256sum --check
+          echo '5a564a92ac78c8de95511862ea576aaf9aa5784572b8c732d38be78606c19d6f  data/retail_quality.json' | sha256sum --check
+      - name: Run five-fold walk-forward and frozen holdout benchmark
+        run: |
+          python src/inventory_v50.py \
+            --panel data/retail_panel.csv \
+            --quality data/retail_quality.json \
+            --output results/v50/walkforward \
+            --replications 20
+      - name: Independently audit chronology, selector decisions and holdout firewall
+        run: python src/audit_v50.py --results results/v50/walkforward
+      - name: Upload full V0.50 evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: futurelab-v050-walkforward-\${{ github.run_id }}
+          path: results/v50/walkforward/
+          if-no-files-found: warn
+          retention-days: 30
