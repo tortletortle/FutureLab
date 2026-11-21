@@ -1,0 +1,52 @@
+name: Import original FutureLab V0.48 Git history
+on:
+  push:
+    branches:
+      - import/futurelab-v0.48-runner
+    paths:
+      - migration/history-import/payloads/bundle.b64.part*
+      - migration/history-import/futurelab_import_v048.py
+      - .github/workflows/import-futurelab-history.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: futurelab-v048-history-import
+  cancel-in-progress: false
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+          fetch-depth: 1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Reassemble and verify the original bundle
+        run: |
+          python - <<'PY'
+          import base64, hashlib
+          from pathlib import Path
+          root = Path("migration/history-import/payloads")
+          parts = sorted(root.glob("bundle.b64.part*"))
+          if len(parts) != 63:
+              raise SystemExit(f"expected 63 bundle chunks, found {len(parts)}")
+          bundle = b"".join(base64.b64decode(p.read_text(encoding="ascii").strip(), validate=True) for p in parts)
+          expected = "7c57553b2d92908be315a5659ee15658980e628f9693e82bc2e1877be7400284"
+          actual = hashlib.sha256(bundle).hexdigest()
+          if actual != expected:
+              raise SystemExit(f"bundle SHA-256 mismatch: {actual}")
+          if len(bundle) != 32760110:
+              raise SystemExit(f"bundle size mismatch: {len(bundle)}")
+          Path("futurelab_v48.git.bundle").write_bytes(bundle)
+          print(f"Verified original bundle: {len(bundle)} bytes, SHA-256 {actual}")
+          PY
+      - name: Import original history and tags without moving main
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          git config --global url."https://x-access-token:${GITHUB_TOKEN}@github.com/".insteadOf "https://github.com/"
+          python migration/history-import/futurelab_import_v048.py futurelab_v48.git.bundle
