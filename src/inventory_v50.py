@@ -328,7 +328,7 @@ def _make_selector_rows(
             "abstained": False,
             "feasible_candidate_count": 0,
             "required_folds": 0,
-            "history_folds": len(history),
+            "history_folds": 0,
             "service_floor": None,
             "service_delta_lcb": None,
             "service_delta_sd": None,
