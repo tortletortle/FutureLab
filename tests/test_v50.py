@@ -125,6 +125,33 @@ def test_robust_selector_requires_ceil_eighty_percent_historical_folds():
     assert choice["pass_count"] == 4
 
 
+def test_robust_selector_abstains_until_three_prior_folds_even_if_all_available_pass():
+    for n_history in (1, 2):
+        history = []
+        for i in range(n_history):
+            fills = {
+                "q50_proportional": .60, "q75_proportional": .59,
+                "q50_avg_greedy": .59, "q75_avg_greedy": .58,
+                "q90_avg_greedy": .57, "q50_marginal_lot": .58,
+                "q75_marginal_lot": .57, "q90_marginal_lot": .56,
+            }
+            costs = {
+                "q50_avg_greedy": 1.0, "q75_avg_greedy": 2.0,
+                "q90_avg_greedy": 3.0, "q50_marginal_lot": 4.0,
+                "q75_marginal_lot": 5.0, "q90_marginal_lot": 6.0,
+            }
+            history.append({
+                "fold_id": f"F{i+1}",
+                "baseline_id": "q75_proportional",
+                "metrics": _history_frame(fills, costs),
+            })
+        choice = _select_historical(history, "q75_proportional", "robust")
+        assert choice["candidate_config_id"] == "q75_proportional"
+        assert choice["abstained"]
+        assert choice["history_folds"] == n_history
+        assert choice["required_folds"] == 3
+
+
 def test_robust_selector_abstains_without_history_or_when_no_candidate_qualifies():
     no_history = _select_historical([], "q75_proportional", "robust")
     assert no_history["candidate_config_id"] == "q75_proportional"

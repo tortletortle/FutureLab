@@ -50,7 +50,7 @@ The fold schedule, exact calendar boundaries, row counts, source hashes and leak
 Compare, at minimum:
 
 1. V0.49 single-window selector (baseline reproduction).
-2. Robust-feasibility selector: candidate must satisfy the service floor in at least four of five historical walk-forward folds; otherwise abstain to the proportional baseline.
+2. Robust-feasibility selector: require at least three completed prior forward folds before selecting a candidate; then it must satisfy the service floor in at least max(3, ceil(0.8 × prior-fold-count)) folds. On the final holdout this means at least four of five folds; before three folds, abstain to the proportional baseline.
 3. Conservative selector: rank only policies meeting a predeclared lower confidence bound on service across folds, then minimize mean proxy cost; report fold dispersion and worst-fold regret.
 4. Baseline-only fallback.
 
@@ -62,6 +62,7 @@ Do not silently reuse the V0.49 fixed 0.5 percentage-point tolerance as if it we
 
 - absolute service tolerance versus the proportional baseline;
 - a fold-derived lower service bound based only on prior forward-evaluation folds;
+- a minimum of three completed forward folds before the robust selector may leave the baseline;
 - abstention when fold service estimates are too dispersed.
 
 Thresholds must be selected using walk-forward folds only, frozen, and then applied once to the final test. Report both selection-window and forward-evaluation adherence. Do not claim a service guarantee from a finite sample.

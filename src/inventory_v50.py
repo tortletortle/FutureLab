@@ -43,6 +43,7 @@ SELECTION_LENGTH = 6
 FORWARD_LENGTH = 6
 FINAL_TEST_LENGTH = 16
 ROBUST_PASS_FRACTION = 0.80
+ROBUST_MIN_HISTORY_FOLDS = 3
 CONSERVATIVE_CONFIDENCE = 0.90
 CONSERVATIVE_MAX_SERVICE_SD = 0.02
 BASELINE_CONFIGS = ("q50_proportional", "q75_proportional")
@@ -159,9 +160,9 @@ def _select_historical(history: list[dict], baseline_id: str, mode: str) -> dict
     if mode not in ("robust", "conservative"):
         raise ValueError("mode must be robust or conservative")
     n_history = len(history)
-    required = int(math.ceil(ROBUST_PASS_FRACTION * n_history)) if n_history else 1
-    if mode == "robust" and n_history == 0:
-        return _fallback_choice(baseline_id, n_history, required, "no_prior_forward_folds")
+    required = max(ROBUST_MIN_HISTORY_FOLDS, int(math.ceil(ROBUST_PASS_FRACTION * n_history))) if n_history else ROBUST_MIN_HISTORY_FOLDS
+    if mode == "robust" and n_history < ROBUST_MIN_HISTORY_FOLDS:
+        return _fallback_choice(baseline_id, n_history, required, "fewer_than_three_prior_forward_folds")
     if mode == "conservative" and n_history < 3:
         return _fallback_choice(baseline_id, n_history, 3, "fewer_than_three_prior_folds")
 
@@ -819,10 +820,11 @@ def run(panel: pd.DataFrame, quality: dict, out: Path, replications: int = 20) -
         "scenario_count": len(scenarios),
         "policy_config_count": len(CONFIGS),
         "selectors": list(SELECTORS),
+        "robust_min_history_folds": ROBUST_MIN_HISTORY_FOLDS,
         "common_random_numbers": "All eight policies share identical lead-time draws within each scenario, fold and replication.",
         "selector_rules": {
             "v49_single_window": "V0.49 selector applied to the current fold selection window; final test selector uses the original final selection window.",
-            "walkforward_robust_80pct": "Select the lowest historical mean-cost non-proportional policy that was within 0.5 percentage points of that fold's proportional baseline in at least ceil(0.8*n) prior forward folds; final holdout uses four of five prior folds or more; otherwise fall back.",
+            "walkforward_robust_80pct": "Require at least three completed prior forward folds; then select the lowest historical mean-cost non-proportional policy that was within 0.5 percentage points of that fold's proportional baseline in at least max(3, ceil(0.8*n)) prior forward folds. The final holdout therefore requires four of five prior folds; otherwise abstain to baseline.",
             "walkforward_conservative_lcb": "Requires at least three prior folds; select the lowest historical mean-cost non-proportional policy whose one-sided 90% t lower confidence bound for paired fill-rate difference is at least -0.5 percentage points and whose across-fold service-delta SD is at most 2 percentage points; otherwise fall back.",
             "baseline_only": "Always use the lower selection-cost q50/q75 proportional baseline.",
         },

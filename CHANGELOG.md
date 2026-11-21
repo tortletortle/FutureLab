@@ -5,6 +5,7 @@
 - Added causal historical-feasibility selector requiring at least 80% prior forward folds to meet the service tolerance.
 - Added conservative selector using a one-sided 90% t lower confidence bound and a predeclared service-dispersion abstention rule.
 - Added baseline-only fallback, fold-level replication exports, frozen final 16-week holdout evaluation, and independent audit.
+- Tightened the 80% robust selector: it now abstains until at least three prior forward folds exist, avoiding premature 1/1 or 2/2 feasibility decisions.
 - Remote 20-replication benchmark and independent audit are pending; no empirical improvement is claimed.
 
 ## V0.49 — Experimental research branch (validated; not released)

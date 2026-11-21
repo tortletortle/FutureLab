@@ -18,6 +18,7 @@ CANDIDATE_CONFIGS = (
 )
 TOLERANCE = 0.005
 ROBUST_FRACTION = 0.80
+ROBUST_MIN_HISTORY_FOLDS = 3
 CONFIDENCE = 0.90
 MAX_SERVICE_SD = 0.02
 SELECTORS = (
@@ -50,8 +51,8 @@ def _historical_choice(
     mode: str,
 ) -> tuple[str, bool, int]:
     n = len(history)
-    required = int(math.ceil(ROBUST_FRACTION * n)) if n else 1
-    if mode == "robust" and n == 0:
+    required = max(ROBUST_MIN_HISTORY_FOLDS, int(math.ceil(ROBUST_FRACTION * n))) if n else ROBUST_MIN_HISTORY_FOLDS
+    if mode == "robust" and n < ROBUST_MIN_HISTORY_FOLDS:
         return baseline_id, True, 0
     if mode == "conservative" and n < 3:
         return baseline_id, True, 0
@@ -212,6 +213,8 @@ def audit(directory: str | Path) -> dict:
         raise AssertionError("unexpected scenario/configuration grid")
     if manifest.get("selectors") != list(SELECTORS):
         raise AssertionError("selector registry mismatch")
+    if int(manifest.get("robust_min_history_folds", -1)) != ROBUST_MIN_HISTORY_FOLDS:
+        raise AssertionError("robust selector minimum history length mismatch")
     final_test = set(manifest["final_test_week_ids"])
     if len(final_test) != 16 or final_test != set(preflight["final_test_week_ids"]):
         raise AssertionError("final holdout must contain the same 16 preflighted weeks")
@@ -462,7 +465,7 @@ def audit(directory: str | Path) -> dict:
             "replication completeness and duplicate detection",
             "replicate-to-aggregate metric recomputation",
             "V0.49 single-window selector recomputation",
-            "80-percent historical feasibility selector recomputation",
+            "80-percent historical feasibility selector recomputation with three-fold minimum",
             "one-sided 90-percent service LCB selector recomputation",
             "baseline-only fallback recomputation",
             "weekly paired block-bootstrap interval recomputation",
