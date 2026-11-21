@@ -1,11 +1,11 @@
 # Changelog
 
-## V0.49 — Experimental research branch (validation pending)
+## V0.49 — Experimental research branch (validated; not released)
 - Added sequential per-lot marginal value re-ranking and an explicit weekly working-capital exposure proxy.
 - Added selection-period service-floor constrained policy choice with baseline fallback when no candidate qualifies.
 - Added prefix-constrained one-period MILP comparison on bounded random SKU/lot samples.
 - Added independent inventory/capital/service-floor audit and a dedicated benchmark workflow.
-- Local validation: 177/177 tests passed; 32-scenario × 20-replication benchmark and independent audit passed. Remote GitHub Actions reproduction is running.
+- Local validation: 177/177 tests passed; 32-scenario × 20-replication benchmark and independent audit passed. Remote GitHub Actions reproduction passed (run 44874903283).
 - This remains an experimental branch, not a release; the new allocator did not show a general win over V0.48.
 
 ## V0.48 — Stochastic lead time and constrained replenishment
