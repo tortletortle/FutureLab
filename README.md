@@ -43,6 +43,17 @@ python src/audit_v48.py --results results/v48/inventory
 
 The V0.47 source and results are retained. V0.48 does not overwrite V0.43–V0.47 history or the separate Hillstrom marketing-uplift protocol.
 
-## Experimental research branch
+## Experimental research branches
+
+`research/v0.50-walkforward-selection` is an isolated V0.50 research branch. It implements five expanding-origin folds, refits demand/lead-time models per fold, compares the V0.49 single-window selector with an 80%-historical-feasibility selector and a conservative one-sided service-LCB selector, and reserves the final 16 weeks for one-time holdout evaluation. No V0.50 benchmark result is claimed until the remote workflow and independent audit pass. See `docs/V50_PROTOCOL.md`.
+
+Run V0.50 from this branch with:
+
+```bash
+python -m pip install -r requirements-v50.txt
+python -m pytest -q
+python src/inventory_v50.py --panel data/retail_panel.csv --quality data/retail_quality.json --output results/v50/walkforward --replications 20
+python src/audit_v50.py --results results/v50/walkforward
+```
 
 `research/v0.49-capital-service` is an isolated, unreleased research branch. It tests sequential per-lot marginal valuation, a working-capital exposure proxy and service-floor-constrained policy selection. V0.48 remains the current release and its code/results are unchanged. The local V0.49 20-replication benchmark and independent audit passed, but results are mixed and do not establish a general algorithmic improvement. The GitHub Actions reproduction passed (run 44874903283). See `docs/REPORT_v49.md` and `docs/V49_PROTOCOL.md`.
