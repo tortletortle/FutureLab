@@ -1,0 +1,27 @@
+{
+  "version": "0.49",
+  "status": "passed",
+  "scenario_count": 32,
+  "policy_metric_rows": 512,
+  "selected_policy_roles": 64,
+  "decision_rows_checked": 166400,
+  "milp_snapshots": 32,
+  "milp_successes": 32,
+  "median_marginal_greedy_to_milp_gap": 0.0020882400147830002,
+  "max_marginal_greedy_to_milp_gap": 0.0388635433082136,
+  "service_floor_scenarios_feasible": 6,
+  "test_selection_floor_scenarios_met": 0,
+  "test_service_noninferiority_scenarios_met": 32,
+  "checks": [
+    "selection-only baseline and service-floor candidate reproduction",
+    "weekly budget and normalized capacity constraints",
+    "MOQ/pack and request upper bounds",
+    "demand and on-hand/pipeline conservation",
+    "shipment arrival timing and terminal pipeline clearance",
+    "capital exposure and financing-charge recomputation",
+    "holding/lost-sales/setup/capital cost decomposition",
+    "terminal no-order horizon",
+    "marginal-lot greedy objective bounded by exact prefix-constrained MILP"
+  ],
+  "scope_warning": "This remains a recorded-sales replay with assumed costs and supplier lead times. The MILP solves only a random sample of up to 10 active series and two lots per series in each one-period state; it does not establish global multi-period optimality or real enterprise savings."
+}

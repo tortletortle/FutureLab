@@ -45,4 +45,4 @@ The V0.47 source and results are retained. V0.48 does not overwrite V0.43–V0.4
 
 ## Experimental research branch
 
-`research/v0.49-capital-service` is an isolated, unreleased research branch. It tests sequential per-lot marginal valuation, a working-capital exposure proxy and service-floor-constrained policy selection. V0.48 remains the current release and its code/results are unchanged. V0.49 results must not be treated as validated until the branch's full benchmark and independent audit complete.
+`research/v0.49-capital-service` is an isolated, unreleased research branch. It tests sequential per-lot marginal valuation, a working-capital exposure proxy and service-floor-constrained policy selection. V0.48 remains the current release and its code/results are unchanged. The local V0.49 20-replication benchmark and independent audit passed, but results are mixed and do not establish a general algorithmic improvement. The dedicated GitHub Actions reproduction is the remote acceptance gate. See `docs/REPORT_v49.md` and `docs/V49_PROTOCOL.md`.
