@@ -261,6 +261,78 @@ def _aggregate_replicates(frame: pd.DataFrame, keys: list[str]) -> pd.DataFrame:
     return result.fillna({"replicate_cost_sd": 0.0, "replicate_fill_sd": 0.0})
 
 
+def _window_panel(
+    panel: pd.DataFrame,
+    train_end_date,
+    evaluation_end_date,
+    global_dates: pd.DatetimeIndex,
+) -> pd.DataFrame:
+    """Create a no-lookahead cohort panel ending at the evaluation horizon.
+
+    Only series observed by the training cutoff are included. Actual records after
+    the evaluation horizon are removed; one zero-demand calendar anchor after the
+    horizon preserves the feature builder's final-week exclusion convention.
+    """
+    source = panel.copy()
+    source["date"] = pd.to_datetime(source.date, errors="raise")
+    train_end = pd.Timestamp(train_end_date)
+    evaluation_end = pd.Timestamp(evaluation_end_date)
+    known_ids = source.loc[source.date <= train_end, "series_id"].dropna().unique()
+    if len(known_ids) == 0:
+        raise ValueError("no series are known by this fold's training cutoff")
+    window = source[
+        source.series_id.isin(known_ids) & (source.date <= evaluation_end)
+    ].copy()
+    anchor_id = known_ids[0]
+
+    def placeholder(date_value):
+        row = {column: np.nan for column in source.columns}
+        row["series_id"] = anchor_id
+        row["date"] = pd.Timestamp(date_value)
+        row["demand"] = 0.0
+        return row
+
+    global_start = pd.Timestamp(global_dates[0])
+    pad_date = evaluation_end + pd.Timedelta(days=7)
+    present_dates = set(pd.to_datetime(window.date).unique())
+    additions = []
+    if np.datetime64(global_start) not in present_dates:
+        additions.append(placeholder(global_start))
+    if np.datetime64(pad_date) not in present_dates:
+        additions.append(placeholder(pad_date))
+    if additions:
+        window = pd.concat([window, pd.DataFrame(additions)], ignore_index=True)
+    if window.date.max() != pad_date:
+        raise AssertionError("window panel does not end at the one-week calendar pad")
+    if (pd.to_datetime(window.date) > pad_date).any():
+        raise AssertionError("future actual rows leaked into fold panel")
+    return window.sort_values(["series_id", "date"]).reset_index(drop=True)
+
+
+def _row_membership_hash(frame: pd.DataFrame) -> str:
+    ordered = frame[["series_id", "week"]].sort_values(
+        ["series_id", "week"], kind="mergesort"
+    )
+    payload = "\n".join(
+        f"{row.series_id}\t{int(row.week)}" for row in ordered.itertuples(index=False)
+    ).encode("utf-8")
+    return hashlib.sha256(payload).hexdigest()
+
+
+def _partition_rows(frame: pd.DataFrame, fold_id: str, labels: dict[str, str]) -> list[dict]:
+    rows = []
+    for split, partition in labels.items():
+        subset = frame[frame.split == split]
+        for row in subset[["series_id", "week"]].itertuples(index=False):
+            rows.append({
+                "fold_id": fold_id,
+                "series_id": str(row.series_id),
+                "week": int(row.week),
+                "partition": partition,
+            })
+    return rows
+
+
 def _calendar_rows(schedule: list[dict], d: pd.DataFrame) -> list[dict]:
     date_map = d.groupby("week").date.first().astype(str).to_dict()
     rows = []
