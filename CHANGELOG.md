@@ -1,5 +1,12 @@
 # Changelog
 
+## V0.50 — Walk-forward selector research (implementation; validation pending)
+- Added five expanding-origin folds with fold-specific forecast refitting and lead-time residual calibration.
+- Added causal historical-feasibility selector requiring at least 80% prior forward folds to meet the service tolerance.
+- Added conservative selector using a one-sided 90% t lower confidence bound and a predeclared service-dispersion abstention rule.
+- Added baseline-only fallback, fold-level replication exports, frozen final 16-week holdout evaluation, and independent audit.
+- Remote 20-replication benchmark and independent audit are pending; no empirical improvement is claimed.
+
 ## V0.49 — Experimental research branch (validated; not released)
 - Added sequential per-lot marginal value re-ranking and an explicit weekly working-capital exposure proxy.
 - Added selection-period service-floor constrained policy choice with baseline fallback when no candidate qualifies.
