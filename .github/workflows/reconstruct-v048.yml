@@ -57,7 +57,7 @@ jobs:
               dest.write_bytes(raw)
               print(f"VERIFIED {item['path']} ({len(raw)} bytes)")
           PY
-      - name: Restore all 158 original paths and verify the exact Git tree
+      - name: Restore all 158 original paths and verify their Git blob IDs
         run: |
           python - <<'PY'
           import hashlib, json, shutil
@@ -72,39 +72,42 @@ jobs:
               return hashlib.sha1(b"blob " + str(len(data)).encode("ascii") + b"\0" + data).hexdigest()
           for item in rows:
               dest = Path(item["path"])
-              if item["path"] not in large:
+              if item["path"] in large:
+                  data = dest.read_bytes()
+              elif item["path"].startswith(".github/workflows/"):
+                  data = (source / item["path"]).read_bytes()
+              else:
                   src = source / item["path"]
                   if not src.is_file():
                       raise SystemExit(f"missing archived source file: {src}")
                   dest.parent.mkdir(parents=True, exist_ok=True)
                   shutil.copyfile(src, dest)
-              data = dest.read_bytes()
+                  data = dest.read_bytes()
               if git_blob_sha(data) != item["sha"]:
                   raise SystemExit(f"original Git blob mismatch: {item['path']}")
-              dest.chmod(0o755 if item["mode"] == "100755" else 0o644)
-          print("All 158 original files restored and their Git blob IDs verified.")
+              if not item["path"].startswith(".github/workflows/"):
+                  dest.chmod(0o755 if item["mode"] == "100755" else 0o644)
+          print("All 158 original files verified; three root workflow files will be installed by the GitHub Git-Data API.")
           PY
       - name: Remove staging archive before testing the restored project root
         run: |
           rm -rf migration/v0.48
-          rm -f .github/workflows/reconstruct-v048.yml
       - name: Run tests and independent V0.48 evidence audit
         run: |
           python -m pip install -r requirements-v48.txt
           python -m pytest -q
           python src/audit_v48.py --results results/v48/inventory
-      - name: Commit the exact original source tree
+      - name: Commit the reconstructed project root without changing workflow files
         run: |
           set -euo pipefail
           rm -rf migration/v0.48
-          rm -f .github/workflows/reconstruct-v048.yml _project.md docs/CHANGELOG.md
+          rm -f _project.md docs/CHANGELOG.md
           git add -A
           git add -f data/retail_panel.csv data/retail_quality.json
           TREE="$(git write-tree)"
-          echo "Restored tree: $TREE"
-          test "$TREE" = "7e60602b0ff44d4d1abb205fe30f32accc73959a"
-          test "$(git ls-files | wc -l | tr -d ' ')" = "158"
+          echo "Intermediate tree (workflow files are added by the Git-Data API): $TREE"
+          test "$(git ls-files | wc -l | tr -d ' ')" = "156"
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git commit -m "Restore FutureLab V0.48 original source tree (158 files)"
+          git commit -m "Restore FutureLab V0.48 project root; workflow files pending API import"
           git push origin "HEAD:refs/heads/${GITHUB_REF_NAME}"
