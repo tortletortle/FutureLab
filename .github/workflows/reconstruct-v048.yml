@@ -11,7 +11,7 @@ permissions:
   contents: write
 jobs:
   restore:
-    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, 'Store compressed V0.48 payloads') || contains(github.event.head_commit.message, 'Repair V0.48 payload restore')
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, 'Store compressed V0.48 payloads') || startsWith(github.event.head_commit.message, 'Repair V0.48')
     runs-on: ubuntu-latest
     timeout-minutes: 45
     steps:
