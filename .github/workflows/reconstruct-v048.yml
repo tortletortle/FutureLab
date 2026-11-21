@@ -97,8 +97,9 @@ jobs:
         run: |
           set -euo pipefail
           rm -rf migration/v0.48
-          rm -f .github/workflows/reconstruct-v048.yml
+          rm -f .github/workflows/reconstruct-v048.yml _project.md docs/CHANGELOG.md
           git add -A
+          git add -f data/retail_panel.csv data/retail_quality.json
           TREE="$(git write-tree)"
           echo "Restored tree: $TREE"
           test "$TREE" = "7e60602b0ff44d4d1abb205fe30f32accc73959a"
