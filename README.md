@@ -1,33 +1,44 @@
-﻿# FutureLab
+# FutureLab V0.48
 
-> 状态：Private 开发仓 · 批次 2 · 资源优先级：补齐工程管理
+Commercial decision research prototype: stochastic lead-time replenishment under portfolio-wide budget, normalized capacity and MOQ/pack constraints.
 
-## 当前完成度
+## Current release
 
-- 记录进度：V0.39
-- **未经验收功能不得标记为已完成。**
+V0.48 reuses the audited V0.47/V0.46 retail-sales pipeline and adds:
+- 1–4 week stochastic lead-time mixture calibrated from train/calibration partitions (stress distributions are assumed);
+- budget and normalized portfolio capacity limits;
+- per-series MOQ/pack multiples;
+- proportional vs marginal-value greedy allocation;
+- exact one-period integer-lot MILP snapshots via SciPy;
+- supplier purchase-order import/lead-time distribution adapter for future real supplier exports.
 
-## 目标 / 架构 / 运行方式
+**Evidence boundary:** this release uses UCI Online Retail II recorded sales. It does not have actual inventory, stockout, supplier, purchase-order, lead-time, acquisition-cost or gross-margin records. Budget, capacity, lead-time and pack-size settings are scenario assumptions. The output is a historical recorded-sales replay, not measured enterprise profit.
 
-（待迁入真实源码与文档后补全。）
-
-## 工程约定
-
-1. 一个独立项目对应一个 GitHub 仓库。
-2. 开发阶段默认 Private。
-3. 保留本地 Git 完整提交历史和版本标签。
-4. 每个版本保留测试报告、实验数据和变更记录（建议放 docs/）。
-5. README 保持目标、架构、运行方式、当前完成度四段信息。
-
-## 迁移说明
-
-本仓库先由工作区登记建仓。若你本地另有完整 Git 历史，请用：
+## Run locally
 
 ```bash
-cd <你的本地项目目录>
-git remote add origin https://github.com/tortletortle/FutureLab.git
-git push -u origin --all
-git push origin --tags
+python -m pip install -r requirements-v48.txt
+python -m pytest -q
+python src/inventory_v48.py \
+  --panel data/retail_panel.csv \
+  --quality data/retail_quality.json \
+  --output results/v48/inventory \
+  --replications 20
+python src/audit_v48.py --results results/v48/inventory
 ```
 
-不要用空骨架覆盖已有历史。
+## Main files
+
+- `src/inventory_v48.py` — stochastic lead-time mixture, constrained replenishment, policies and benchmark runner.
+- `src/audit_v48.py` — independent state-transition, constraint and selection audit.
+- `src/supplier_leadtime_adapter.py` — import/validation for real supplier PO exports.
+- `tests/test_v48.py` — V0.48 inventory tests.
+- `tests/test_supplier_leadtime_adapter.py` — supplier adapter tests.
+- `docs/V48_PROTOCOL.md` — locked evaluation protocol and assumptions.
+- `docs/REPORT_v48.md` — results, negative findings and evidence limitations.
+- `docs/OPEN_SOURCE_REVIEW_V48.md` — reuse and data-source review.
+- `results/v48/inventory/` — reproducible metrics, audit samples, MILP snapshots and manifest.
+
+## Prior versions
+
+The V0.47 source and results are retained. V0.48 does not overwrite V0.43–V0.47 history or the separate Hillstrom marketing-uplift protocol.
