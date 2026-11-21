@@ -1,0 +1,159 @@
+{
+  "n": 80,
+  "boundary_n": 30000,
+  "scenes": [
+    [
+      "irregular_recurrence",
+      "clean"
+    ],
+    [
+      "random_walk",
+      "clean"
+    ],
+    [
+      "gradual",
+      "clean"
+    ],
+    [
+      "mean_reversion",
+      "clean"
+    ],
+    [
+      "mean_reversion",
+      "variance4"
+    ],
+    [
+      "mean_reversion",
+      "matched_bias"
+    ],
+    [
+      "mean_reversion",
+      "one_bad"
+    ],
+    [
+      "mean_reversion",
+      "matched_plus_one_bad"
+    ],
+    [
+      "mean_reversion",
+      "source_shared"
+    ],
+    [
+      "mean_reversion",
+      "two_bad"
+    ],
+    [
+      "mean_reversion",
+      "common_unmatched"
+    ],
+    [
+      "mean_reversion",
+      "serial"
+    ],
+    [
+      "mean_reversion",
+      "heavy_tail"
+    ]
+  ],
+  "stresses": [
+    "clean",
+    "variance4",
+    "matched_bias",
+    "one_bad",
+    "matched_plus_one_bad",
+    "source_shared",
+    "two_bad",
+    "common_unmatched",
+    "serial",
+    "heavy_tail"
+  ],
+  "arms": {
+    "known3": [
+      "known",
+      false,
+      [
+        1,
+        2,
+        3
+      ]
+    ],
+    "single_t6": [
+      "single",
+      false,
+      [
+        3,
+        4,
+        6
+      ]
+    ],
+    "paired_t6": [
+      "single",
+      true,
+      [
+        3,
+        4,
+        6
+      ]
+    ],
+    "single_t18": [
+      "single",
+      false,
+      [
+        6,
+        12,
+        18
+      ]
+    ],
+    "paired_t18": [
+      "single",
+      true,
+      [
+        6,
+        12,
+        18
+      ]
+    ],
+    "pooled_t6": [
+      "pooled",
+      false,
+      [
+        3,
+        4,
+        6
+      ]
+    ],
+    "robust_t6": [
+      "robust",
+      false,
+      [
+        3,
+        4,
+        6
+      ]
+    ],
+    "pooled_paired6": [
+      "pooled",
+      true,
+      [
+        3,
+        4,
+        6
+      ]
+    ],
+    "robust_paired6": [
+      "robust",
+      true,
+      [
+        3,
+        4,
+        6
+      ]
+    ]
+  },
+  "epsilon": 0.035,
+  "alpha": 0.05,
+  "unit_cost": 0.0015,
+  "seed_boundary": 41000000,
+  "seed_dynamic": 42000000,
+  "seed_bootstrap": 4101
+}

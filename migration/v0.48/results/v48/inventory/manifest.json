@@ -1,0 +1,593 @@
+{
+  "version": "0.48",
+  "mode": "stochastic_lead_time_budget_capacity_constrained_inventory_replay",
+  "dataset": "UCI Online Retail II previously prepared product-country weekly recorded-sales panel",
+  "source_transaction_rows": 1067371,
+  "valid_source_transaction_rows": 1041670,
+  "panel_rows": 8979,
+  "series_count": 100,
+  "chronological_splits": {
+    "train": {
+      "rows": 5400,
+      "weeks": 54
+    },
+    "calibration": {
+      "rows": 1100,
+      "weeks": 11
+    },
+    "selection": {
+      "rows": 1000,
+      "weeks": 10
+    },
+    "test": {
+      "rows": 1600,
+      "weeks": 16
+    }
+  },
+  "calendar_cut_indices": [
+    67,
+    78,
+    88
+  ],
+  "v47_forecast_pipeline_metadata": {
+    "training_series_group_edges": [
+      202.5,
+      295.14814814814815
+    ],
+    "horizon_calibration": {
+      "1": {
+        "global": {
+          "0.5": -0.07701442580017502,
+          "0.75": 0.40562968018786094,
+          "0.9": 1.2185210462172829
+        },
+        "group": {
+          "0": {
+            "0.5": -0.07325038918319432,
+            "0.75": 0.3849887935890426,
+            "0.9": 1.1709114517932075
+          },
+          "1": {
+            "0.5": -0.1314664688113174,
+            "0.75": 0.33280720819049914,
+            "0.9": 1.0721659861219524
+          },
+          "2": {
+            "0.5": -0.04954789610827881,
+            "0.75": 0.5636600190234373,
+            "0.9": 1.410018519765185
+          }
+        },
+        "window_counts": {
+          "0": 363,
+          "1": 363,
+          "2": 374
+        },
+        "pooled_windows": 1100
+      },
+      "2": {
+        "global": {
+          "0.5": -0.032463274131897576,
+          "0.75": 0.46377000804485596,
+          "0.9": 1.1390779161559377
+        },
+        "group": {
+          "0": {
+            "0.5": -0.033070936939287275,
+            "0.75": 0.48184846101559975,
+            "0.9": 1.0814948567696177
+          },
+          "1": {
+            "0.5": -0.06398021415553289,
+            "0.75": 0.3705754761425132,
+            "0.9": 0.9728639658417514
+          },
+          "2": {
+            "0.5": 0.0005852867497465309,
+            "0.75": 0.5292233731979712,
+            "0.9": 1.401138794065672
+          }
+        },
+        "window_counts": {
+          "0": 330,
+          "1": 330,
+          "2": 340
+        },
+        "pooled_windows": 1000
+      },
+      "4": {
+        "global": {
+          "0.5": 0.050437627703054724,
+          "0.75": 0.44721048630432736,
+          "0.9": 0.9065120001373649
+        },
+        "group": {
+          "0": {
+            "0.5": 0.055974065584367946,
+            "0.75": 0.4089928262341969,
+            "0.9": 0.8697589420677728
+          },
+          "1": {
+            "0.5": -0.01884571473264117,
+            "0.75": 0.37870884027731566,
+            "0.9": 0.8159655581294101
+          },
+          "2": {
+            "0.5": 0.09274901859299321,
+            "0.75": 0.5697766085257818,
+            "0.9": 0.9521897674373442
+          }
+        },
+        "window_counts": {
+          "0": 264,
+          "1": 264,
+          "2": 272
+        },
+        "pooled_windows": 800
+      }
+    },
+    "models_fit_on": "train_only",
+    "residual_calibration_on": "calibration_only"
+  },
+  "lead_distributions": {
+    "moderate": {
+      "1": 0.15,
+      "2": 0.55,
+      "3": 0.2,
+      "4": 0.1
+    },
+    "volatile": {
+      "1": 0.1,
+      "2": 0.35,
+      "3": 0.35,
+      "4": 0.2
+    }
+  },
+  "budget_fractions": [
+    0.55,
+    0.8
+  ],
+  "capacity_equivalents": [
+    300.0,
+    400.0
+  ],
+  "economic_scenarios": {
+    "balanced": {
+      "shortage_rate": 0.25,
+      "holding_rate": 0.01,
+      "fixed_order_cost": 2.0
+    },
+    "capital_pressure": {
+      "shortage_rate": 0.25,
+      "holding_rate": 0.03,
+      "fixed_order_cost": 2.0
+    }
+  },
+  "replications": 20,
+  "random_seed": 48048,
+  "common_random_numbers": "Within each scenario and replication, every policy receives the same per-series/per-week lead-time draw matrix.",
+  "order_cutoff": "No new orders during final 4 test weeks; this allows all orders to arrive within observed evaluation horizon.",
+  "budget_definition": "fraction of total training-period mean weekly recorded sales value, using training-only median selling price as a value proxy; not procurement spend or actual cash budget.",
+  "capacity_definition": "sum of on-hand plus pipeline divided by each SKU's training mean weekly recorded sales; normalized SKU-week demand equivalents, not cubic/physical warehouse capacity.",
+  "lot_size_definition": "ceil(10% of training mean weekly recorded sales), minimum 1 unit",
+  "unit_value_proxy": "training-period median recorded unit selling price; not supplier acquisition cost",
+  "stochastic_target": "Weighted mixture quantile over 1..4 week lead-time cumulative residual windows calibrated on calibration split only; current one-step mean/scale held constant across horizon.",
+  "policy_selection": "Select proportional-family and marginal-priority-family configurations using selection split mean cost averaged over replications; freeze choices before test.",
+  "policy_selection_families": "proportional family q50/q75; priority family q50/q75/q90, selected on selection split only.",
+  "primary_ablation": "q75_greedy vs q75_proportional holds stochastic target quantile fixed and isolates cross-SKU allocation rule.",
+  "milp_benchmark": "Exact one-period integer-lot allocation on sampled selected-policy states; not a globally optimal multi-period policy.",
+  "price_and_cost_warning": "Selling price is not acquisition cost or gross margin. Economic coefficients are assumptions and all costs are proxy units, not realized profit.",
+  "demand_warning": "No inventory availability/stockout records; recorded sales can be censored by stockouts. Missing calendar weeks are treated as zero recorded sales in the inherited V47 feature panel.",
+  "scenario_results": [
+    {
+      "scenario_id": "moderate_budget55_cap300_balanced",
+      "lead_distribution": "moderate",
+      "lead_probabilities": "{\"1\": 0.15, \"2\": 0.55, \"3\": 0.2, \"4\": 0.1}",
+      "expected_lead_time": 2.25,
+      "budget_fraction_of_training_weekly_sales_value": 0.55,
+      "capacity_equivalents": 300.0,
+      "economics_scenario": "balanced",
+      "baseline_config_selected_on_selection": "q75_proportional",
+      "candidate_config_selected_on_selection": "q75_greedy",
+      "baseline_test_cost": 47.493068403446394,
+      "candidate_test_cost": 45.82779463456712,
+      "relative_cost_reduction": 0.0350635118946838,
+      "paired_delta_candidate_minus_baseline": -1.665273768879274,
+      "block_bootstrap_95_ci_delta": "[-6.893307335917871, 3.494703232223167]",
+      "replicate_delta_sd": 0.1935591777704881,
+      "candidate_test_fill_rate": 0.47198936402996566,
+      "baseline_test_fill_rate": 0.5168356145186153,
+      "candidate_test_mean_budget_utilization": 0.7087662679804902,
+      "candidate_test_max_capacity_utilization": 0.8246661187384449,
+      "fixed_q75_greedy_vs_proportional_cost_reduction": 0.0350635118946838,
+      "fixed_q75_greedy_vs_proportional_delta_ci": "[-6.967352459317398, 3.287148632258022]",
+      "evidence_warning": "Recorded-sales replay; stochastic lead-time distribution, budgets, capacity, lot sizes and economic weights are scenario assumptions, not observed supplier/inventory facts."
+    },
+    {
+      "scenario_id": "moderate_budget55_cap300_capital_pressure",
+      "lead_distribution": "moderate",
+      "lead_probabilities": "{\"1\": 0.15, \"2\": 0.55, \"3\": 0.2, \"4\": 0.1}",
+      "expected_lead_time": 2.25,
+      "budget_fraction_of_training_weekly_sales_value": 0.55,
+      "capacity_equivalents": 300.0,
+      "economics_scenario": "capital_pressure",
+      "baseline_config_selected_on_selection": "q75_proportional",
+      "candidate_config_selected_on_selection": "q75_greedy",
+      "baseline_test_cost": 51.00902727877483,
+      "candidate_test_cost": 51.20717226282072,
+      "relative_cost_reduction": -0.003884508186423282,
+      "paired_delta_candidate_minus_baseline": 0.19814498404588932,
+      "block_bootstrap_95_ci_delta": "[-5.238518398198479, 5.9702540955533046]",
+      "replicate_delta_sd": 0.3407347191447889,
+      "candidate_test_fill_rate": 0.47037122633275386,
+      "baseline_test_fill_rate": 0.5164359665923344,
+      "candidate_test_mean_budget_utilization": 0.7078452832923412,
+      "candidate_test_max_capacity_utilization": 0.8272223984827735,
+      "fixed_q75_greedy_vs_proportional_cost_reduction": -0.003884508186423282,
+      "fixed_q75_greedy_vs_proportional_delta_ci": "[-5.2376997056117425, 5.869657405950534]",
+      "evidence_warning": "Recorded-sales replay; stochastic lead-time distribution, budgets, capacity, lot sizes and economic weights are scenario assumptions, not observed supplier/inventory facts."
+    },
+    {
+      "scenario_id": "moderate_budget55_cap400_balanced",
+      "lead_distribution": "moderate",
+      "lead_probabilities": "{\"1\": 0.15, \"2\": 0.55, \"3\": 0.2, \"4\": 0.1}",
+      "expected_lead_time": 2.25,
+      "budget_fraction_of_training_weekly_sales_value": 0.55,
+      "capacity_equivalents": 400.0,
+      "economics_scenario": "balanced",
+      "baseline_config_selected_on_selection": "q75_proportional",
+      "candidate_config_selected_on_selection": "q75_greedy",
+      "baseline_test_cost": 47.56689543482567,
+      "candidate_test_cost": 45.81316078635531,
+      "relative_cost_reduction": 0.03686880618209057,
+      "paired_delta_candidate_minus_baseline": -1.7537346484703562,
+      "block_bootstrap_95_ci_delta": "[-7.0261860749362555, 3.166065305462279]",
+      "replicate_delta_sd": 0.20248649676823544,
+      "candidate_test_fill_rate": 0.47023538783427954,
+      "baseline_test_fill_rate": 0.5151687962373351,
+      "candidate_test_mean_budget_utilization": 0.7069020089524611,
+      "candidate_test_max_capacity_utilization": 0.6182194614614507,
+      "fixed_q75_greedy_vs_proportional_cost_reduction": 0.03686880618209057,
+      "fixed_q75_greedy_vs_proportional_delta_ci": "[-6.42612174790127, 3.398208576380733]",
+      "evidence_warning": "Recorded-sales replay; stochastic lead-time distribution, budgets, capacity, lot sizes and economic weights are scenario assumptions, not observed supplier/inventory facts."
+    },
+    {
+      "scenario_id": "moderate_budget55_cap400_capital_pressure",
+      "lead_distribution": "moderate",
+      "lead_probabilities": "{\"1\": 0.15, \"2\": 0.55, \"3\": 0.2, \"4\": 0.1}",
+      "expected_lead_time": 2.25,
+      "budget_fraction_of_training_weekly_sales_value": 0.55,
+      "capacity_equivalents": 400.0,
+      "economics_scenario": "capital_pressure",
+      "baseline_config_selected_on_selection": "q75_proportional",
+      "candidate_config_selected_on_selection": "q75_greedy",
+      "baseline_test_cost": 51.068184446057515,
+      "candidate_test_cost": 51.13748985455687,
+      "relative_cost_reduction": -0.0013571151833791854,
+      "paired_delta_candidate_minus_baseline": 0.0693054084993534,
+      "block_bootstrap_95_ci_delta": "[-4.910553587650971, 5.235742843459555]",
+      "replicate_delta_sd": 0.3106964021084477,
+      "candidate_test_fill_rate": 0.4707746851128382,
+      "baseline_test_fill_rate": 0.5148420462563893,
+      "candidate_test_mean_budget_utilization": 0.7066746930316663,
+      "candidate_test_max_capacity_utilization": 0.6206643139136935,
+      "fixed_q75_greedy_vs_proportional_cost_reduction": -0.0013571151833791854,
+      "fixed_q75_greedy_vs_proportional_delta_ci": "[-5.124329532116682, 5.366342458387427]",
+      "evidence_warning": "Recorded-sales replay; stochastic lead-time distribution, budgets, capacity, lot sizes and economic weights are scenario assumptions, not observed supplier/inventory facts."
+    },
+    {
+      "scenario_id": "moderate_budget80_cap300_balanced",
+      "lead_distribution": "moderate",
+      "lead_probabilities": "{\"1\": 0.15, \"2\": 0.55, \"3\": 0.2, \"4\": 0.1}",
+      "expected_lead_time": 2.25,
+      "budget_fraction_of_training_weekly_sales_value": 0.8,
+      "capacity_equivalents": 300.0,
+      "economics_scenario": "balanced",
+      "baseline_config_selected_on_selection": "q75_proportional",
+      "candidate_config_selected_on_selection": "q90_greedy",
+      "baseline_test_cost": 39.82923175370351,
+      "candidate_test_cost": 33.86132083591186,
+      "relative_cost_reduction": 0.14983745995142686,
+      "paired_delta_candidate_minus_baseline": -5.967910917791649,
+      "block_bootstrap_95_ci_delta": "[-11.457046699511048, -0.7693119733444563]",
+      "replicate_delta_sd": 0.4340672195765266,
+      "candidate_test_fill_rate": 0.6052335315796848,
+      "baseline_test_fill_rate": 0.6096961643141815,
+      "candidate_test_mean_budget_utilization": 0.6104495375245195,
+      "candidate_test_max_capacity_utilization": 0.999999920066286,
+      "fixed_q75_greedy_vs_proportional_cost_reduction": -0.027568213514241463,
+      "fixed_q75_greedy_vs_proportional_delta_ci": "[-0.0773991845029447, 2.949971929128363]",
+      "evidence_warning": "Recorded-sales replay; stochastic lead-time distribution, budgets, capacity, lot sizes and economic weights are scenario assumptions, not observed supplier/inventory facts."
+    },
+    {
+      "scenario_id": "moderate_budget80_cap300_capital_pressure",
+      "lead_distribution": "moderate",
+      "lead_probabilities": "{\"1\": 0.15, \"2\": 0.55, \"3\": 0.2, \"4\": 0.1}",
+      "expected_lead_time": 2.25,
+      "budget_fraction_of_training_weekly_sales_value": 0.8,
+      "capacity_equivalents": 300.0,
+      "economics_scenario": "capital_pressure",
+      "baseline_config_selected_on_selection": "q75_proportional",
+      "candidate_config_selected_on_selection": "q75_greedy",
+      "baseline_test_cost": 45.302592616323444,
+      "candidate_test_cost": 47.250053814056876,
+      "relative_cost_reduction": -0.042987853128558524,
+      "paired_delta_candidate_minus_baseline": 1.947461197733432,
+      "block_bootstrap_95_ci_delta": "[-0.144672658933522, 5.081530532849669]",
+      "replicate_delta_sd": 0.3650528870034073,
+      "candidate_test_fill_rate": 0.5693556952595438,
+      "baseline_test_fill_rate": 0.6091959590197993,
+      "candidate_test_mean_budget_utilization": 0.5393900168798932,
+      "candidate_test_max_capacity_utilization": 0.9999974768989057,
+      "fixed_q75_greedy_vs_proportional_cost_reduction": -0.042987853128558524,
+      "fixed_q75_greedy_vs_proportional_delta_ci": "[-0.14430789213363626, 4.768884629161254]",
+      "evidence_warning": "Recorded-sales replay; stochastic lead-time distribution, budgets, capacity, lot sizes and economic weights are scenario assumptions, not observed supplier/inventory facts."
+    },
+    {
+      "scenario_id": "moderate_budget80_cap400_balanced",
+      "lead_distribution": "moderate",
+      "lead_probabilities": "{\"1\": 0.15, \"2\": 0.55, \"3\": 0.2, \"4\": 0.1}",
+      "expected_lead_time": 2.25,
+      "budget_fraction_of_training_weekly_sales_value": 0.8,
+      "capacity_equivalents": 400.0,
+      "economics_scenario": "balanced",
+      "baseline_config_selected_on_selection": "q75_proportional",
+      "candidate_config_selected_on_selection": "q90_greedy",
+      "baseline_test_cost": 39.86189134460155,
+      "candidate_test_cost": 31.195792820461843,
+      "relative_cost_reduction": 0.2174030943294252,
+      "paired_delta_candidate_minus_baseline": -8.66609852413971,
+      "block_bootstrap_95_ci_delta": "[-15.413896165090838, -2.2259522350127035]",
+      "replicate_delta_sd": 0.40440538578808105,
+      "candidate_test_fill_rate": 0.6942769581027357,
+      "baseline_test_fill_rate": 0.6096329778995064,
+      "candidate_test_mean_budget_utilization": 0.6548780063854137,
+      "candidate_test_max_capacity_utilization": 0.9999986028924844,
+      "fixed_q75_greedy_vs_proportional_cost_reduction": -0.025494815001394642,
+      "fixed_q75_greedy_vs_proportional_delta_ci": "[-0.24741699523062807, 3.075751801082701]",
+      "evidence_warning": "Recorded-sales replay; stochastic lead-time distribution, budgets, capacity, lot sizes and economic weights are scenario assumptions, not observed supplier/inventory facts."
+    },
+    {
+      "scenario_id": "moderate_budget80_cap400_capital_pressure",
+      "lead_distribution": "moderate",
+      "lead_probabilities": "{\"1\": 0.15, \"2\": 0.55, \"3\": 0.2, \"4\": 0.1}",
+      "expected_lead_time": 2.25,
+      "budget_fraction_of_training_weekly_sales_value": 0.8,
+      "capacity_equivalents": 400.0,
+      "economics_scenario": "capital_pressure",
+      "baseline_config_selected_on_selection": "q75_proportional",
+      "candidate_config_selected_on_selection": "q75_greedy",
+      "baseline_test_cost": 45.18071324039972,
+      "candidate_test_cost": 47.12347753022864,
+      "relative_cost_reduction": -0.04299985880018689,
+      "paired_delta_candidate_minus_baseline": 1.9427642898289221,
+      "block_bootstrap_95_ci_delta": "[-0.03798122998575426, 4.762323923350147]",
+      "replicate_delta_sd": 0.30289206481875885,
+      "candidate_test_fill_rate": 0.5722095330351852,
+      "baseline_test_fill_rate": 0.6116453545692138,
+      "candidate_test_mean_budget_utilization": 0.5428690337712659,
+      "candidate_test_max_capacity_utilization": 0.7568426728649774,
+      "fixed_q75_greedy_vs_proportional_cost_reduction": -0.04299985880018689,
+      "fixed_q75_greedy_vs_proportional_delta_ci": "[-0.05009016207051337, 4.9178762942601155]",
+      "evidence_warning": "Recorded-sales replay; stochastic lead-time distribution, budgets, capacity, lot sizes and economic weights are scenario assumptions, not observed supplier/inventory facts."
+    },
+    {
+      "scenario_id": "volatile_budget55_cap300_balanced",
+      "lead_distribution": "volatile",
+      "lead_probabilities": "{\"1\": 0.1, \"2\": 0.35, \"3\": 0.35, \"4\": 0.2}",
+      "expected_lead_time": 2.65,
+      "budget_fraction_of_training_weekly_sales_value": 0.55,
+      "capacity_equivalents": 300.0,
+      "economics_scenario": "balanced",
+      "baseline_config_selected_on_selection": "q75_proportional",
+      "candidate_config_selected_on_selection": "q75_greedy",
+      "baseline_test_cost": 45.73116529337215,
+      "candidate_test_cost": 44.714408146180475,
+      "relative_cost_reduction": 0.02223335313388647,
+      "paired_delta_candidate_minus_baseline": -1.0167571471916759,
+      "block_bootstrap_95_ci_delta": "[-5.488116684673468, 3.4447370252309395]",
+      "replicate_delta_sd": 0.34274357563460456,
+      "candidate_test_fill_rate": 0.46761536437908885,
+      "baseline_test_fill_rate": 0.5373381309114333,
+      "candidate_test_mean_budget_utilization": 0.7178554595063884,
+      "candidate_test_max_capacity_utilization": 0.9548631095582912,
+      "fixed_q75_greedy_vs_proportional_cost_reduction": 0.02223335313388647,
+      "fixed_q75_greedy_vs_proportional_delta_ci": "[-5.608266322260823, 3.366542536967245]",
+      "evidence_warning": "Recorded-sales replay; stochastic lead-time distribution, budgets, capacity, lot sizes and economic weights are scenario assumptions, not observed supplier/inventory facts."
+    },
+    {
+      "scenario_id": "volatile_budget55_cap300_capital_pressure",
+      "lead_distribution": "volatile",
+      "lead_probabilities": "{\"1\": 0.1, \"2\": 0.35, \"3\": 0.35, \"4\": 0.2}",
+      "expected_lead_time": 2.65,
+      "budget_fraction_of_training_weekly_sales_value": 0.55,
+      "capacity_equivalents": 300.0,
+      "economics_scenario": "capital_pressure",
+      "baseline_config_selected_on_selection": "q75_proportional",
+      "candidate_config_selected_on_selection": "q75_greedy",
+      "baseline_test_cost": 50.09450590503677,
+      "candidate_test_cost": 51.406238167675156,
+      "relative_cost_reduction": -0.02618515222258132,
+      "paired_delta_candidate_minus_baseline": 1.3117322626383867,
+      "block_bootstrap_95_ci_delta": "[-3.0797216841839727, 6.0481769057718555]",
+      "replicate_delta_sd": 0.46086164154409814,
+      "candidate_test_fill_rate": 0.4659101916982394,
+      "baseline_test_fill_rate": 0.5348439885625212,
+      "candidate_test_mean_budget_utilization": 0.7169644622804939,
+      "candidate_test_max_capacity_utilization": 0.9451391587665319,
+      "fixed_q75_greedy_vs_proportional_cost_reduction": -0.02618515222258132,
+      "fixed_q75_greedy_vs_proportional_delta_ci": "[-3.011425750681864, 6.214820813303417]",
+      "evidence_warning": "Recorded-sales replay; stochastic lead-time distribution, budgets, capacity, lot sizes and economic weights are scenario assumptions, not observed supplier/inventory facts."
+    },
+    {
+      "scenario_id": "volatile_budget55_cap400_balanced",
+      "lead_distribution": "volatile",
+      "lead_probabilities": "{\"1\": 0.1, \"2\": 0.35, \"3\": 0.35, \"4\": 0.2}",
+      "expected_lead_time": 2.65,
+      "budget_fraction_of_training_weekly_sales_value": 0.55,
+      "capacity_equivalents": 400.0,
+      "economics_scenario": "balanced",
+      "baseline_config_selected_on_selection": "q75_proportional",
+      "candidate_config_selected_on_selection": "q75_greedy",
+      "baseline_test_cost": 45.89228399170484,
+      "candidate_test_cost": 44.70632749655997,
+      "relative_cost_reduction": 0.025842176330976175,
+      "paired_delta_candidate_minus_baseline": -1.1859564951448718,
+      "block_bootstrap_95_ci_delta": "[-6.063016649987726, 3.5299584280022334]",
+      "replicate_delta_sd": 0.4031271347945233,
+      "candidate_test_fill_rate": 0.4677760348926691,
+      "baseline_test_fill_rate": 0.5365232228513546,
+      "candidate_test_mean_budget_utilization": 0.7193894972797119,
+      "candidate_test_max_capacity_utilization": 0.7147329579509468,
+      "fixed_q75_greedy_vs_proportional_cost_reduction": 0.025842176330976175,
+      "fixed_q75_greedy_vs_proportional_delta_ci": "[-6.1340922466067545, 3.39430761935668]",
+      "evidence_warning": "Recorded-sales replay; stochastic lead-time distribution, budgets, capacity, lot sizes and economic weights are scenario assumptions, not observed supplier/inventory facts."
+    },
+    {
+      "scenario_id": "volatile_budget55_cap400_capital_pressure",
+      "lead_distribution": "volatile",
+      "lead_probabilities": "{\"1\": 0.1, \"2\": 0.35, \"3\": 0.35, \"4\": 0.2}",
+      "expected_lead_time": 2.65,
+      "budget_fraction_of_training_weekly_sales_value": 0.55,
+      "capacity_equivalents": 400.0,
+      "economics_scenario": "capital_pressure",
+      "baseline_config_selected_on_selection": "q75_proportional",
+      "candidate_config_selected_on_selection": "q75_greedy",
+      "baseline_test_cost": 49.83621246942603,
+      "candidate_test_cost": 51.292145554401415,
+      "relative_cost_reduction": -0.029214360659301383,
+      "paired_delta_candidate_minus_baseline": 1.4559330849753849,
+      "block_bootstrap_95_ci_delta": "[-2.9001376340843925, 6.167461868564711]",
+      "replicate_delta_sd": 0.5009130795687327,
+      "candidate_test_fill_rate": 0.46795477622912324,
+      "baseline_test_fill_rate": 0.5381223062795495,
+      "candidate_test_mean_budget_utilization": 0.7180535307746231,
+      "candidate_test_max_capacity_utilization": 0.7195840621884189,
+      "fixed_q75_greedy_vs_proportional_cost_reduction": -0.029214360659301383,
+      "fixed_q75_greedy_vs_proportional_delta_ci": "[-2.9643401646883, 6.679802535956887]",
+      "evidence_warning": "Recorded-sales replay; stochastic lead-time distribution, budgets, capacity, lot sizes and economic weights are scenario assumptions, not observed supplier/inventory facts."
+    },
+    {
+      "scenario_id": "volatile_budget80_cap300_balanced",
+      "lead_distribution": "volatile",
+      "lead_probabilities": "{\"1\": 0.1, \"2\": 0.35, \"3\": 0.35, \"4\": 0.2}",
+      "expected_lead_time": 2.65,
+      "budget_fraction_of_training_weekly_sales_value": 0.8,
+      "capacity_equivalents": 300.0,
+      "economics_scenario": "balanced",
+      "baseline_config_selected_on_selection": "q75_proportional",
+      "candidate_config_selected_on_selection": "q75_greedy",
+      "baseline_test_cost": 39.12946392904858,
+      "candidate_test_cost": 39.02384427526938,
+      "relative_cost_reduction": 0.0026992358998506874,
+      "paired_delta_candidate_minus_baseline": -0.10561965377920046,
+      "block_bootstrap_95_ci_delta": "[-2.8905982105543386, 2.9771136541525247]",
+      "replicate_delta_sd": 0.34621550685569075,
+      "candidate_test_fill_rate": 0.5816456987753637,
+      "baseline_test_fill_rate": 0.6201549911121054,
+      "candidate_test_mean_budget_utilization": 0.549933458555994,
+      "candidate_test_max_capacity_utilization": 0.9999989078419683,
+      "fixed_q75_greedy_vs_proportional_cost_reduction": 0.0026992358998506874,
+      "fixed_q75_greedy_vs_proportional_delta_ci": "[-2.771323338997498, 3.102886328173719]",
+      "evidence_warning": "Recorded-sales replay; stochastic lead-time distribution, budgets, capacity, lot sizes and economic weights are scenario assumptions, not observed supplier/inventory facts."
+    },
+    {
+      "scenario_id": "volatile_budget80_cap300_capital_pressure",
+      "lead_distribution": "volatile",
+      "lead_probabilities": "{\"1\": 0.1, \"2\": 0.35, \"3\": 0.35, \"4\": 0.2}",
+      "expected_lead_time": 2.65,
+      "budget_fraction_of_training_weekly_sales_value": 0.8,
+      "capacity_equivalents": 300.0,
+      "economics_scenario": "capital_pressure",
+      "baseline_config_selected_on_selection": "q75_proportional",
+      "candidate_config_selected_on_selection": "q75_greedy",
+      "baseline_test_cost": 45.37899025855452,
+      "candidate_test_cost": 46.546533000935206,
+      "relative_cost_reduction": -0.025728706957303563,
+      "paired_delta_candidate_minus_baseline": 1.1675427423806823,
+      "block_bootstrap_95_ci_delta": "[-1.4850819645426152, 4.707078179542156]",
+      "replicate_delta_sd": 0.30222876190334075,
+      "candidate_test_fill_rate": 0.5827761701165137,
+      "baseline_test_fill_rate": 0.6186313871753705,
+      "candidate_test_mean_budget_utilization": 0.5518659118105842,
+      "candidate_test_max_capacity_utilization": 0.9999992524414595,
+      "fixed_q75_greedy_vs_proportional_cost_reduction": -0.025728706957303563,
+      "fixed_q75_greedy_vs_proportional_delta_ci": "[-1.4896239525940798, 4.494624709672489]",
+      "evidence_warning": "Recorded-sales replay; stochastic lead-time distribution, budgets, capacity, lot sizes and economic weights are scenario assumptions, not observed supplier/inventory facts."
+    },
+    {
+      "scenario_id": "volatile_budget80_cap400_balanced",
+      "lead_distribution": "volatile",
+      "lead_probabilities": "{\"1\": 0.1, \"2\": 0.35, \"3\": 0.35, \"4\": 0.2}",
+      "expected_lead_time": 2.65,
+      "budget_fraction_of_training_weekly_sales_value": 0.8,
+      "capacity_equivalents": 400.0,
+      "economics_scenario": "balanced",
+      "baseline_config_selected_on_selection": "q75_proportional",
+      "candidate_config_selected_on_selection": "q90_greedy",
+      "baseline_test_cost": 37.00048135439389,
+      "candidate_test_cost": 30.992780842581492,
+      "relative_cost_reduction": 0.16236817176160792,
+      "paired_delta_candidate_minus_baseline": -6.0077005118123985,
+      "block_bootstrap_95_ci_delta": "[-11.18038862438017, -0.6962748863894881]",
+      "replicate_delta_sd": 0.3418802387960811,
+      "candidate_test_fill_rate": 0.68967418429289,
+      "baseline_test_fill_rate": 0.6445901856992179,
+      "candidate_test_mean_budget_utilization": 0.653740017386097,
+      "candidate_test_max_capacity_utilization": 0.9999990991439429,
+      "fixed_q75_greedy_vs_proportional_cost_reduction": -0.03869399901743878,
+      "fixed_q75_greedy_vs_proportional_delta_ci": "[-0.12552051172196999, 3.958966609726039]",
+      "evidence_warning": "Recorded-sales replay; stochastic lead-time distribution, budgets, capacity, lot sizes and economic weights are scenario assumptions, not observed supplier/inventory facts."
+    },
+    {
+      "scenario_id": "volatile_budget80_cap400_capital_pressure",
+      "lead_distribution": "volatile",
+      "lead_probabilities": "{\"1\": 0.1, \"2\": 0.35, \"3\": 0.35, \"4\": 0.2}",
+      "expected_lead_time": 2.65,
+      "budget_fraction_of_training_weekly_sales_value": 0.8,
+      "capacity_equivalents": 400.0,
+      "economics_scenario": "capital_pressure",
+      "baseline_config_selected_on_selection": "q75_proportional",
+      "candidate_config_selected_on_selection": "q75_greedy",
+      "baseline_test_cost": 43.967741966056295,
+      "candidate_test_cost": 46.45207145329233,
+      "relative_cost_reduction": -0.05650345858456794,
+      "paired_delta_candidate_minus_baseline": 2.4843294872360318,
+      "block_bootstrap_95_ci_delta": "[0.09068458523310463, 5.69535920512467]",
+      "replicate_delta_sd": 0.36978107895256934,
+      "candidate_test_fill_rate": 0.6008242507984354,
+      "baseline_test_fill_rate": 0.6435549857031517,
+      "candidate_test_mean_budget_utilization": 0.5578197456320326,
+      "candidate_test_max_capacity_utilization": 0.8775139307645311,
+      "fixed_q75_greedy_vs_proportional_cost_reduction": -0.05650345858456794,
+      "fixed_q75_greedy_vs_proportional_delta_ci": "[0.06082229720797986, 5.542772075400038]",
+      "evidence_warning": "Recorded-sales replay; stochastic lead-time distribution, budgets, capacity, lot sizes and economic weights are scenario assumptions, not observed supplier/inventory facts."
+    }
+  ],
+  "source_quality": {
+    "raw_rows": 1067371,
+    "valid_rows": 1041670,
+    "cancel_invoice_rows": 19494,
+    "nonpositive_quantity_rows": 3457,
+    "nonpositive_price_rows": 2750,
+    "aggregated_product_country_week_rows": 266055,
+    "distinct_product_country_series": 19777,
+    "calendar_weeks": 104,
+    "selected_series": 100,
+    "selected_panel_rows": 8979,
+    "top_series_selection_cutoff": "2011-02-20",
+    "zip_sha256": "572e36277c2390fbfde10664750731e0a86f55e33470d91919085f0408e67bfb",
+    "xlsx_sha256": "bcbe73b35f5b7babf197fb0cb983a11f5d9ff929078d4aa53d171b1f2df2e980"
+  },
+  "source_hashes": {
+    "prepared_panel_sha256": "1d32ccc76a7bb6df0127d0a2d32368a22b79558e33603dfb82afd65eb0293831",
+    "quality_manifest_sha256": "5a564a92ac78c8de95511862ea576aaf9aa5784572b8c732d38be78606c19d6f"
+  },
+  "versions": {
+    "numpy": "2.3.5",
+    "pandas": "2.2.3",
+    "scipy": "1.17.0",
+    "scikit_learn": "1.8.0",
+    "xgboost": "3.1.3"
+  }
+}

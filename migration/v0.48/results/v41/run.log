@@ -1,0 +1,13 @@
+irregular_recurrence clean 80 eligible 365
+random_walk clean 80 eligible 368
+gradual clean 80 eligible 593
+mean_reversion clean 80 eligible 387
+mean_reversion variance4 80 eligible 405
+mean_reversion matched_bias 80 eligible 358
+mean_reversion one_bad 80 eligible 410
+mean_reversion matched_plus_one_bad 80 eligible 342
+mean_reversion source_shared 80 eligible 413
+mean_reversion two_bad 80 eligible 376
+mean_reversion common_unmatched 80 eligible 349
+mean_reversion serial 80 eligible 351
+mean_reversion heavy_tail 80 eligible 350

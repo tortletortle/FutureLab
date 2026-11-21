@@ -1,0 +1,85 @@
+{
+  "n": 100,
+  "hold_scenes": [
+    "stable",
+    "noise",
+    "recurrence",
+    "irregular_recurrence",
+    "three_regimes",
+    "near_impostor",
+    "nonrecurring",
+    "local_recurrence",
+    "noisy_recurrence",
+    "gradual",
+    "random_walk",
+    "capacity_pressure",
+    "short_recurrence",
+    "same_actions",
+    "boundary_flip",
+    "correlated_noise"
+  ],
+  "new_scenes": [
+    "mean_reversion",
+    "seasonal_smooth",
+    "asynchronous_local",
+    "heavy_tail_discovery",
+    "biased_audit_stress"
+  ],
+  "hold_seed": 13900000,
+  "new_seed": 14900000,
+  "stress_seed": 15900000,
+  "warmup": 12,
+  "arms": [
+    [
+      "v38",
+      false,
+      false,
+      false,
+      0.95
+    ],
+    [
+      "strict_v38",
+      false,
+      false,
+      false,
+      0.99
+    ],
+    [
+      "adjusted",
+      true,
+      false,
+      false,
+      0.95
+    ],
+    [
+      "quarantine",
+      true,
+      true,
+      false,
+      0.95
+    ],
+    [
+      "audit_only",
+      false,
+      false,
+      true,
+      0.95
+    ],
+    [
+      "combined",
+      true,
+      true,
+      true,
+      0.95
+    ]
+  ],
+  "epsilon": 0.035,
+  "audit_var": 0.15,
+  "audit_alpha": 0.05,
+  "probe_cost": 0.0015,
+  "audit_cost_per_group": 0.0045000000000000005,
+  "quarantine_threshold": 1.75,
+  "bias_ema": 0.2,
+  "scale_ema": 0.15,
+  "bootstrap": 1500
+}

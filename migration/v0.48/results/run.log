@@ -1,0 +1,54 @@
+same_family stable 100
+same_family noise 100
+same_family recurrence 100
+same_family irregular_recurrence 100
+same_family three_regimes 100
+same_family near_impostor 100
+same_family nonrecurring 100
+same_family local_recurrence 100
+same_family noisy_recurrence 100
+same_family gradual 100
+same_family random_walk 100
+same_family capacity_pressure 100
+same_family short_recurrence 100
+same_family same_actions 100
+same_family boundary_flip 100
+same_family correlated_noise 100
+new_family mean_reversion 100
+new_family seasonal_smooth 100
+new_family asynchronous_local 100
+new_family heavy_tail_discovery 100
+invalid_audit bias 100
+invalid_audit correlated 100
+invalid_audit variance 100
+        split        method  net_loss  distinct_rate  unsafe_given_distinct  false_accept_given_unsafe  audit_cost  rounds_per_attempt
+invalid_audit        fixed3  0.052831       0.017010               0.155620                   0.083851    0.000284            3.000000
+invalid_audit      mixture3  0.052727       0.009069               0.113514                   0.032609    0.000259            2.733902
+invalid_audit peek3_invalid  0.052899       0.020637               0.244656                   0.159938    0.000202            2.129558
+invalid_audit profit_spend3  0.052698       0.008235               0.101190                   0.026398    0.000237            2.495733
+invalid_audit     recompute  0.052572       0.000000                    NaN                        NaN    0.000000                 NaN
+invalid_audit screen_spend3  0.052798       0.016618               0.168142                   0.088509    0.000242            2.551590
+invalid_audit   soft_fixed3  0.052926       0.015882               0.175926                   0.090620    0.000274            3.000000
+invalid_audit        spend3  0.052798       0.016618               0.168142                   0.088509    0.000242            2.551590
+invalid_audit        spend6  0.052998       0.019265               0.173028                   0.105590    0.000427            4.502715
+invalid_audit           v38  0.054745       0.063186               0.499612                        NaN    0.000000                 NaN
+   new_family        fixed3  0.030258       0.014301               0.025707                   0.021459    0.000285            3.000000
+   new_family      mixture3  0.030314       0.003493               0.010526                   0.002146    0.000278            2.930814
+   new_family peek3_invalid  0.030237       0.018603               0.045455                   0.049356    0.000237            2.502907
+   new_family profit_spend3  0.030313       0.002904               0.012658                   0.002146    0.000268            2.822674
+   new_family     recompute  0.030128       0.000000                    NaN                        NaN    0.000000                 NaN
+   new_family screen_spend3  0.030255       0.012206               0.024096                   0.017167    0.000270            2.846512
+   new_family   soft_fixed3  0.030143       0.013934               0.013193                   0.011494    0.000277            3.000000
+   new_family        spend3  0.030255       0.012206               0.024096                   0.017167    0.000270            2.846512
+   new_family        spend6  0.030442       0.016324               0.015766                   0.015021    0.000508            5.357558
+   new_family           v38  0.031376       0.063235               0.270930                        NaN    0.000000                 NaN
+  same_family        fixed3  0.013689       0.026884               0.004444                   0.028078    0.000424            3.000000
+  same_family      mixture3  0.013784       0.005579               0.000000                   0.000000    0.000417            2.950107
+  same_family peek3_invalid  0.013637       0.034366               0.008024                   0.064795    0.000358            2.527675
+  same_family profit_spend3  0.013789       0.004476               0.000000                   0.000000    0.000415            2.935685
+  same_family     recompute  0.013439       0.000000                    NaN                        NaN    0.000000                 NaN
+  same_family screen_spend3  0.013677       0.022638               0.003248                   0.017279    0.000405            2.861236
+  same_family   soft_fixed3  0.013706       0.027289               0.004379                   0.028078    0.000429            3.000000
+  same_family        spend3  0.013677       0.022638               0.003248                   0.017279    0.000405            2.861236
+  same_family        spend6  0.013972       0.031259               0.001470                   0.010799    0.000771            5.452348
+  same_family           v38  0.013753       0.094320               0.045118                        NaN    0.000000                 NaN

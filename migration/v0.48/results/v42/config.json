@@ -1,0 +1,68 @@
+{
+  "boundary_n": 20000,
+  "dynamic_n": 60,
+  "stresses": [
+    "clean",
+    "variance4",
+    "matched",
+    "shared_domain_fault",
+    "two_domain_fault",
+    "bounded_common",
+    "serial",
+    "hidden_common"
+  ],
+  "dynamic": [
+    [
+      "irregular_recurrence",
+      "clean"
+    ],
+    [
+      "random_walk",
+      "clean"
+    ],
+    [
+      "mean_reversion",
+      "clean"
+    ],
+    [
+      "mean_reversion",
+      "shared_domain_fault"
+    ],
+    [
+      "mean_reversion",
+      "two_domain_fault"
+    ],
+    [
+      "mean_reversion",
+      "bounded_common"
+    ],
+    [
+      "mean_reversion",
+      "hidden_common"
+    ],
+    [
+      "mean_reversion",
+      "serial"
+    ]
+  ],
+  "methods": [
+    "v41_shared",
+    "v41_diverse",
+    "round_robin",
+    "adaptive",
+    "adaptive_f2",
+    "adaptive_bound",
+    "unknown_decline"
+  ],
+  "seed_boundary": 42500000,
+  "seed_dynamic": 42600000,
+  "alpha": 0.05,
+  "epsilon": 0.035,
+  "cost": 0.0015,
+  "looks": [
+    3,
+    6,
+    9
+  ],
+  "budget": 36
+}

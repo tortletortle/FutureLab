@@ -1,0 +1,420 @@
+{
+  "mode": "multi_period_inventory_simulation_on_recorded_sales_proxy",
+  "quality": {
+    "raw_rows": 1067371,
+    "valid_rows": 1041670,
+    "cancel_invoice_rows": 19494,
+    "nonpositive_quantity_rows": 3457,
+    "nonpositive_price_rows": 2750,
+    "aggregated_product_country_week_rows": 266055,
+    "distinct_product_country_series": 19777,
+    "calendar_weeks": 104,
+    "selected_series": 100,
+    "selected_panel_rows": 8979,
+    "top_series_selection_cutoff": "2011-02-20",
+    "zip_sha256": "572e36277c2390fbfde10664750731e0a86f55e33470d91919085f0408e67bfb",
+    "xlsx_sha256": "bcbe73b35f5b7babf197fb0cb983a11f5d9ff929078d4aa53d171b1f2df2e980",
+    "prepared_panel_sha256": "1d32ccc76a7bb6df0127d0a2d32368a22b79558e33603dfb82afd65eb0293831",
+    "prepared_quality_sha256": "5a564a92ac78c8de95511862ea576aaf9aa5784572b8c732d38be78606c19d6f"
+  },
+  "calendar_cut_indices": [
+    67,
+    78,
+    88
+  ],
+  "forecast_calibration": {
+    "training_series_group_edges": [
+      202.5,
+      295.14814814814815
+    ],
+    "horizon_calibration": {
+      "1": {
+        "global": {
+          "0.5": -0.07701442580017502,
+          "0.75": 0.40562968018786094,
+          "0.9": 1.2185210462172829
+        },
+        "group": {
+          "0": {
+            "0.5": -0.07325038918319432,
+            "0.75": 0.3849887935890426,
+            "0.9": 1.1709114517932075
+          },
+          "1": {
+            "0.5": -0.1314664688113174,
+            "0.75": 0.33280720819049914,
+            "0.9": 1.0721659861219524
+          },
+          "2": {
+            "0.5": -0.04954789610827881,
+            "0.75": 0.5636600190234373,
+            "0.9": 1.410018519765185
+          }
+        },
+        "window_counts": {
+          "0": 363,
+          "1": 363,
+          "2": 374
+        },
+        "pooled_windows": 1100
+      },
+      "2": {
+        "global": {
+          "0.5": -0.032463274131897576,
+          "0.75": 0.46377000804485596,
+          "0.9": 1.1390779161559377
+        },
+        "group": {
+          "0": {
+            "0.5": -0.033070936939287275,
+            "0.75": 0.48184846101559975,
+            "0.9": 1.0814948567696177
+          },
+          "1": {
+            "0.5": -0.06398021415553289,
+            "0.75": 0.3705754761425132,
+            "0.9": 0.9728639658417514
+          },
+          "2": {
+            "0.5": 0.0005852867497465309,
+            "0.75": 0.5292233731979712,
+            "0.9": 1.401138794065672
+          }
+        },
+        "window_counts": {
+          "0": 330,
+          "1": 330,
+          "2": 340
+        },
+        "pooled_windows": 1000
+      },
+      "4": {
+        "global": {
+          "0.5": 0.050437627703054724,
+          "0.75": 0.44721048630432736,
+          "0.9": 0.9065120001373649
+        },
+        "group": {
+          "0": {
+            "0.5": 0.055974065584367946,
+            "0.75": 0.4089928262341969,
+            "0.9": 0.8697589420677728
+          },
+          "1": {
+            "0.5": -0.01884571473264117,
+            "0.75": 0.37870884027731566,
+            "0.9": 0.8159655581294101
+          },
+          "2": {
+            "0.5": 0.09274901859299321,
+            "0.75": 0.5697766085257818,
+            "0.9": 0.9521897674373442
+          }
+        },
+        "window_counts": {
+          "0": 264,
+          "1": 264,
+          "2": 272
+        },
+        "pooled_windows": 800
+      }
+    },
+    "models_fit_on": "train_only",
+    "residual_calibration_on": "calibration_only"
+  },
+  "splits": {
+    "selection": {
+      "n": 1000,
+      "weeks": 10,
+      "start": "2011-06-05",
+      "end": "2011-08-07"
+    },
+    "test": {
+      "n": 1600,
+      "weeks": 16,
+      "start": "2011-08-14",
+      "end": "2011-11-27"
+    }
+  },
+  "lead_times": [
+    1,
+    2,
+    4
+  ],
+  "cost_scenarios": {
+    "balanced": {
+      "shortage_cost": 3.0,
+      "holding_cost": 1.0,
+      "fixed_order_cost": 0.0
+    },
+    "service_priority": {
+      "shortage_cost": 6.0,
+      "holding_cost": 1.0,
+      "fixed_order_cost": 0.0
+    },
+    "capital_pressure": {
+      "shortage_cost": 3.0,
+      "holding_cost": 2.0,
+      "fixed_order_cost": 0.0
+    },
+    "order_setup_cost": {
+      "shortage_cost": 3.0,
+      "holding_cost": 1.0,
+      "fixed_order_cost": 10.0
+    }
+  },
+  "policy_grid_size_per_scenario": 40,
+  "policy_grid_definition": {
+    "forecast_methods": [
+      "rolling13",
+      "hgb_mean",
+      "hgb_q75",
+      "xgb_q75",
+      "global_horizon_q50/q75/q90",
+      "group_horizon_q50/q75/q90"
+    ],
+    "policies": [
+      "base_stock",
+      "sS trigger ratios 0.50/0.75/0.90"
+    ],
+    "candidate_family": "group_horizon_q50/q75/q90",
+    "baseline_family": "all other forecast methods",
+    "selection_rule": "minimum selection-period average total cost within each family and scenario"
+  },
+  "inventory_event_order": "receive due shipment -> review inventory position -> place replenishment order -> observe recorded sales -> fulfill/lost sales -> charge end-of-period holding and fixed order cost",
+  "initial_inventory_rule": "ceil(lead_time * trailing_13_week_mean) shared across all policy methods per series",
+  "rounding_rule": "orders and recorded weekly demand rounded upward to integer units",
+  "random_seed": 4606,
+  "versions": {
+    "numpy": "2.3.5",
+    "pandas": "2.2.3",
+    "scikit_learn": "1.8.0",
+    "xgboost": "3.1.3"
+  },
+  "scenario_results": [
+    {
+      "scenario": "balanced",
+      "lead_time": 1,
+      "baseline_config": "global_horizon_q90_L1|sS|0.9",
+      "candidate_config": "group_horizon_q90_L1|sS|0.9",
+      "baseline_test_cost": 352.4825,
+      "candidate_test_cost": 354.409375,
+      "paired_delta_candidate_minus_baseline": 1.926875,
+      "relative_cost_reduction": -0.005466583447405177,
+      "block_bootstrap_descriptive_ci": [
+        -1.2988906250000003,
+        4.958578124999998
+      ],
+      "candidate_test_fill_rate": 0.7239417504849619,
+      "baseline_test_fill_rate": 0.7152480865825984,
+      "candidate_beats_baseline_on_test": false,
+      "evidence_warning": "Historical recorded-sales proxy; assumed costs; one retailer; no stockout truth or actual inventory records."
+    },
+    {
+      "scenario": "service_priority",
+      "lead_time": 1,
+      "baseline_config": "global_horizon_q90_L1|base_stock|None",
+      "candidate_config": "group_horizon_q90_L1|base_stock|None",
+      "baseline_test_cost": 568.333125,
+      "candidate_test_cost": 563.16375,
+      "paired_delta_candidate_minus_baseline": -5.169375,
+      "relative_cost_reduction": 0.009095677820996172,
+      "block_bootstrap_descriptive_ci": [
+        -11.054375,
+        -0.04806250000000031
+      ],
+      "candidate_test_fill_rate": 0.7256972018498622,
+      "baseline_test_fill_rate": 0.7167601350271554,
+      "candidate_beats_baseline_on_test": true,
+      "evidence_warning": "Historical recorded-sales proxy; assumed costs; one retailer; no stockout truth or actual inventory records."
+    },
+    {
+      "scenario": "capital_pressure",
+      "lead_time": 1,
+      "baseline_config": "global_horizon_q75_L1|base_stock|None",
+      "candidate_config": "group_horizon_q75_L1|base_stock|None",
+      "baseline_test_cost": 444.911875,
+      "candidate_test_cost": 442.73125,
+      "paired_delta_candidate_minus_baseline": -2.180625,
+      "relative_cost_reduction": 0.004901251511886529,
+      "block_bootstrap_descriptive_ci": [
+        -5.296546875000001,
+        0.776875
+      ],
+      "candidate_test_fill_rate": 0.5608617938549367,
+      "baseline_test_fill_rate": 0.543540848664849,
+      "candidate_beats_baseline_on_test": true,
+      "evidence_warning": "Historical recorded-sales proxy; assumed costs; one retailer; no stockout truth or actual inventory records."
+    },
+    {
+      "scenario": "order_setup_cost",
+      "lead_time": 1,
+      "baseline_config": "global_horizon_q90_L1|sS|0.9",
+      "candidate_config": "group_horizon_q90_L1|sS|0.9",
+      "baseline_test_cost": 359.82625,
+      "candidate_test_cost": 361.746875,
+      "paired_delta_candidate_minus_baseline": 1.920625,
+      "relative_cost_reduction": -0.005337645599785932,
+      "block_bootstrap_descriptive_ci": [
+        -1.2984999999999998,
+        4.952671874999995
+      ],
+      "candidate_test_fill_rate": 0.7239417504849619,
+      "baseline_test_fill_rate": 0.7152480865825984,
+      "candidate_beats_baseline_on_test": false,
+      "evidence_warning": "Historical recorded-sales proxy; assumed costs; one retailer; no stockout truth or actual inventory records."
+    },
+    {
+      "scenario": "balanced",
+      "lead_time": 2,
+      "baseline_config": "rolling13_L2|base_stock|None",
+      "candidate_config": "group_horizon_q75_L2|base_stock|None",
+      "baseline_test_cost": 433.94375,
+      "candidate_test_cost": 402.01375,
+      "paired_delta_candidate_minus_baseline": -31.93,
+      "relative_cost_reduction": 0.07358096527487723,
+      "block_bootstrap_descriptive_ci": [
+        -59.259375000000006,
+        -7.186546875000058
+      ],
+      "candidate_test_fill_rate": 0.6793645954471361,
+      "baseline_test_fill_rate": 0.560315981245682,
+      "candidate_beats_baseline_on_test": true,
+      "evidence_warning": "Historical recorded-sales proxy; assumed costs; one retailer; no stockout truth or actual inventory records."
+    },
+    {
+      "scenario": "service_priority",
+      "lead_time": 2,
+      "baseline_config": "rolling13_L2|base_stock|None",
+      "candidate_config": "group_horizon_q75_L2|base_stock|None",
+      "baseline_test_cost": 769.2575,
+      "candidate_test_cost": 646.538125,
+      "paired_delta_candidate_minus_baseline": -122.719375,
+      "relative_cost_reduction": 0.1595296438448764,
+      "block_bootstrap_descriptive_ci": [
+        -175.61696874999998,
+        -78.23220312500007
+      ],
+      "candidate_test_fill_rate": 0.6793645954471361,
+      "baseline_test_fill_rate": 0.560315981245682,
+      "candidate_beats_baseline_on_test": true,
+      "evidence_warning": "Historical recorded-sales proxy; assumed costs; one retailer; no stockout truth or actual inventory records."
+    },
+    {
+      "scenario": "capital_pressure",
+      "lead_time": 2,
+      "baseline_config": "rolling13_L2|base_stock|None",
+      "candidate_config": "group_horizon_q50_L2|base_stock|None",
+      "baseline_test_cost": 532.57375,
+      "candidate_test_cost": 516.46125,
+      "paired_delta_candidate_minus_baseline": -16.1125,
+      "relative_cost_reduction": 0.030254025850879936,
+      "block_bootstrap_descriptive_ci": [
+        -29.853234375,
+        -4.218390625000005
+      ],
+      "candidate_test_fill_rate": 0.5141972743790153,
+      "baseline_test_fill_rate": 0.560315981245682,
+      "candidate_beats_baseline_on_test": true,
+      "evidence_warning": "Historical recorded-sales proxy; assumed costs; one retailer; no stockout truth or actual inventory records."
+    },
+    {
+      "scenario": "order_setup_cost",
+      "lead_time": 2,
+      "baseline_config": "rolling13_L2|base_stock|None",
+      "candidate_config": "group_horizon_q75_L2|base_stock|None",
+      "baseline_test_cost": 441.94375,
+      "candidate_test_cost": 409.1075,
+      "paired_delta_candidate_minus_baseline": -32.83625,
+      "relative_cost_reduction": 0.07429961392145495,
+      "block_bootstrap_descriptive_ci": [
+        -59.819140624999996,
+        -8.256312500000018
+      ],
+      "candidate_test_fill_rate": 0.6793645954471361,
+      "baseline_test_fill_rate": 0.560315981245682,
+      "candidate_beats_baseline_on_test": true,
+      "evidence_warning": "Historical recorded-sales proxy; assumed costs; one retailer; no stockout truth or actual inventory records."
+    },
+    {
+      "scenario": "balanced",
+      "lead_time": 4,
+      "baseline_config": "global_horizon_q50_L4|base_stock|None",
+      "candidate_config": "group_horizon_q50_L4|base_stock|None",
+      "baseline_test_cost": 515.06875,
+      "candidate_test_cost": 515.025625,
+      "paired_delta_candidate_minus_baseline": -0.043125,
+      "relative_cost_reduction": 8.372668697146125e-05,
+      "block_bootstrap_descriptive_ci": [
+        -3.009328125,
+        2.470515624999997
+      ],
+      "candidate_test_fill_rate": 0.5903995987539737,
+      "baseline_test_fill_rate": 0.5877418355530533,
+      "candidate_beats_baseline_on_test": true,
+      "evidence_warning": "Historical recorded-sales proxy; assumed costs; one retailer; no stockout truth or actual inventory records."
+    },
+    {
+      "scenario": "service_priority",
+      "lead_time": 4,
+      "baseline_config": "rolling13_L4|sS|0.9",
+      "candidate_config": "group_horizon_q50_L4|base_stock|None",
+      "baseline_test_cost": 840.08875,
+      "candidate_test_cost": 827.396875,
+      "paired_delta_candidate_minus_baseline": -12.691875,
+      "relative_cost_reduction": 0.015107778791228882,
+      "block_bootstrap_descriptive_ci": [
+        -84.97220312500001,
+        63.29223437499997
+      ],
+      "candidate_test_fill_rate": 0.5903995987539737,
+      "baseline_test_fill_rate": 0.6160109949278765,
+      "candidate_beats_baseline_on_test": true,
+      "evidence_warning": "Historical recorded-sales proxy; assumed costs; one retailer; no stockout truth or actual inventory records."
+    },
+    {
+      "scenario": "capital_pressure",
+      "lead_time": 4,
+      "baseline_config": "hgb_mean_L4|base_stock|None",
+      "candidate_config": "group_horizon_q50_L4|base_stock|None",
+      "baseline_test_cost": 701.176875,
+      "candidate_test_cost": 717.68,
+      "paired_delta_candidate_minus_baseline": 16.503125,
+      "relative_cost_reduction": -0.023536322415082436,
+      "block_bootstrap_descriptive_ci": [
+        8.742984375,
+        26.344468749999997
+      ],
+      "candidate_test_fill_rate": 0.5903995987539737,
+      "baseline_test_fill_rate": 0.5676598653170508,
+      "candidate_beats_baseline_on_test": false,
+      "evidence_warning": "Historical recorded-sales proxy; assumed costs; one retailer; no stockout truth or actual inventory records."
+    },
+    {
+      "scenario": "order_setup_cost",
+      "lead_time": 4,
+      "baseline_config": "global_horizon_q50_L4|base_stock|None",
+      "candidate_config": "group_horizon_q50_L4|base_stock|None",
+      "baseline_test_cost": 520.7375,
+      "candidate_test_cost": 520.700625,
+      "paired_delta_candidate_minus_baseline": -0.036875,
+      "relative_cost_reduction": 7.08130295974634e-05,
+      "block_bootstrap_descriptive_ci": [
+        -2.997140625,
+        2.515625
+      ],
+      "candidate_test_fill_rate": 0.5903995987539737,
+      "baseline_test_fill_rate": 0.5877418355530533,
+      "candidate_beats_baseline_on_test": true,
+      "evidence_warning": "Historical recorded-sales proxy; assumed costs; one retailer; no stockout truth or actual inventory records."
+    }
+  ],
+  "limitations": [
+    "Observed positive transactions are not latent demand; stockouts/censoring are unknown.",
+    "No actual inventory, replenishment, supplier, capacity, shelf-life or stockout records exist.",
+    "Costs are hypothetical dimensionless scenario weights, not currency or realized profit.",
+    "One retailer and the same historical dataset previously used by V25/V46; not an external replication.",
+    "Lead time is deterministic; no supplier disruption or stochastic delivery delay.",
+    "Lead-time forecast approximates cumulative demand as L times current one-step mean plus calibration residual-window quantile."
+  ]
+}

@@ -1,0 +1,193 @@
+{
+  "mode": "synthetic_fixture",
+  "cohort_assumption": 10000,
+  "source": "results/v43/synthetic_fixture",
+  "primary_cap": 0.25,
+  "cost": 0.05,
+  "margin": 0.3,
+  "caution": "Conditional historical valuation; scaled cohort is illustrative, not a future prediction interval. No holdout model selection or production approval.",
+  "comparisons": [
+    {
+      "arm": "Mens E-Mail",
+      "baseline_name": "dr_extra_trees",
+      "futurelab_name": "futurelab_0.5",
+      "baseline": {
+        "cohort": 10000,
+        "contacts": 2497,
+        "coverage": 0.2497,
+        "margin": 0.3,
+        "unit_cost": 0.05,
+        "marketing_cost": 124.85000000000001,
+        "incremental_revenue": {
+          "point": 6686.950272476812,
+          "lo": 5982.719798129888,
+          "hi": 7391.180746823737
+        },
+        "incremental_net_contribution": {
+          "point": 1881.2350817430436,
+          "lo": 1669.9659394389664,
+          "hi": 2092.504224047121
+        },
+        "net_roi": {
+          "point": 15.067962208594661,
+          "lo": 13.375778449651312,
+          "hi": 16.760145967538016
+        },
+        "break_even_cost_per_contact": {
+          "point": 0.8033981104297331,
+          "lo": 0.7187889224825655,
+          "hi": 0.8880072983769006
+        },
+        "economic_evidence": "positive_lower_bound",
+        "holdout_n": 1189,
+        "holdout_coverage": 0.24978973927670312,
+        "holdout_net_per_eligible": {
+          "point": 0.18819111757580384,
+          "lo": 0.16705661057806728,
+          "hi": 0.2093256245735404
+        }
+      },
+      "futurelab": {
+        "cohort": 10000,
+        "contacts": 2497,
+        "coverage": 0.2497,
+        "margin": 0.3,
+        "unit_cost": 0.05,
+        "marketing_cost": 124.85000000000001,
+        "incremental_revenue": {
+          "point": 6684.1639442584865,
+          "lo": 5979.477870996839,
+          "hi": 7388.850017520133
+        },
+        "incremental_net_contribution": {
+          "point": 1880.3991832775462,
+          "lo": 1668.993361299052,
+          "hi": 2091.80500525604
+        },
+        "net_roi": {
+          "point": 15.061266986604295,
+          "lo": 13.367988476564292,
+          "hi": 16.754545496644294
+        },
+        "break_even_cost_per_contact": {
+          "point": 0.8030633493302146,
+          "lo": 0.7183994238282145,
+          "hi": 0.8877272748322146
+        },
+        "economic_evidence": "positive_lower_bound",
+        "holdout_n": 1189,
+        "holdout_coverage": 0.24978973927670312,
+        "holdout_net_per_eligible": {
+          "point": 0.18810749768803514,
+          "lo": 0.16695931781074833,
+          "hi": 0.20925567756532196
+        }
+      },
+      "paired_gap_per_eligible": {
+        "point": -8.361988776867604e-05,
+        "lo": -0.002090728164996239,
+        "hi": 0.001923488389458887
+      },
+      "illustrative_paired_gap_at_cohort": {
+        "point": -0.8361988776867604,
+        "lo": -20.90728164996239,
+        "hi": 19.23488389458887
+      },
+      "gap_scaling_note": "Paired gap uses exact fractional holdout coverage; separate economic budgets round contacts down to whole units.",
+      "protocol_pass": false,
+      "confirmatory": false,
+      "eligible_for_prospective_trial": false
+    },
+    {
+      "arm": "Womens E-Mail",
+      "baseline_name": "linear_interaction",
+      "futurelab_name": "futurelab_0.5",
+      "baseline": {
+        "cohort": 10000,
+        "contacts": 2500,
+        "coverage": 0.25,
+        "margin": 0.3,
+        "unit_cost": 0.05,
+        "marketing_cost": 125.0,
+        "incremental_revenue": {
+          "point": 4928.183811010486,
+          "lo": 4374.32639099765,
+          "hi": 5482.041231023321
+        },
+        "incremental_net_contribution": {
+          "point": 1353.4551433031459,
+          "lo": 1187.297917299295,
+          "hi": 1519.6123693069965
+        },
+        "net_roi": {
+          "point": 10.827641146425167,
+          "lo": 9.49838333839436,
+          "hi": 12.156898954455972
+        },
+        "break_even_cost_per_contact": {
+          "point": 0.5913820573212584,
+          "lo": 0.5249191669197181,
+          "hi": 0.6578449477227986
+        },
+        "economic_evidence": "positive_lower_bound",
+        "holdout_n": 1200,
+        "holdout_coverage": 0.25,
+        "holdout_net_per_eligible": {
+          "point": 0.13534551433031458,
+          "lo": 0.1187297917299295,
+          "hi": 0.15196123693069966
+        }
+      },
+      "futurelab": {
+        "cohort": 10000,
+        "contacts": 2500,
+        "coverage": 0.25,
+        "margin": 0.3,
+        "unit_cost": 0.05,
+        "marketing_cost": 125.0,
+        "incremental_revenue": {
+          "point": 4394.97334421542,
+          "lo": 3885.6499295661715,
+          "hi": 4904.296758864669
+        },
+        "incremental_net_contribution": {
+          "point": 1193.4920032646262,
+          "lo": 1040.6949788698514,
+          "hi": 1346.2890276594007
+        },
+        "net_roi": {
+          "point": 9.547936026117009,
+          "lo": 8.325559830958811,
+          "hi": 10.770312221275207
+        },
+        "break_even_cost_per_contact": {
+          "point": 0.5273968013058504,
+          "lo": 0.4662779915479406,
+          "hi": 0.5885156110637603
+        },
+        "economic_evidence": "positive_lower_bound",
+        "holdout_n": 1200,
+        "holdout_coverage": 0.25,
+        "holdout_net_per_eligible": {
+          "point": 0.11934920032646261,
+          "lo": 0.10406949788698515,
+          "hi": 0.13462890276594006
+        }
+      },
+      "paired_gap_per_eligible": {
+        "point": -0.015996314003851958,
+        "lo": -0.031036054330736113,
+        "hi": -0.0009565736769678018
+      },
+      "illustrative_paired_gap_at_cohort": {
+        "point": -159.96314003851958,
+        "lo": -310.3605433073611,
+        "hi": -9.565736769678017
+      },
+      "gap_scaling_note": "Paired gap uses exact fractional holdout coverage; separate economic budgets round contacts down to whole units.",
+      "protocol_pass": false,
+      "confirmatory": false,
+      "eligible_for_prospective_trial": false
+    }
+  ]
+}
