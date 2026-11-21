@@ -10,7 +10,9 @@ from inventory_v50 import (
     _assign_fold_splits,
     _baseline_and_single_window,
     _build_fold_schedule,
+    _replication_seed,
     _select_historical,
+    _window_panel,
 )
 
 
@@ -56,6 +58,8 @@ def test_fold_schedule_rejects_unsorted_duplicate_or_insufficient_calendar():
         _build_fold_schedule([2, 1, 0])
     with pytest.raises(ValueError):
         _build_fold_schedule(list(range(80)))
+    with pytest.raises(ValueError):
+        _build_fold_schedule(list(range(40)) + list(range(41, 92)))
 
 
 def test_assign_fold_splits_keeps_series_aligned_and_final_holdout_unused():
@@ -193,3 +197,31 @@ def test_conservative_selector_abstains_when_service_is_too_volatile():
     choice = _select_historical(history, "q75_proportional", "conservative")
     assert choice["candidate_config_id"] == "q75_proportional"
     assert choice["abstained"]
+
+
+def test_window_panel_excludes_future_series_and_future_actual_records():
+    import numpy as np
+    dates = pd.date_range("2020-01-05", periods=106, freq="W-SUN")
+    rows = []
+    for date in dates[:71]:
+        rows.append({"series_id": "known", "date": date, "demand": 3.0, "price": 5.0})
+    for date in dates[50:71]:
+        rows.append({"series_id": "future-entry", "date": date, "demand": 99.0, "price": 9.0})
+    panel = pd.DataFrame(rows)
+    window = _window_panel(
+        panel, train_end_date=dates[40], evaluation_end_date=dates[60],
+        global_dates=dates,
+    )
+    assert set(window.series_id) == {"known"}
+    assert window.date.max() == dates[61]
+    assert (window.loc[window.date == dates[61], "demand"] == 0).all()
+    assert not (window.date > dates[61]).any()
+    assert not ((window.date > dates[60]) & (window.demand == 99.0)).any()
+
+
+def test_replication_seed_is_deterministic_and_common_across_policy_configurations():
+    a = _replication_seed("fold", 3, 7, 11)
+    b = _replication_seed("fold", 3, 7, 11)
+    assert a == b
+    assert a != _replication_seed("fold", 4, 7, 11)
+    assert a != _replication_seed("final", 3, 7, 11)
