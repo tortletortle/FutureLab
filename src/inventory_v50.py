@@ -280,14 +280,14 @@ def _run_policy_grid(
     panel: pd.DataFrame,
     scenarios: list[dict],
     replications: int,
-    seed_offset: int,
+    fold_index: int,
     phase: str,
-) -> list[dict]:
-    """Run all policy configurations with common random numbers per scenario/replicate."""
+) -> tuple[list[dict], list[dict]]:
+    """Run policy configurations with common random numbers and retain weekly evidence."""
     forecast, _ = _fit_forecasts(d)
     item = _item_parameters(panel, d, forecast)
     target_cache = {}
-    rows = []
+    rows, weekly_rows = [], []
     for dist_name, probabilities in LEAD_DISTRIBUTIONS.items():
         target_cache[dist_name], _ = _fit_stochastic_targets(d, forecast, probabilities)
     for scenario_index, scenario in enumerate(scenarios):
@@ -297,16 +297,35 @@ def _run_policy_grid(
         n_periods = target.week.nunique()
         for config in CONFIGS:
             for replicate in range(replications):
-                seed = SEED_V50 + seed_offset + scenario_index * 100_000 + replicate
+                seed = _replication_seed(phase, fold_index, scenario_index, replicate)
                 rng = np.random.default_rng(seed)
                 draws = rng.choice(
                     np.array([1, 2, 3, 4], dtype=int),
                     size=(n_series, n_periods),
                     p=np.array([probabilities[k] for k in (1, 2, 3, 4)], dtype=float),
                 )
-                summaries, _, _ = _simulate_v49(
+                summaries, weekly, _ = _simulate_v49(
                     target, item, probabilities, scenario, config, draws, False
                 )
+                for week_row in weekly:
+                    if week_row["split"] not in ("selection", "test"):
+                        continue
+                    output_split = (
+                        "forward_evaluation" if phase == "fold" and week_row["split"] == "test"
+                        else "final_test" if phase == "final" and week_row["split"] == "test"
+                        else "selection"
+                    )
+                    weekly_rows.append({
+                        "phase": phase,
+                        "scenario_id": scenario["scenario_id"],
+                        "config_id": config["config_id"],
+                        "replicate": replicate,
+                        "week": int(week_row["week"]),
+                        "split": output_split,
+                        "mean_total_cost": float(week_row["mean_total_cost"]),
+                        "fill_rate": float(week_row["fill_rate"]),
+                        "lost_units": int(week_row["lost_units"]),
+                    })
                 for source_split, output_split in (
                     ("selection", "selection"),
                     ("test", "forward_evaluation" if phase == "fold" else "final_test"),
@@ -325,7 +344,7 @@ def _run_policy_grid(
                         "mean_budget_utilization": float(summary["mean_budget_utilization"]),
                         "max_capacity_utilization": float(summary["max_capacity_utilization"]),
                     })
-    return rows
+    return rows, weekly_rows
 
 
 def _make_selector_rows(
@@ -335,6 +354,7 @@ def _make_selector_rows(
     selection_metrics: pd.DataFrame,
     evaluation_metrics: pd.DataFrame,
     history: list[dict],
+    weekly_metrics: pd.DataFrame,
 ) -> list[dict]:
     current = _baseline_and_single_window(selection_metrics)
     baseline_id = current["baseline_config_id"]
@@ -359,10 +379,46 @@ def _make_selector_rows(
     }
     metrics = evaluation_metrics.set_index("config_id")
     baseline_eval = metrics.loc[baseline_id]
+    evaluation_split = "forward_evaluation" if phase == "fold" else "final_test"
+    scenario_weekly = weekly_metrics[
+        (weekly_metrics.scenario_id == scenario_id)
+        & (weekly_metrics.split == evaluation_split)
+    ]
+    baseline_weekly = (
+        scenario_weekly[scenario_weekly.config_id == baseline_id]
+        .groupby("week").agg(
+            mean_total_cost=("mean_total_cost", "mean"),
+            fill_rate=("fill_rate", "mean"),
+        )
+    )
     rows = []
     for selector, choice in choices.items():
         selected_id = choice["candidate_config_id"]
         selected_eval = metrics.loc[selected_id]
+        selected_weekly = (
+            scenario_weekly[scenario_weekly.config_id == selected_id]
+            .groupby("week").agg(
+                mean_total_cost=("mean_total_cost", "mean"),
+                fill_rate=("fill_rate", "mean"),
+            )
+        )
+        paired = selected_weekly.join(
+            baseline_weekly, how="inner", lsuffix="_selected", rsuffix="_baseline"
+        )
+        if len(paired) < 4:
+            raise AssertionError("insufficient weekly observations for block bootstrap")
+        cost_delta = (
+            paired.mean_total_cost_selected - paired.mean_total_cost_baseline
+        ).to_numpy(float)
+        service_delta = (paired.fill_rate_selected - paired.fill_rate_baseline).to_numpy(float)
+        token = f"{phase}|{fold_id}|{scenario_id}|{selector}".encode("utf-8")
+        bootstrap_seed = SEED_V50 + int.from_bytes(hashlib.sha256(token).digest()[:4], "big")
+        cost_ci = _block_bootstrap_ci(
+            cost_delta, bootstrap_seed, reps=BOOTSTRAP_REPS, block=4
+        )
+        service_ci = _block_bootstrap_ci(
+            service_delta, bootstrap_seed + 1, reps=BOOTSTRAP_REPS, block=4
+        )
         rows.append({
             "phase": phase,
             "fold_id": fold_id,
@@ -381,9 +437,13 @@ def _make_selector_rows(
             "selected_evaluation_cost": float(selected_eval.mean_cost),
             "baseline_evaluation_cost": float(baseline_eval.mean_cost),
             "cost_delta_vs_baseline": float(selected_eval.mean_cost - baseline_eval.mean_cost),
+            "cost_delta_block_bootstrap_95_ci": json.dumps(cost_ci),
+            "worst_week_cost_delta": float(cost_delta.max()),
             "selected_evaluation_fill_rate": float(selected_eval.mean_fill_rate),
             "baseline_evaluation_fill_rate": float(baseline_eval.mean_fill_rate),
             "service_delta_vs_baseline": float(selected_eval.mean_fill_rate - baseline_eval.mean_fill_rate),
+            "service_delta_block_bootstrap_95_ci": json.dumps(service_ci),
+            "worst_week_service_delta": float(service_delta.min()),
         })
     return rows
 
