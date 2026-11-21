@@ -253,8 +253,9 @@ def audit(directory: str | Path) -> dict:
             raise AssertionError(f"final selector choice mismatch: {row.scenario_id}/{row.selector}")
         if bool(row.abstained) != expected[1]:
             raise AssertionError(f"final selector abstention mismatch: {row.scenario_id}/{row.selector}")
-        if int(row.history_folds) != 5:
-            raise AssertionError("final selector must use five prior folds")
+        expected_history_count = 5 if row.selector in ("walkforward_robust_80pct", "walkforward_conservative_lcb") else 0
+        if int(row.history_folds) != expected_history_count:
+            raise AssertionError("final selector history count mismatch")
         metric = current[
             (current.config_id == row.selected_config_id)
             & (current.split == "final_test")
